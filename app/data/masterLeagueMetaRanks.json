@@ -1,0 +1,2822 @@
+{
+  "kyogre-primal": {
+    "rank": 1,
+    "score": 99.3,
+    "speciesId": "kyogre_primal",
+    "speciesName": "Kyogre (Primal)"
+  },
+  "mewtwo-mega-y": {
+    "rank": 2,
+    "score": 96.8,
+    "speciesId": "mewtwo_mega_y",
+    "speciesName": "Mewtwo (Mega Y)"
+  },
+  "mewtwo-mega-x": {
+    "rank": 3,
+    "score": 96.4,
+    "speciesId": "mewtwo_mega_x",
+    "speciesName": "Mewtwo (Mega X)"
+  },
+  "gyarados-mega": {
+    "rank": 4,
+    "score": 95.9,
+    "speciesId": "gyarados_mega",
+    "speciesName": "Gyarados (Mega)"
+  },
+  "dragonite-mega": {
+    "rank": 5,
+    "score": 94.2,
+    "speciesId": "dragonite_mega",
+    "speciesName": "Dragonite (Mega)"
+  },
+  "rayquaza-mega": {
+    "rank": 6,
+    "score": 94,
+    "speciesId": "rayquaza_mega",
+    "speciesName": "Rayquaza (Mega)"
+  },
+  "garchomp-mega": {
+    "rank": 7,
+    "score": 93.1,
+    "speciesId": "garchomp_mega",
+    "speciesName": "Garchomp (Mega)"
+  },
+  "groudon-primal": {
+    "rank": 8,
+    "score": 91.1,
+    "speciesId": "groudon_primal",
+    "speciesName": "Groudon (Primal)"
+  },
+  "tyranitar-mega": {
+    "rank": 9,
+    "score": 91.1,
+    "speciesId": "tyranitar_mega",
+    "speciesName": "Tyranitar (Mega)"
+  },
+  "metagross-mega": {
+    "rank": 10,
+    "score": 91,
+    "speciesId": "metagross_mega",
+    "speciesName": "Metagross (Mega)"
+  },
+  "chesnaught-mega": {
+    "rank": 11,
+    "score": 86.8,
+    "speciesId": "chesnaught_mega",
+    "speciesName": "Chesnaught (Mega)"
+  },
+  "latios-mega": {
+    "rank": 12,
+    "score": 86.5,
+    "speciesId": "latios_mega",
+    "speciesName": "Latios (Mega)"
+  },
+  "latias-mega": {
+    "rank": 13,
+    "score": 86,
+    "speciesId": "latias_mega",
+    "speciesName": "Latias (Mega)"
+  },
+  "delphox-mega": {
+    "rank": 14,
+    "score": 84.5,
+    "speciesId": "delphox_mega",
+    "speciesName": "Delphox (Mega)"
+  },
+  "heracross-mega": {
+    "rank": 15,
+    "score": 83.9,
+    "speciesId": "heracross_mega",
+    "speciesName": "Heracross (Mega)"
+  },
+  "salamence-mega": {
+    "rank": 16,
+    "score": 83.7,
+    "speciesId": "salamence_mega",
+    "speciesName": "Salamence (Mega)"
+  },
+  "swampert-mega": {
+    "rank": 17,
+    "score": 83.1,
+    "speciesId": "swampert_mega",
+    "speciesName": "Swampert (Mega)"
+  },
+  "dialga-origin": {
+    "rank": 18,
+    "score": 83,
+    "speciesId": "dialga_origin",
+    "speciesName": "Dialga (Origin)"
+  },
+  "aggron-mega": {
+    "rank": 19,
+    "score": 82.2,
+    "speciesId": "aggron_mega",
+    "speciesName": "Aggron (Mega)"
+  },
+  "palkia-origin": {
+    "rank": 20,
+    "score": 80.3,
+    "speciesId": "palkia_origin",
+    "speciesName": "Palkia (Origin)"
+  },
+  "palkia-shadow": {
+    "rank": 21,
+    "score": 80.3,
+    "speciesId": "palkia_shadow",
+    "speciesName": "Palkia (Shadow)"
+  },
+  "scizor-mega": {
+    "rank": 22,
+    "score": 79.2,
+    "speciesId": "scizor_mega",
+    "speciesName": "Scizor (Mega)"
+  },
+  "dialga": {
+    "rank": 23,
+    "score": 79.1,
+    "speciesId": "dialga",
+    "speciesName": "Dialga"
+  },
+  "xerneas": {
+    "rank": 24,
+    "score": 77.9,
+    "speciesId": "xerneas",
+    "speciesName": "Xerneas"
+  },
+  "zygarde-complete": {
+    "rank": 25,
+    "score": 76.8,
+    "speciesId": "zygarde_complete",
+    "speciesName": "Zygarde (Complete Forme)"
+  },
+  "charizard-mega-y": {
+    "rank": 26,
+    "score": 76.7,
+    "speciesId": "charizard_mega_y",
+    "speciesName": "Charizard (Mega Y)"
+  },
+  "dialga-shadow": {
+    "rank": 27,
+    "score": 76.3,
+    "speciesId": "dialga_shadow",
+    "speciesName": "Dialga (Shadow)"
+  },
+  "keldeo-resolute": {
+    "rank": 28,
+    "score": 76.2,
+    "speciesId": "keldeo_resolute",
+    "speciesName": "Keldeo (Resolute)"
+  },
+  "melmetal": {
+    "rank": 29,
+    "score": 76.2,
+    "speciesId": "melmetal",
+    "speciesName": "Melmetal"
+  },
+  "ursaluna-shadow": {
+    "rank": 30,
+    "score": 76.1,
+    "speciesId": "ursaluna_shadow",
+    "speciesName": "Ursaluna (Shadow)"
+  },
+  "lugia": {
+    "rank": 31,
+    "score": 76,
+    "speciesId": "lugia",
+    "speciesName": "Lugia"
+  },
+  "gengar-mega": {
+    "rank": 32,
+    "score": 75.7,
+    "speciesId": "gengar_mega",
+    "speciesName": "Gengar (Mega)"
+  },
+  "kyurem-white": {
+    "rank": 33,
+    "score": 75.3,
+    "speciesId": "kyurem_white",
+    "speciesName": "Kyurem (White)"
+  },
+  "metagross": {
+    "rank": 34,
+    "score": 74.8,
+    "speciesId": "metagross",
+    "speciesName": "Metagross"
+  },
+  "zacian-crowned-sword": {
+    "rank": 35,
+    "score": 74.8,
+    "speciesId": "zacian_crowned_sword",
+    "speciesName": "Zacian (Crowned Sword)"
+  },
+  "gallade-mega": {
+    "rank": 36,
+    "score": 74.7,
+    "speciesId": "gallade_mega",
+    "speciesName": "Gallade (Mega)"
+  },
+  "zekrom": {
+    "rank": 37,
+    "score": 74.5,
+    "speciesId": "zekrom",
+    "speciesName": "Zekrom"
+  },
+  "ursaluna": {
+    "rank": 38,
+    "score": 74.3,
+    "speciesId": "ursaluna",
+    "speciesName": "Ursaluna"
+  },
+  "zekrom-shadow": {
+    "rank": 39,
+    "score": 74.3,
+    "speciesId": "zekrom_shadow",
+    "speciesName": "Zekrom (Shadow)"
+  },
+  "necrozma-dusk-mane": {
+    "rank": 40,
+    "score": 74.2,
+    "speciesId": "necrozma_dusk_mane",
+    "speciesName": "Necrozma (Dusk Mane)"
+  },
+  "florges": {
+    "rank": 41,
+    "score": 74.1,
+    "speciesId": "florges",
+    "speciesName": "Florges"
+  },
+  "gyarados-shadow": {
+    "rank": 42,
+    "score": 74.1,
+    "speciesId": "gyarados_shadow",
+    "speciesName": "Gyarados (Shadow)"
+  },
+  "zamazenta-crowned-shield": {
+    "rank": 43,
+    "score": 74.1,
+    "speciesId": "zamazenta_crowned_shield",
+    "speciesName": "Zamazenta (Crowned Shield)"
+  },
+  "reshiram": {
+    "rank": 44,
+    "score": 73.9,
+    "speciesId": "reshiram",
+    "speciesName": "Reshiram"
+  },
+  "keldeo-ordinary": {
+    "rank": 45,
+    "score": 73.8,
+    "speciesId": "keldeo_ordinary",
+    "speciesName": "Keldeo (Ordinary)"
+  },
+  "marshadow": {
+    "rank": 46,
+    "score": 73.4,
+    "speciesId": "marshadow",
+    "speciesName": "Marshadow"
+  },
+  "reshiram-shadow": {
+    "rank": 47,
+    "score": 73.4,
+    "speciesId": "reshiram_shadow",
+    "speciesName": "Reshiram (Shadow)"
+  },
+  "tyranitar-shadow": {
+    "rank": 48,
+    "score": 73.3,
+    "speciesId": "tyranitar_shadow",
+    "speciesName": "Tyranitar (Shadow)"
+  },
+  "lugia-shadow": {
+    "rank": 49,
+    "score": 73.1,
+    "speciesId": "lugia_shadow",
+    "speciesName": "Lugia (Shadow)"
+  },
+  "aerodactyl-mega": {
+    "rank": 50,
+    "score": 72.9,
+    "speciesId": "aerodactyl_mega",
+    "speciesName": "Aerodactyl (Mega)"
+  },
+  "yveltal": {
+    "rank": 51,
+    "score": 72.6,
+    "speciesId": "yveltal",
+    "speciesName": "Yveltal"
+  },
+  "kingambit": {
+    "rank": 52,
+    "score": 72.3,
+    "speciesId": "kingambit",
+    "speciesName": "Kingambit"
+  },
+  "staraptor-mega": {
+    "rank": 53,
+    "score": 72.3,
+    "speciesId": "staraptor_mega",
+    "speciesName": "Staraptor (Mega)"
+  },
+  "hydreigon-shadow": {
+    "rank": 54,
+    "score": 72.2,
+    "speciesId": "hydreigon_shadow",
+    "speciesName": "Hydreigon (Shadow)"
+  },
+  "latios-shadow": {
+    "rank": 55,
+    "score": 71.9,
+    "speciesId": "latios_shadow",
+    "speciesName": "Latios (Shadow)"
+  },
+  "ampharos-mega": {
+    "rank": 56,
+    "score": 71.8,
+    "speciesId": "ampharos_mega",
+    "speciesName": "Ampharos (Mega)"
+  },
+  "kyurem": {
+    "rank": 57,
+    "score": 71.7,
+    "speciesId": "kyurem",
+    "speciesName": "Kyurem"
+  },
+  "kyurem-black": {
+    "rank": 58,
+    "score": 71.7,
+    "speciesId": "kyurem_black",
+    "speciesName": "Kyurem (Black)"
+  },
+  "kyogre": {
+    "rank": 59,
+    "score": 71.6,
+    "speciesId": "kyogre",
+    "speciesName": "Kyogre"
+  },
+  "palkia": {
+    "rank": 60,
+    "score": 71.3,
+    "speciesId": "palkia",
+    "speciesName": "Palkia"
+  },
+  "greninja-mega": {
+    "rank": 61,
+    "score": 71.2,
+    "speciesId": "greninja_mega",
+    "speciesName": "Greninja (Mega)"
+  },
+  "tyranitar": {
+    "rank": 62,
+    "score": 71.2,
+    "speciesId": "tyranitar",
+    "speciesName": "Tyranitar"
+  },
+  "lunala": {
+    "rank": 63,
+    "score": 71,
+    "speciesId": "lunala",
+    "speciesName": "Lunala"
+  },
+  "necrozma-dawn-wings": {
+    "rank": 64,
+    "score": 70.8,
+    "speciesId": "necrozma_dawn_wings",
+    "speciesName": "Necrozma (Dawn Wings)"
+  },
+  "garchomp-shadow": {
+    "rank": 65,
+    "score": 70.6,
+    "speciesId": "garchomp_shadow",
+    "speciesName": "Garchomp (Shadow)"
+  },
+  "blastoise-mega": {
+    "rank": 66,
+    "score": 70.5,
+    "speciesId": "blastoise_mega",
+    "speciesName": "Blastoise (Mega)"
+  },
+  "gardevoir-mega": {
+    "rank": 67,
+    "score": 70.3,
+    "speciesId": "gardevoir_mega",
+    "speciesName": "Gardevoir (Mega)"
+  },
+  "rillaboom": {
+    "rank": 68,
+    "score": 70.2,
+    "speciesId": "rillaboom",
+    "speciesName": "Rillaboom"
+  },
+  "starmie-mega": {
+    "rank": 69,
+    "score": 70.2,
+    "speciesId": "starmie_mega",
+    "speciesName": "Starmie (Mega)"
+  },
+  "houndoom-mega": {
+    "rank": 70,
+    "score": 70.1,
+    "speciesId": "houndoom_mega",
+    "speciesName": "Houndoom (Mega)"
+  },
+  "hydreigon": {
+    "rank": 71,
+    "score": 70.1,
+    "speciesId": "hydreigon",
+    "speciesName": "Hydreigon"
+  },
+  "urshifu-single-strike": {
+    "rank": 72,
+    "score": 70,
+    "speciesId": "urshifu_single_strike",
+    "speciesName": "Urshifu (Single Strike)"
+  },
+  "eternatus": {
+    "rank": 73,
+    "score": 69.9,
+    "speciesId": "eternatus",
+    "speciesName": "Eternatus"
+  },
+  "metagross-shadow": {
+    "rank": 74,
+    "score": 69.8,
+    "speciesId": "metagross_shadow",
+    "speciesName": "Metagross (Shadow)"
+  },
+  "lucario-mega": {
+    "rank": 75,
+    "score": 69.6,
+    "speciesId": "lucario_mega",
+    "speciesName": "Lucario (Mega)"
+  },
+  "kartana": {
+    "rank": 76,
+    "score": 69.4,
+    "speciesId": "kartana",
+    "speciesName": "Kartana"
+  },
+  "sylveon": {
+    "rank": 77,
+    "score": 69.4,
+    "speciesId": "sylveon",
+    "speciesName": "Sylveon"
+  },
+  "zarude": {
+    "rank": 78,
+    "score": 69.4,
+    "speciesId": "zarude",
+    "speciesName": "Zarude"
+  },
+  "raichu-mega-x": {
+    "rank": 79,
+    "score": 69,
+    "speciesId": "raichu_mega_x",
+    "speciesName": "Raichu (Mega X)"
+  },
+  "dragonite-shadow": {
+    "rank": 80,
+    "score": 68.9,
+    "speciesId": "dragonite_shadow",
+    "speciesName": "Dragonite (Shadow)"
+  },
+  "garchomp": {
+    "rank": 81,
+    "score": 68.9,
+    "speciesId": "garchomp",
+    "speciesName": "Garchomp"
+  },
+  "gyarados": {
+    "rank": 82,
+    "score": 68.8,
+    "speciesId": "gyarados",
+    "speciesName": "Gyarados"
+  },
+  "kangaskhan-mega": {
+    "rank": 83,
+    "score": 68.5,
+    "speciesId": "kangaskhan_mega",
+    "speciesName": "Kangaskhan (Mega)"
+  },
+  "kyogre-shadow": {
+    "rank": 84,
+    "score": 68.5,
+    "speciesId": "kyogre_shadow",
+    "speciesName": "Kyogre (Shadow)"
+  },
+  "togekiss": {
+    "rank": 85,
+    "score": 68.5,
+    "speciesId": "togekiss",
+    "speciesName": "Togekiss"
+  },
+  "giratina-altered-shadow": {
+    "rank": 86,
+    "score": 68.3,
+    "speciesId": "giratina_altered_shadow",
+    "speciesName": "Giratina (Altered) (Shadow)"
+  },
+  "raichu-mega-y": {
+    "rank": 87,
+    "score": 68.3,
+    "speciesId": "raichu_mega_y",
+    "speciesName": "Raichu (Mega Y)"
+  },
+  "sceptile-mega": {
+    "rank": 88,
+    "score": 68,
+    "speciesId": "sceptile_mega",
+    "speciesName": "Sceptile (Mega)"
+  },
+  "primarina": {
+    "rank": 89,
+    "score": 67.8,
+    "speciesId": "primarina",
+    "speciesName": "Primarina"
+  },
+  "landorus-therian": {
+    "rank": 90,
+    "score": 67.7,
+    "speciesId": "landorus_therian",
+    "speciesName": "Landorus (Therian)"
+  },
+  "tapu-lele": {
+    "rank": 91,
+    "score": 67.4,
+    "speciesId": "tapu_lele",
+    "speciesName": "Tapu Lele"
+  },
+  "goodra": {
+    "rank": 92,
+    "score": 67.3,
+    "speciesId": "goodra",
+    "speciesName": "Goodra"
+  },
+  "charizard-mega-x": {
+    "rank": 93,
+    "score": 67,
+    "speciesId": "charizard_mega_x",
+    "speciesName": "Charizard (Mega X)"
+  },
+  "mewtwo-shadow": {
+    "rank": 94,
+    "score": 66.9,
+    "speciesId": "mewtwo_shadow",
+    "speciesName": "Mewtwo (Shadow)"
+  },
+  "pinsir-mega": {
+    "rank": 95,
+    "score": 66.9,
+    "speciesId": "pinsir_mega",
+    "speciesName": "Pinsir (Mega)"
+  },
+  "groudon": {
+    "rank": 96,
+    "score": 66.6,
+    "speciesId": "groudon",
+    "speciesName": "Groudon"
+  },
+  "darkrai-shadow": {
+    "rank": 97,
+    "score": 66.5,
+    "speciesId": "darkrai_shadow",
+    "speciesName": "Darkrai (Shadow)"
+  },
+  "gholdengo": {
+    "rank": 98,
+    "score": 66.4,
+    "speciesId": "gholdengo",
+    "speciesName": "Gholdengo"
+  },
+  "blaziken-mega": {
+    "rank": 99,
+    "score": 66.3,
+    "speciesId": "blaziken_mega",
+    "speciesName": "Blaziken (Mega)"
+  },
+  "giratina-altered": {
+    "rank": 100,
+    "score": 66.3,
+    "speciesId": "giratina_altered",
+    "speciesName": "Giratina (Altered)"
+  },
+  "golisopod": {
+    "rank": 101,
+    "score": 66.1,
+    "speciesId": "golisopod",
+    "speciesName": "Golisopod"
+  },
+  "tapu-fini": {
+    "rank": 102,
+    "score": 66.1,
+    "speciesId": "tapu_fini",
+    "speciesName": "Tapu Fini"
+  },
+  "enamorus-therian": {
+    "rank": 103,
+    "score": 66,
+    "speciesId": "enamorus_therian",
+    "speciesName": "Enamorus (Therian)"
+  },
+  "genesect-shock": {
+    "rank": 104,
+    "score": 65.9,
+    "speciesId": "genesect_shock",
+    "speciesName": "Genesect (Shock)"
+  },
+  "dragonite": {
+    "rank": 105,
+    "score": 65.8,
+    "speciesId": "dragonite",
+    "speciesName": "Dragonite"
+  },
+  "latias-shadow": {
+    "rank": 106,
+    "score": 65.8,
+    "speciesId": "latias_shadow",
+    "speciesName": "Latias (Shadow)"
+  },
+  "salamence-shadow": {
+    "rank": 107,
+    "score": 65.8,
+    "speciesId": "salamence_shadow",
+    "speciesName": "Salamence (Shadow)"
+  },
+  "solgaleo": {
+    "rank": 108,
+    "score": 65.7,
+    "speciesId": "solgaleo",
+    "speciesName": "Solgaleo"
+  },
+  "golisopod-shadow": {
+    "rank": 109,
+    "score": 65.6,
+    "speciesId": "golisopod_shadow",
+    "speciesName": "Golisopod (Shadow)"
+  },
+  "latios": {
+    "rank": 110,
+    "score": 65.6,
+    "speciesId": "latios",
+    "speciesName": "Latios"
+  },
+  "enamorus-incarnate": {
+    "rank": 111,
+    "score": 65.5,
+    "speciesId": "enamorus_incarnate",
+    "speciesName": "Enamorus (Incarnate)"
+  },
+  "latias": {
+    "rank": 112,
+    "score": 65.5,
+    "speciesId": "latias",
+    "speciesName": "Latias"
+  },
+  "raikou-shadow": {
+    "rank": 113,
+    "score": 65.5,
+    "speciesId": "raikou_shadow",
+    "speciesName": "Raikou (Shadow)"
+  },
+  "baxcalibur": {
+    "rank": 114,
+    "score": 65.4,
+    "speciesId": "baxcalibur",
+    "speciesName": "Baxcalibur"
+  },
+  "abomasnow-mega": {
+    "rank": 115,
+    "score": 65.3,
+    "speciesId": "abomasnow_mega",
+    "speciesName": "Abomasnow (Mega)"
+  },
+  "conkeldurr-shadow": {
+    "rank": 116,
+    "score": 65,
+    "speciesId": "conkeldurr_shadow",
+    "speciesName": "Conkeldurr (Shadow)"
+  },
+  "annihilape-shadow": {
+    "rank": 117,
+    "score": 64.9,
+    "speciesId": "annihilape_shadow",
+    "speciesName": "Annihilape (Shadow)"
+  },
+  "mewtwo": {
+    "rank": 118,
+    "score": 64.6,
+    "speciesId": "mewtwo",
+    "speciesName": "Mewtwo"
+  },
+  "urshifu-rapid-strike": {
+    "rank": 119,
+    "score": 64.5,
+    "speciesId": "urshifu_rapid_strike",
+    "speciesName": "Urshifu (Rapid Strike)"
+  },
+  "zapdos": {
+    "rank": 120,
+    "score": 64.4,
+    "speciesId": "zapdos",
+    "speciesName": "Zapdos"
+  },
+  "falinks-mega": {
+    "rank": 121,
+    "score": 64.2,
+    "speciesId": "falinks_mega",
+    "speciesName": "Falinks (Mega)"
+  },
+  "malamar-mega": {
+    "rank": 122,
+    "score": 64,
+    "speciesId": "malamar_mega",
+    "speciesName": "Malamar (Mega)"
+  },
+  "skarmory-mega": {
+    "rank": 123,
+    "score": 63.9,
+    "speciesId": "skarmory_mega",
+    "speciesName": "Skarmory (Mega)"
+  },
+  "kommo-o": {
+    "rank": 124,
+    "score": 63.7,
+    "speciesId": "kommo_o",
+    "speciesName": "Kommo-o"
+  },
+  "genesect-chill": {
+    "rank": 125,
+    "score": 63.6,
+    "speciesId": "genesect_chill",
+    "speciesName": "Genesect (Chill)"
+  },
+  "steelix-mega": {
+    "rank": 126,
+    "score": 63.6,
+    "speciesId": "steelix_mega",
+    "speciesName": "Steelix (Mega)"
+  },
+  "annihilape": {
+    "rank": 127,
+    "score": 63.5,
+    "speciesId": "annihilape",
+    "speciesName": "Annihilape"
+  },
+  "altaria-mega": {
+    "rank": 128,
+    "score": 63.4,
+    "speciesId": "altaria_mega",
+    "speciesName": "Altaria (Mega)"
+  },
+  "venusaur-mega": {
+    "rank": 129,
+    "score": 63.3,
+    "speciesId": "venusaur_mega",
+    "speciesName": "Venusaur (Mega)"
+  },
+  "rhyperior-shadow": {
+    "rank": 130,
+    "score": 63.2,
+    "speciesId": "rhyperior_shadow",
+    "speciesName": "Rhyperior (Shadow)"
+  },
+  "tapu-bulu": {
+    "rank": 131,
+    "score": 63.2,
+    "speciesId": "tapu_bulu",
+    "speciesName": "Tapu Bulu"
+  },
+  "meloetta-aria": {
+    "rank": 132,
+    "score": 62.8,
+    "speciesId": "meloetta_aria",
+    "speciesName": "Meloetta (Aria)"
+  },
+  "raikou": {
+    "rank": 133,
+    "score": 62.7,
+    "speciesId": "raikou",
+    "speciesName": "Raikou"
+  },
+  "beedrill-mega": {
+    "rank": 134,
+    "score": 62.6,
+    "speciesId": "beedrill_mega",
+    "speciesName": "Beedrill (Mega)"
+  },
+  "virizion": {
+    "rank": 135,
+    "score": 62.4,
+    "speciesId": "virizion",
+    "speciesName": "Virizion"
+  },
+  "groudon-shadow": {
+    "rank": 136,
+    "score": 62.3,
+    "speciesId": "groudon_shadow",
+    "speciesName": "Groudon (Shadow)"
+  },
+  "genesect-douse": {
+    "rank": 137,
+    "score": 62.2,
+    "speciesId": "genesect_douse",
+    "speciesName": "Genesect (Douse)"
+  },
+  "zapdos-shadow": {
+    "rank": 138,
+    "score": 62.2,
+    "speciesId": "zapdos_shadow",
+    "speciesName": "Zapdos (Shadow)"
+  },
+  "rhyperior": {
+    "rank": 139,
+    "score": 62.1,
+    "speciesId": "rhyperior",
+    "speciesName": "Rhyperior"
+  },
+  "zacian-hero": {
+    "rank": 140,
+    "score": 62.1,
+    "speciesId": "zacian_hero",
+    "speciesName": "Zacian (Hero)"
+  },
+  "darkrai": {
+    "rank": 141,
+    "score": 62,
+    "speciesId": "darkrai",
+    "speciesName": "Darkrai"
+  },
+  "lopunny-mega": {
+    "rank": 142,
+    "score": 61.9,
+    "speciesId": "lopunny_mega",
+    "speciesName": "Lopunny (Mega)"
+  },
+  "rayquaza": {
+    "rank": 143,
+    "score": 61.9,
+    "speciesId": "rayquaza",
+    "speciesName": "Rayquaza"
+  },
+  "alakazam-mega": {
+    "rank": 144,
+    "score": 61.6,
+    "speciesId": "alakazam_mega",
+    "speciesName": "Alakazam (Mega)"
+  },
+  "salamence": {
+    "rank": 145,
+    "score": 61.6,
+    "speciesId": "salamence",
+    "speciesName": "Salamence"
+  },
+  "slowbro-mega": {
+    "rank": 146,
+    "score": 61.6,
+    "speciesId": "slowbro_mega",
+    "speciesName": "Slowbro (Mega)"
+  },
+  "aggron": {
+    "rank": 147,
+    "score": 61.2,
+    "speciesId": "aggron",
+    "speciesName": "Aggron"
+  },
+  "conkeldurr": {
+    "rank": 148,
+    "score": 61.1,
+    "speciesId": "conkeldurr",
+    "speciesName": "Conkeldurr"
+  },
+  "ho-oh": {
+    "rank": 149,
+    "score": 61.1,
+    "speciesId": "ho_oh",
+    "speciesName": "Ho-Oh"
+  },
+  "magnezone-shadow": {
+    "rank": 150,
+    "score": 60.9,
+    "speciesId": "magnezone_shadow",
+    "speciesName": "Magnezone (Shadow)"
+  },
+  "jirachi": {
+    "rank": 151,
+    "score": 60.8,
+    "speciesId": "jirachi",
+    "speciesName": "Jirachi"
+  },
+  "zeraora": {
+    "rank": 152,
+    "score": 60.8,
+    "speciesId": "zeraora",
+    "speciesName": "Zeraora"
+  },
+  "chesnaught-shadow": {
+    "rank": 153,
+    "score": 60.7,
+    "speciesId": "chesnaught_shadow",
+    "speciesName": "Chesnaught (Shadow)"
+  },
+  "genesect-burn": {
+    "rank": 154,
+    "score": 60.6,
+    "speciesId": "genesect_burn",
+    "speciesName": "Genesect (Burn)"
+  },
+  "volcanion": {
+    "rank": 155,
+    "score": 60.6,
+    "speciesId": "volcanion",
+    "speciesName": "Volcanion"
+  },
+  "snorlax-shadow": {
+    "rank": 156,
+    "score": 60.5,
+    "speciesId": "snorlax_shadow",
+    "speciesName": "Snorlax (Shadow)"
+  },
+  "mamoswine-shadow": {
+    "rank": 157,
+    "score": 60.4,
+    "speciesId": "mamoswine_shadow",
+    "speciesName": "Mamoswine (Shadow)"
+  },
+  "snorlax": {
+    "rank": 158,
+    "score": 60.4,
+    "speciesId": "snorlax",
+    "speciesName": "Snorlax"
+  },
+  "aggron-shadow": {
+    "rank": 159,
+    "score": 60.3,
+    "speciesId": "aggron_shadow",
+    "speciesName": "Aggron (Shadow)"
+  },
+  "quaquaval": {
+    "rank": 160,
+    "score": 60.2,
+    "speciesId": "quaquaval",
+    "speciesName": "Quaquaval"
+  },
+  "heatran": {
+    "rank": 161,
+    "score": 60.1,
+    "speciesId": "heatran",
+    "speciesName": "Heatran"
+  },
+  "thundurus-therian": {
+    "rank": 162,
+    "score": 60.1,
+    "speciesId": "thundurus_therian",
+    "speciesName": "Thundurus (Therian)"
+  },
+  "zapdos-galarian": {
+    "rank": 163,
+    "score": 59.9,
+    "speciesId": "zapdos_galarian",
+    "speciesName": "Zapdos (Galarian)"
+  },
+  "genesect": {
+    "rank": 164,
+    "score": 59.8,
+    "speciesId": "genesect",
+    "speciesName": "Genesect"
+  },
+  "milotic": {
+    "rank": 165,
+    "score": 59.7,
+    "speciesId": "milotic",
+    "speciesName": "Milotic"
+  },
+  "milotic-shadow": {
+    "rank": 166,
+    "score": 59.5,
+    "speciesId": "milotic_shadow",
+    "speciesName": "Milotic (Shadow)"
+  },
+  "heatran-shadow": {
+    "rank": 167,
+    "score": 59.3,
+    "speciesId": "heatran_shadow",
+    "speciesName": "Heatran (Shadow)"
+  },
+  "hippowdon-shadow": {
+    "rank": 168,
+    "score": 59.3,
+    "speciesId": "hippowdon_shadow",
+    "speciesName": "Hippowdon (Shadow)"
+  },
+  "swampert-shadow": {
+    "rank": 169,
+    "score": 59.2,
+    "speciesId": "swampert_shadow",
+    "speciesName": "Swampert (Shadow)"
+  },
+  "machamp-shadow": {
+    "rank": 170,
+    "score": 59.1,
+    "speciesId": "machamp_shadow",
+    "speciesName": "Machamp (Shadow)"
+  },
+  "avalugg-hisuian": {
+    "rank": 171,
+    "score": 59,
+    "speciesId": "avalugg_hisuian",
+    "speciesName": "Avalugg (Hisuian)"
+  },
+  "giratina-origin": {
+    "rank": 172,
+    "score": 59,
+    "speciesId": "giratina_origin",
+    "speciesName": "Giratina (Origin)"
+  },
+  "zamazenta-hero": {
+    "rank": 173,
+    "score": 58.8,
+    "speciesId": "zamazenta_hero",
+    "speciesName": "Zamazenta (Hero)"
+  },
+  "xurkitree": {
+    "rank": 174,
+    "score": 58.3,
+    "speciesId": "xurkitree",
+    "speciesName": "Xurkitree"
+  },
+  "ho-oh-shadow": {
+    "rank": 175,
+    "score": 58.2,
+    "speciesId": "ho_oh_shadow",
+    "speciesName": "Ho-Oh (Shadow)"
+  },
+  "cobalion": {
+    "rank": 176,
+    "score": 58.1,
+    "speciesId": "cobalion",
+    "speciesName": "Cobalion"
+  },
+  "gigalith-shadow": {
+    "rank": 177,
+    "score": 58.1,
+    "speciesId": "gigalith_shadow",
+    "speciesName": "Gigalith (Shadow)"
+  },
+  "dondozo": {
+    "rank": 178,
+    "score": 57.8,
+    "speciesId": "dondozo",
+    "speciesName": "Dondozo"
+  },
+  "aurorus-shadow": {
+    "rank": 179,
+    "score": 57.7,
+    "speciesId": "aurorus_shadow",
+    "speciesName": "Aurorus (Shadow)"
+  },
+  "grimmsnarl": {
+    "rank": 180,
+    "score": 57.6,
+    "speciesId": "grimmsnarl",
+    "speciesName": "Grimmsnarl"
+  },
+  "mamoswine": {
+    "rank": 181,
+    "score": 57.6,
+    "speciesId": "mamoswine",
+    "speciesName": "Mamoswine"
+  },
+  "hippowdon": {
+    "rank": 182,
+    "score": 57.5,
+    "speciesId": "hippowdon",
+    "speciesName": "Hippowdon"
+  },
+  "zygarde": {
+    "rank": 183,
+    "score": 57.5,
+    "speciesId": "zygarde",
+    "speciesName": "Zygarde (50% Forme)"
+  },
+  "articuno": {
+    "rank": 184,
+    "score": 57.4,
+    "speciesId": "articuno",
+    "speciesName": "Articuno"
+  },
+  "landorus-incarnate-shadow": {
+    "rank": 185,
+    "score": 57.3,
+    "speciesId": "landorus_incarnate_shadow",
+    "speciesName": "Landorus (Incarnate) (Shadow)"
+  },
+  "magnezone": {
+    "rank": 186,
+    "score": 57.1,
+    "speciesId": "magnezone",
+    "speciesName": "Magnezone"
+  },
+  "pidgeot-mega": {
+    "rank": 187,
+    "score": 57,
+    "speciesId": "pidgeot_mega",
+    "speciesName": "Pidgeot (Mega)"
+  },
+  "chesnaught": {
+    "rank": 188,
+    "score": 56.9,
+    "speciesId": "chesnaught",
+    "speciesName": "Chesnaught"
+  },
+  "terrakion": {
+    "rank": 189,
+    "score": 56.8,
+    "speciesId": "terrakion",
+    "speciesName": "Terrakion"
+  },
+  "pangoro-shadow": {
+    "rank": 190,
+    "score": 56.7,
+    "speciesId": "pangoro_shadow",
+    "speciesName": "Pangoro (Shadow)"
+  },
+  "avalugg": {
+    "rank": 191,
+    "score": 56.5,
+    "speciesId": "avalugg",
+    "speciesName": "Avalugg"
+  },
+  "victreebel-mega": {
+    "rank": 192,
+    "score": 56.5,
+    "speciesId": "victreebel_mega",
+    "speciesName": "Victreebel (Mega)"
+  },
+  "gigalith": {
+    "rank": 193,
+    "score": 56.4,
+    "speciesId": "gigalith",
+    "speciesName": "Gigalith"
+  },
+  "thundurus-incarnate-shadow": {
+    "rank": 194,
+    "score": 56.4,
+    "speciesId": "thundurus_incarnate_shadow",
+    "speciesName": "Thundurus (Incarnate) (Shadow)"
+  },
+  "heracross": {
+    "rank": 195,
+    "score": 56.3,
+    "speciesId": "heracross",
+    "speciesName": "Heracross"
+  },
+  "swampert": {
+    "rank": 196,
+    "score": 56.1,
+    "speciesId": "swampert",
+    "speciesName": "Swampert"
+  },
+  "feraligatr-shadow": {
+    "rank": 197,
+    "score": 56,
+    "speciesId": "feraligatr_shadow",
+    "speciesName": "Feraligatr (Shadow)"
+  },
+  "landorus-incarnate": {
+    "rank": 198,
+    "score": 55.9,
+    "speciesId": "landorus_incarnate",
+    "speciesName": "Landorus (Incarnate)"
+  },
+  "mew": {
+    "rank": 199,
+    "score": 55.9,
+    "speciesId": "mew",
+    "speciesName": "Mew"
+  },
+  "moltres-galarian": {
+    "rank": 200,
+    "score": 55.9,
+    "speciesId": "moltres_galarian",
+    "speciesName": "Moltres (Galarian)"
+  },
+  "articuno-shadow": {
+    "rank": 201,
+    "score": 55.8,
+    "speciesId": "articuno_shadow",
+    "speciesName": "Articuno (Shadow)"
+  },
+  "machamp": {
+    "rank": 202,
+    "score": 55.8,
+    "speciesId": "machamp",
+    "speciesName": "Machamp"
+  },
+  "empoleon-shadow": {
+    "rank": 203,
+    "score": 55.6,
+    "speciesId": "empoleon_shadow",
+    "speciesName": "Empoleon (Shadow)"
+  },
+  "pangoro": {
+    "rank": 204,
+    "score": 55.6,
+    "speciesId": "pangoro",
+    "speciesName": "Pangoro"
+  },
+  "cresselia": {
+    "rank": 205,
+    "score": 55.3,
+    "speciesId": "cresselia",
+    "speciesName": "Cresselia"
+  },
+  "gallade-shadow": {
+    "rank": 206,
+    "score": 55.3,
+    "speciesId": "gallade_shadow",
+    "speciesName": "Gallade (Shadow)"
+  },
+  "tapu-koko": {
+    "rank": 207,
+    "score": 55.3,
+    "speciesId": "tapu_koko",
+    "speciesName": "Tapu Koko"
+  },
+  "sneasler-shadow": {
+    "rank": 208,
+    "score": 55,
+    "speciesId": "sneasler_shadow",
+    "speciesName": "Sneasler (Shadow)"
+  },
+  "buzzwole": {
+    "rank": 209,
+    "score": 54.9,
+    "speciesId": "buzzwole",
+    "speciesName": "Buzzwole"
+  },
+  "regidrago": {
+    "rank": 210,
+    "score": 54.9,
+    "speciesId": "regidrago",
+    "speciesName": "Regidrago"
+  },
+  "cetitan": {
+    "rank": 211,
+    "score": 54.7,
+    "speciesId": "cetitan",
+    "speciesName": "Cetitan"
+  },
+  "haxorus-shadow": {
+    "rank": 212,
+    "score": 54.4,
+    "speciesId": "haxorus_shadow",
+    "speciesName": "Haxorus (Shadow)"
+  },
+  "regirock": {
+    "rank": 213,
+    "score": 54.4,
+    "speciesId": "regirock",
+    "speciesName": "Regirock"
+  },
+  "empoleon": {
+    "rank": 214,
+    "score": 54.2,
+    "speciesId": "empoleon",
+    "speciesName": "Empoleon"
+  },
+  "sirfetchd": {
+    "rank": 215,
+    "score": 54.2,
+    "speciesId": "sirfetchd",
+    "speciesName": "Sirfetch'd"
+  },
+  "electivire-shadow": {
+    "rank": 216,
+    "score": 54,
+    "speciesId": "electivire_shadow",
+    "speciesName": "Electivire (Shadow)"
+  },
+  "feraligatr": {
+    "rank": 217,
+    "score": 54,
+    "speciesId": "feraligatr",
+    "speciesName": "Feraligatr"
+  },
+  "walrein": {
+    "rank": 218,
+    "score": 53.6,
+    "speciesId": "walrein",
+    "speciesName": "Walrein"
+  },
+  "regirock-shadow": {
+    "rank": 219,
+    "score": 53.4,
+    "speciesId": "regirock_shadow",
+    "speciesName": "Regirock (Shadow)"
+  },
+  "diancie-mega": {
+    "rank": 220,
+    "score": 53.3,
+    "speciesId": "diancie_mega",
+    "speciesName": "Diancie (Mega)"
+  },
+  "walrein-shadow": {
+    "rank": 221,
+    "score": 53.1,
+    "speciesId": "walrein_shadow",
+    "speciesName": "Walrein (Shadow)"
+  },
+  "mewtwo-armored": {
+    "rank": 222,
+    "score": 53,
+    "speciesId": "mewtwo_armored",
+    "speciesName": "Mewtwo (Armored)"
+  },
+  "victini": {
+    "rank": 223,
+    "score": 53,
+    "speciesId": "victini",
+    "speciesName": "Victini"
+  },
+  "excadrill-shadow": {
+    "rank": 224,
+    "score": 52.9,
+    "speciesId": "excadrill_shadow",
+    "speciesName": "Excadrill (Shadow)"
+  },
+  "gallade": {
+    "rank": 225,
+    "score": 52.4,
+    "speciesId": "gallade",
+    "speciesName": "Gallade"
+  },
+  "celebi": {
+    "rank": 226,
+    "score": 52.2,
+    "speciesId": "celebi",
+    "speciesName": "Celebi"
+  },
+  "thundurus-incarnate": {
+    "rank": 227,
+    "score": 52.2,
+    "speciesId": "thundurus_incarnate",
+    "speciesName": "Thundurus (Incarnate)"
+  },
+  "decidueye-hisuian": {
+    "rank": 228,
+    "score": 52.1,
+    "speciesId": "decidueye_hisuian",
+    "speciesName": "Decidueye (Hisuian)"
+  },
+  "delphox-shadow": {
+    "rank": 229,
+    "score": 52.1,
+    "speciesId": "delphox_shadow",
+    "speciesName": "Delphox (Shadow)"
+  },
+  "bewear-shadow": {
+    "rank": 230,
+    "score": 51.9,
+    "speciesId": "bewear_shadow",
+    "speciesName": "Bewear (Shadow)"
+  },
+  "haxorus": {
+    "rank": 231,
+    "score": 51.9,
+    "speciesId": "haxorus",
+    "speciesName": "Haxorus"
+  },
+  "necrozma": {
+    "rank": 232,
+    "score": 51.9,
+    "speciesId": "necrozma",
+    "speciesName": "Necrozma"
+  },
+  "scizor-shadow": {
+    "rank": 233,
+    "score": 51.9,
+    "speciesId": "scizor_shadow",
+    "speciesName": "Scizor (Shadow)"
+  },
+  "excadrill": {
+    "rank": 234,
+    "score": 51.8,
+    "speciesId": "excadrill",
+    "speciesName": "Excadrill"
+  },
+  "nihilego": {
+    "rank": 235,
+    "score": 51.8,
+    "speciesId": "nihilego",
+    "speciesName": "Nihilego"
+  },
+  "torterra": {
+    "rank": 236,
+    "score": 51.8,
+    "speciesId": "torterra",
+    "speciesName": "Torterra"
+  },
+  "vaporeon": {
+    "rank": 237,
+    "score": 51.8,
+    "speciesId": "vaporeon",
+    "speciesName": "Vaporeon"
+  },
+  "samurott-hisuian": {
+    "rank": 238,
+    "score": 51.5,
+    "speciesId": "samurott_hisuian",
+    "speciesName": "Samurott (Hisuian)"
+  },
+  "gogoat": {
+    "rank": 239,
+    "score": 51.3,
+    "speciesId": "gogoat",
+    "speciesName": "Gogoat"
+  },
+  "dhelmise": {
+    "rank": 240,
+    "score": 51,
+    "speciesId": "dhelmise",
+    "speciesName": "Dhelmise"
+  },
+  "golurk-shadow": {
+    "rank": 241,
+    "score": 50.8,
+    "speciesId": "golurk_shadow",
+    "speciesName": "Golurk (Shadow)"
+  },
+  "guzzlord": {
+    "rank": 242,
+    "score": 50.8,
+    "speciesId": "guzzlord",
+    "speciesName": "Guzzlord"
+  },
+  "torterra-shadow": {
+    "rank": 243,
+    "score": 50.7,
+    "speciesId": "torterra_shadow",
+    "speciesName": "Torterra (Shadow)"
+  },
+  "hariyama-shadow": {
+    "rank": 244,
+    "score": 50.6,
+    "speciesId": "hariyama_shadow",
+    "speciesName": "Hariyama (Shadow)"
+  },
+  "moltres": {
+    "rank": 245,
+    "score": 50.5,
+    "speciesId": "moltres",
+    "speciesName": "Moltres"
+  },
+  "krookodile": {
+    "rank": 246,
+    "score": 50.4,
+    "speciesId": "krookodile",
+    "speciesName": "Krookodile"
+  },
+  "sharpedo-mega": {
+    "rank": 247,
+    "score": 50.4,
+    "speciesId": "sharpedo_mega",
+    "speciesName": "Sharpedo (Mega)"
+  },
+  "throh-shadow": {
+    "rank": 248,
+    "score": 50.4,
+    "speciesId": "throh_shadow",
+    "speciesName": "Throh (Shadow)"
+  },
+  "passimian": {
+    "rank": 249,
+    "score": 50.2,
+    "speciesId": "passimian",
+    "speciesName": "Passimian"
+  },
+  "banette-mega": {
+    "rank": 250,
+    "score": 50.1,
+    "speciesId": "banette_mega",
+    "speciesName": "Banette (Mega)"
+  },
+  "pinsir-shadow": {
+    "rank": 251,
+    "score": 50.1,
+    "speciesId": "pinsir_shadow",
+    "speciesName": "Pinsir (Shadow)"
+  },
+  "kingdra-shadow": {
+    "rank": 252,
+    "score": 49.8,
+    "speciesId": "kingdra_shadow",
+    "speciesName": "Kingdra (Shadow)"
+  },
+  "centiskorch": {
+    "rank": 253,
+    "score": 49.7,
+    "speciesId": "centiskorch",
+    "speciesName": "Centiskorch"
+  },
+  "aurorus": {
+    "rank": 254,
+    "score": 49.5,
+    "speciesId": "aurorus",
+    "speciesName": "Aurorus"
+  },
+  "bewear": {
+    "rank": 255,
+    "score": 49.5,
+    "speciesId": "bewear",
+    "speciesName": "Bewear"
+  },
+  "glalie-mega": {
+    "rank": 256,
+    "score": 49.5,
+    "speciesId": "glalie_mega",
+    "speciesName": "Glalie (Mega)"
+  },
+  "scizor": {
+    "rank": 257,
+    "score": 49.4,
+    "speciesId": "scizor",
+    "speciesName": "Scizor"
+  },
+  "regice": {
+    "rank": 258,
+    "score": 49.3,
+    "speciesId": "regice",
+    "speciesName": "Regice"
+  },
+  "throh": {
+    "rank": 259,
+    "score": 49.2,
+    "speciesId": "throh",
+    "speciesName": "Throh"
+  },
+  "moltres-shadow": {
+    "rank": 260,
+    "score": 49,
+    "speciesId": "moltres_shadow",
+    "speciesName": "Moltres (Shadow)"
+  },
+  "vikavolt-shadow": {
+    "rank": 261,
+    "score": 49,
+    "speciesId": "vikavolt_shadow",
+    "speciesName": "Vikavolt (Shadow)"
+  },
+  "hariyama": {
+    "rank": 262,
+    "score": 48.8,
+    "speciesId": "hariyama",
+    "speciesName": "Hariyama"
+  },
+  "samurott-shadow": {
+    "rank": 263,
+    "score": 48.8,
+    "speciesId": "samurott_shadow",
+    "speciesName": "Samurott (Shadow)"
+  },
+  "blacephalon": {
+    "rank": 264,
+    "score": 48.6,
+    "speciesId": "blacephalon",
+    "speciesName": "Blacephalon"
+  },
+  "skeledirge": {
+    "rank": 265,
+    "score": 48.6,
+    "speciesId": "skeledirge",
+    "speciesName": "Skeledirge"
+  },
+  "absol-mega": {
+    "rank": 266,
+    "score": 48.5,
+    "speciesId": "absol_mega",
+    "speciesName": "Absol (Mega)"
+  },
+  "delphox": {
+    "rank": 267,
+    "score": 48.5,
+    "speciesId": "delphox",
+    "speciesName": "Delphox"
+  },
+  "armarouge": {
+    "rank": 268,
+    "score": 48.4,
+    "speciesId": "armarouge",
+    "speciesName": "Armarouge"
+  },
+  "entei": {
+    "rank": 269,
+    "score": 48.3,
+    "speciesId": "entei",
+    "speciesName": "Entei"
+  },
+  "suicune": {
+    "rank": 270,
+    "score": 48.3,
+    "speciesId": "suicune",
+    "speciesName": "Suicune"
+  },
+  "overqwil": {
+    "rank": 271,
+    "score": 48,
+    "speciesId": "overqwil",
+    "speciesName": "Overqwil"
+  },
+  "gliscor-shadow": {
+    "rank": 272,
+    "score": 47.9,
+    "speciesId": "gliscor_shadow",
+    "speciesName": "Gliscor (Shadow)"
+  },
+  "lapras": {
+    "rank": 273,
+    "score": 47.9,
+    "speciesId": "lapras",
+    "speciesName": "Lapras"
+  },
+  "celesteela": {
+    "rank": 274,
+    "score": 47.8,
+    "speciesId": "celesteela",
+    "speciesName": "Celesteela"
+  },
+  "sneasler": {
+    "rank": 275,
+    "score": 47.7,
+    "speciesId": "sneasler",
+    "speciesName": "Sneasler"
+  },
+  "tauros-aqua": {
+    "rank": 276,
+    "score": 47.7,
+    "speciesId": "tauros_aqua",
+    "speciesName": "Tauros (Aqua)"
+  },
+  "electivire": {
+    "rank": 277,
+    "score": 47.6,
+    "speciesId": "electivire",
+    "speciesName": "Electivire"
+  },
+  "golurk": {
+    "rank": 278,
+    "score": 47.6,
+    "speciesId": "golurk",
+    "speciesName": "Golurk"
+  },
+  "gardevoir-shadow": {
+    "rank": 279,
+    "score": 47.5,
+    "speciesId": "gardevoir_shadow",
+    "speciesName": "Gardevoir (Shadow)"
+  },
+  "charizard": {
+    "rank": 280,
+    "score": 47.2,
+    "speciesId": "charizard",
+    "speciesName": "Charizard"
+  },
+  "samurott": {
+    "rank": 281,
+    "score": 47.2,
+    "speciesId": "samurott",
+    "speciesName": "Samurott"
+  },
+  "ursaring-shadow": {
+    "rank": 282,
+    "score": 47.2,
+    "speciesId": "ursaring_shadow",
+    "speciesName": "Ursaring (Shadow)"
+  },
+  "escavalier": {
+    "rank": 283,
+    "score": 47.1,
+    "speciesId": "escavalier",
+    "speciesName": "Escavalier"
+  },
+  "mudsdale": {
+    "rank": 284,
+    "score": 47.1,
+    "speciesId": "mudsdale",
+    "speciesName": "Mudsdale"
+  },
+  "hydrapple": {
+    "rank": 285,
+    "score": 46.9,
+    "speciesId": "hydrapple",
+    "speciesName": "Hydrapple"
+  },
+  "kingdra": {
+    "rank": 286,
+    "score": 46.6,
+    "speciesId": "kingdra",
+    "speciesName": "Kingdra"
+  },
+  "stakataka": {
+    "rank": 287,
+    "score": 46.6,
+    "speciesId": "stakataka",
+    "speciesName": "Stakataka"
+  },
+  "vikavolt": {
+    "rank": 288,
+    "score": 46.5,
+    "speciesId": "vikavolt",
+    "speciesName": "Vikavolt"
+  },
+  "lapras-shadow": {
+    "rank": 289,
+    "score": 46.3,
+    "speciesId": "lapras_shadow",
+    "speciesName": "Lapras (Shadow)"
+  },
+  "muk-alolan-shadow": {
+    "rank": 290,
+    "score": 46.2,
+    "speciesId": "muk_alolan_shadow",
+    "speciesName": "Muk (Alolan) (Shadow)"
+  },
+  "beartic": {
+    "rank": 291,
+    "score": 46,
+    "speciesId": "beartic",
+    "speciesName": "Beartic"
+  },
+  "tangrowth-shadow": {
+    "rank": 292,
+    "score": 46,
+    "speciesId": "tangrowth_shadow",
+    "speciesName": "Tangrowth (Shadow)"
+  },
+  "cresselia-shadow": {
+    "rank": 293,
+    "score": 45.8,
+    "speciesId": "cresselia_shadow",
+    "speciesName": "Cresselia (Shadow)"
+  },
+  "hoopa-unbound": {
+    "rank": 294,
+    "score": 45.8,
+    "speciesId": "hoopa_unbound",
+    "speciesName": "Hoopa (Unbound)"
+  },
+  "manectric-mega": {
+    "rank": 295,
+    "score": 45.8,
+    "speciesId": "manectric_mega",
+    "speciesName": "Manectric (Mega)"
+  },
+  "shaymin-sky": {
+    "rank": 296,
+    "score": 45.6,
+    "speciesId": "shaymin_sky",
+    "speciesName": "Shaymin (Sky)"
+  },
+  "venusaur-shadow": {
+    "rank": 297,
+    "score": 45.6,
+    "speciesId": "venusaur_shadow",
+    "speciesName": "Venusaur (Shadow)"
+  },
+  "entei-shadow": {
+    "rank": 298,
+    "score": 45.5,
+    "speciesId": "entei_shadow",
+    "speciesName": "Entei (Shadow)"
+  },
+  "pinsir": {
+    "rank": 299,
+    "score": 45.5,
+    "speciesId": "pinsir",
+    "speciesName": "Pinsir"
+  },
+  "ceruledge": {
+    "rank": 300,
+    "score": 45.4,
+    "speciesId": "ceruledge",
+    "speciesName": "Ceruledge"
+  },
+  "aerodactyl-shadow": {
+    "rank": 301,
+    "score": 45.3,
+    "speciesId": "aerodactyl_shadow",
+    "speciesName": "Aerodactyl (Shadow)"
+  },
+  "incineroar": {
+    "rank": 302,
+    "score": 45.3,
+    "speciesId": "incineroar",
+    "speciesName": "Incineroar"
+  },
+  "roserade": {
+    "rank": 303,
+    "score": 45.3,
+    "speciesId": "roserade",
+    "speciesName": "Roserade"
+  },
+  "ampharos-shadow": {
+    "rank": 304,
+    "score": 45.1,
+    "speciesId": "ampharos_shadow",
+    "speciesName": "Ampharos (Shadow)"
+  },
+  "typhlosion-hisuian": {
+    "rank": 305,
+    "score": 45.1,
+    "speciesId": "typhlosion_hisuian",
+    "speciesName": "Typhlosion (Hisuian)"
+  },
+  "chandelure": {
+    "rank": 306,
+    "score": 45,
+    "speciesId": "chandelure",
+    "speciesName": "Chandelure"
+  },
+  "drampa": {
+    "rank": 307,
+    "score": 45,
+    "speciesId": "drampa",
+    "speciesName": "Drampa"
+  },
+  "escavalier-shadow": {
+    "rank": 308,
+    "score": 45,
+    "speciesId": "escavalier_shadow",
+    "speciesName": "Escavalier (Shadow)"
+  },
+  "tyrantrum": {
+    "rank": 309,
+    "score": 45,
+    "speciesId": "tyrantrum",
+    "speciesName": "Tyrantrum"
+  },
+  "venusaur": {
+    "rank": 310,
+    "score": 44.7,
+    "speciesId": "venusaur",
+    "speciesName": "Venusaur"
+  },
+  "tauros-combat": {
+    "rank": 311,
+    "score": 44.6,
+    "speciesId": "tauros_combat",
+    "speciesName": "Tauros (Combat)"
+  },
+  "charizard-shadow": {
+    "rank": 312,
+    "score": 44.4,
+    "speciesId": "charizard_shadow",
+    "speciesName": "Charizard (Shadow)"
+  },
+  "regice-shadow": {
+    "rank": 313,
+    "score": 44.4,
+    "speciesId": "regice_shadow",
+    "speciesName": "Regice (Shadow)"
+  },
+  "ampharos": {
+    "rank": 314,
+    "score": 44.3,
+    "speciesId": "ampharos",
+    "speciesName": "Ampharos"
+  },
+  "donphan": {
+    "rank": 315,
+    "score": 44.3,
+    "speciesId": "donphan",
+    "speciesName": "Donphan"
+  },
+  "sandaconda": {
+    "rank": 316,
+    "score": 44.3,
+    "speciesId": "sandaconda",
+    "speciesName": "Sandaconda"
+  },
+  "chandelure-shadow": {
+    "rank": 317,
+    "score": 44.2,
+    "speciesId": "chandelure_shadow",
+    "speciesName": "Chandelure (Shadow)"
+  },
+  "tauros-blaze": {
+    "rank": 318,
+    "score": 44.2,
+    "speciesId": "tauros_blaze",
+    "speciesName": "Tauros (Blaze)"
+  },
+  "audino-mega": {
+    "rank": 319,
+    "score": 44.1,
+    "speciesId": "audino_mega",
+    "speciesName": "Audino (Mega)"
+  },
+  "muk-alolan": {
+    "rank": 320,
+    "score": 43.9,
+    "speciesId": "muk_alolan",
+    "speciesName": "Muk (Alolan)"
+  },
+  "emboar": {
+    "rank": 321,
+    "score": 43.8,
+    "speciesId": "emboar",
+    "speciesName": "Emboar"
+  },
+  "emboar-shadow": {
+    "rank": 322,
+    "score": 43.8,
+    "speciesId": "emboar_shadow",
+    "speciesName": "Emboar (Shadow)"
+  },
+  "barbaracle": {
+    "rank": 323,
+    "score": 43.6,
+    "speciesId": "barbaracle",
+    "speciesName": "Barbaracle"
+  },
+  "hoopa": {
+    "rank": 324,
+    "score": 43.6,
+    "speciesId": "hoopa",
+    "speciesName": "Hoopa"
+  },
+  "tangrowth": {
+    "rank": 325,
+    "score": 43.6,
+    "speciesId": "tangrowth",
+    "speciesName": "Tangrowth"
+  },
+  "dragapult": {
+    "rank": 326,
+    "score": 43.5,
+    "speciesId": "dragapult",
+    "speciesName": "Dragapult"
+  },
+  "gardevoir": {
+    "rank": 327,
+    "score": 43.3,
+    "speciesId": "gardevoir",
+    "speciesName": "Gardevoir"
+  },
+  "kangaskhan": {
+    "rank": 328,
+    "score": 43.3,
+    "speciesId": "kangaskhan",
+    "speciesName": "Kangaskhan"
+  },
+  "weavile-shadow": {
+    "rank": 329,
+    "score": 43.3,
+    "speciesId": "weavile_shadow",
+    "speciesName": "Weavile (Shadow)"
+  },
+  "decidueye": {
+    "rank": 330,
+    "score": 43.2,
+    "speciesId": "decidueye",
+    "speciesName": "Decidueye"
+  },
+  "ursaring": {
+    "rank": 331,
+    "score": 43.2,
+    "speciesId": "ursaring",
+    "speciesName": "Ursaring"
+  },
+  "arcanine-shadow": {
+    "rank": 332,
+    "score": 43.1,
+    "speciesId": "arcanine_shadow",
+    "speciesName": "Arcanine (Shadow)"
+  },
+  "garganacl": {
+    "rank": 333,
+    "score": 43.1,
+    "speciesId": "garganacl",
+    "speciesName": "Garganacl"
+  },
+  "polteageist": {
+    "rank": 334,
+    "score": 43.1,
+    "speciesId": "polteageist",
+    "speciesName": "Polteageist"
+  },
+  "poliwrath-shadow": {
+    "rank": 335,
+    "score": 42.9,
+    "speciesId": "poliwrath_shadow",
+    "speciesName": "Poliwrath (Shadow)"
+  },
+  "suicune-shadow": {
+    "rank": 336,
+    "score": 42.9,
+    "speciesId": "suicune_shadow",
+    "speciesName": "Suicune (Shadow)"
+  },
+  "tsareena": {
+    "rank": 337,
+    "score": 42.9,
+    "speciesId": "tsareena",
+    "speciesName": "Tsareena"
+  },
+  "corviknight": {
+    "rank": 338,
+    "score": 42.8,
+    "speciesId": "corviknight",
+    "speciesName": "Corviknight"
+  },
+  "bellibolt": {
+    "rank": 339,
+    "score": 42.6,
+    "speciesId": "bellibolt",
+    "speciesName": "Bellibolt"
+  },
+  "regigigas": {
+    "rank": 340,
+    "score": 42.6,
+    "speciesId": "regigigas",
+    "speciesName": "Regigigas"
+  },
+  "tyrantrum-shadow": {
+    "rank": 341,
+    "score": 42.6,
+    "speciesId": "tyrantrum_shadow",
+    "speciesName": "Tyrantrum (Shadow)"
+  },
+  "sinistcha": {
+    "rank": 342,
+    "score": 42.5,
+    "speciesId": "sinistcha",
+    "speciesName": "Sinistcha"
+  },
+  "registeel": {
+    "rank": 343,
+    "score": 42.4,
+    "speciesId": "registeel",
+    "speciesName": "Registeel"
+  },
+  "seismitoad": {
+    "rank": 344,
+    "score": 42.2,
+    "speciesId": "seismitoad",
+    "speciesName": "Seismitoad"
+  },
+  "corviknight-shadow": {
+    "rank": 345,
+    "score": 42,
+    "speciesId": "corviknight_shadow",
+    "speciesName": "Corviknight (Shadow)"
+  },
+  "typhlosion-shadow": {
+    "rank": 346,
+    "score": 41.9,
+    "speciesId": "typhlosion_shadow",
+    "speciesName": "Typhlosion (Shadow)"
+  },
+  "exeggutor-alolan-shadow": {
+    "rank": 347,
+    "score": 41.8,
+    "speciesId": "exeggutor_alolan_shadow",
+    "speciesName": "Exeggutor (Alolan) (Shadow)"
+  },
+  "tornadus-incarnate": {
+    "rank": 348,
+    "score": 41.8,
+    "speciesId": "tornadus_incarnate",
+    "speciesName": "Tornadus (Incarnate)"
+  },
+  "tornadus-incarnate-shadow": {
+    "rank": 349,
+    "score": 41.8,
+    "speciesId": "tornadus_incarnate_shadow",
+    "speciesName": "Tornadus (Incarnate) (Shadow)"
+  },
+  "aerodactyl": {
+    "rank": 350,
+    "score": 41.7,
+    "speciesId": "aerodactyl",
+    "speciesName": "Aerodactyl"
+  },
+  "archeops-shadow": {
+    "rank": 351,
+    "score": 41.7,
+    "speciesId": "archeops_shadow",
+    "speciesName": "Archeops (Shadow)"
+  },
+  "cursola": {
+    "rank": 352,
+    "score": 41.7,
+    "speciesId": "cursola",
+    "speciesName": "Cursola"
+  },
+  "tornadus-therian": {
+    "rank": 353,
+    "score": 41.7,
+    "speciesId": "tornadus_therian",
+    "speciesName": "Tornadus (Therian)"
+  },
+  "leafeon": {
+    "rank": 354,
+    "score": 41.4,
+    "speciesId": "leafeon",
+    "speciesName": "Leafeon"
+  },
+  "golem-alolan": {
+    "rank": 355,
+    "score": 41.3,
+    "speciesId": "golem_alolan",
+    "speciesName": "Golem (Alolan)"
+  },
+  "articuno-galarian": {
+    "rank": 356,
+    "score": 41,
+    "speciesId": "articuno_galarian",
+    "speciesName": "Articuno (Galarian)"
+  },
+  "exeggutor-alolan": {
+    "rank": 357,
+    "score": 40.9,
+    "speciesId": "exeggutor_alolan",
+    "speciesName": "Exeggutor (Alolan)"
+  },
+  "magmortar-shadow": {
+    "rank": 358,
+    "score": 40.9,
+    "speciesId": "magmortar_shadow",
+    "speciesName": "Magmortar (Shadow)"
+  },
+  "obstagoon-shadow": {
+    "rank": 359,
+    "score": 40.9,
+    "speciesId": "obstagoon_shadow",
+    "speciesName": "Obstagoon (Shadow)"
+  },
+  "arcanine": {
+    "rank": 360,
+    "score": 40.8,
+    "speciesId": "arcanine",
+    "speciesName": "Arcanine"
+  },
+  "darmanitan-standard-shadow": {
+    "rank": 361,
+    "score": 40.8,
+    "speciesId": "darmanitan_standard_shadow",
+    "speciesName": "Darmanitan (Standard) (Shadow)"
+  },
+  "golem-alolan-shadow": {
+    "rank": 362,
+    "score": 40.8,
+    "speciesId": "golem_alolan_shadow",
+    "speciesName": "Golem (Alolan) (Shadow)"
+  },
+  "mawile-mega": {
+    "rank": 363,
+    "score": 40.8,
+    "speciesId": "mawile_mega",
+    "speciesName": "Mawile (Mega)"
+  },
+  "typhlosion": {
+    "rank": 364,
+    "score": 40.8,
+    "speciesId": "typhlosion",
+    "speciesName": "Typhlosion"
+  },
+  "arboliva": {
+    "rank": 365,
+    "score": 40.7,
+    "speciesId": "arboliva",
+    "speciesName": "Arboliva"
+  },
+  "poliwrath": {
+    "rank": 366,
+    "score": 40.7,
+    "speciesId": "poliwrath",
+    "speciesName": "Poliwrath"
+  },
+  "registeel-shadow": {
+    "rank": 367,
+    "score": 40.7,
+    "speciesId": "registeel_shadow",
+    "speciesName": "Registeel (Shadow)"
+  },
+  "diancie": {
+    "rank": 368,
+    "score": 40.3,
+    "speciesId": "diancie",
+    "speciesName": "Diancie"
+  },
+  "weavile": {
+    "rank": 369,
+    "score": 40.3,
+    "speciesId": "weavile",
+    "speciesName": "Weavile"
+  },
+  "cryogonal": {
+    "rank": 370,
+    "score": 40.2,
+    "speciesId": "cryogonal",
+    "speciesName": "Cryogonal"
+  },
+  "darmanitan-galarian-standard": {
+    "rank": 371,
+    "score": 40.1,
+    "speciesId": "darmanitan_galarian_standard",
+    "speciesName": "Darmanitan (Galarian)"
+  },
+  "steelix-shadow": {
+    "rank": 372,
+    "score": 40.1,
+    "speciesId": "steelix_shadow",
+    "speciesName": "Steelix (Shadow)"
+  },
+  "stoutland": {
+    "rank": 373,
+    "score": 40.1,
+    "speciesId": "stoutland",
+    "speciesName": "Stoutland"
+  },
+  "darmanitan-standard": {
+    "rank": 374,
+    "score": 39.8,
+    "speciesId": "darmanitan_standard",
+    "speciesName": "Darmanitan (Standard)"
+  },
+  "alakazam-shadow": {
+    "rank": 375,
+    "score": 39.6,
+    "speciesId": "alakazam_shadow",
+    "speciesName": "Alakazam (Shadow)"
+  },
+  "duraludon": {
+    "rank": 376,
+    "score": 39.6,
+    "speciesId": "duraludon",
+    "speciesName": "Duraludon"
+  },
+  "cinderace": {
+    "rank": 377,
+    "score": 39.5,
+    "speciesId": "cinderace",
+    "speciesName": "Cinderace"
+  },
+  "muk": {
+    "rank": 378,
+    "score": 39.2,
+    "speciesId": "muk",
+    "speciesName": "Muk"
+  },
+  "muk-shadow": {
+    "rank": 379,
+    "score": 39.2,
+    "speciesId": "muk_shadow",
+    "speciesName": "Muk (Shadow)"
+  },
+  "bisharp": {
+    "rank": 380,
+    "score": 39.1,
+    "speciesId": "bisharp",
+    "speciesName": "Bisharp"
+  },
+  "toedscruel": {
+    "rank": 381,
+    "score": 39.1,
+    "speciesId": "toedscruel",
+    "speciesName": "Toedscruel"
+  },
+  "medicham-mega": {
+    "rank": 382,
+    "score": 39,
+    "speciesId": "medicham_mega",
+    "speciesName": "Medicham (Mega)"
+  },
+  "donphan-shadow": {
+    "rank": 383,
+    "score": 38.9,
+    "speciesId": "donphan_shadow",
+    "speciesName": "Donphan (Shadow)"
+  },
+  "espeon": {
+    "rank": 384,
+    "score": 38.9,
+    "speciesId": "espeon",
+    "speciesName": "Espeon"
+  },
+  "magmortar": {
+    "rank": 385,
+    "score": 38.8,
+    "speciesId": "magmortar",
+    "speciesName": "Magmortar"
+  },
+  "mabosstiff": {
+    "rank": 386,
+    "score": 38.5,
+    "speciesId": "mabosstiff",
+    "speciesName": "Mabosstiff"
+  },
+  "stonjourner": {
+    "rank": 387,
+    "score": 38.4,
+    "speciesId": "stonjourner",
+    "speciesName": "Stonjourner"
+  },
+  "armaldo-shadow": {
+    "rank": 388,
+    "score": 38.2,
+    "speciesId": "armaldo_shadow",
+    "speciesName": "Armaldo (Shadow)"
+  },
+  "crabominable": {
+    "rank": 389,
+    "score": 38.2,
+    "speciesId": "crabominable",
+    "speciesName": "Crabominable"
+  },
+  "gliscor": {
+    "rank": 390,
+    "score": 38.2,
+    "speciesId": "gliscor",
+    "speciesName": "Gliscor"
+  },
+  "oinkologne": {
+    "rank": 391,
+    "score": 38.2,
+    "speciesId": "oinkologne",
+    "speciesName": "Oinkologne"
+  },
+  "blastoise": {
+    "rank": 392,
+    "score": 38.1,
+    "speciesId": "blastoise",
+    "speciesName": "Blastoise"
+  },
+  "oinkologne-female": {
+    "rank": 393,
+    "score": 38,
+    "speciesId": "oinkologne_female",
+    "speciesName": "Oinkologne (Female)"
+  },
+  "steelix": {
+    "rank": 394,
+    "score": 38,
+    "speciesId": "steelix",
+    "speciesName": "Steelix"
+  },
+  "blastoise-shadow": {
+    "rank": 395,
+    "score": 37.6,
+    "speciesId": "blastoise_shadow",
+    "speciesName": "Blastoise (Shadow)"
+  },
+  "obstagoon": {
+    "rank": 396,
+    "score": 37.4,
+    "speciesId": "obstagoon",
+    "speciesName": "Obstagoon"
+  },
+  "tentacruel": {
+    "rank": 397,
+    "score": 37.4,
+    "speciesId": "tentacruel",
+    "speciesName": "Tentacruel"
+  },
+  "gourgeist-super": {
+    "rank": 398,
+    "score": 37.3,
+    "speciesId": "gourgeist_super",
+    "speciesName": "Gourgeist (Super)"
+  },
+  "crobat-shadow": {
+    "rank": 399,
+    "score": 37.1,
+    "speciesId": "crobat_shadow",
+    "speciesName": "Crobat (Shadow)"
+  },
+  "jolteon": {
+    "rank": 400,
+    "score": 37.1,
+    "speciesId": "jolteon",
+    "speciesName": "Jolteon"
+  },
+  "kleavor": {
+    "rank": 401,
+    "score": 36.9,
+    "speciesId": "kleavor",
+    "speciesName": "Kleavor"
+  },
+  "alakazam": {
+    "rank": 402,
+    "score": 36.8,
+    "speciesId": "alakazam",
+    "speciesName": "Alakazam"
+  },
+  "armaldo": {
+    "rank": 403,
+    "score": 36.8,
+    "speciesId": "armaldo",
+    "speciesName": "Armaldo"
+  },
+  "archeops": {
+    "rank": 404,
+    "score": 36.6,
+    "speciesId": "archeops",
+    "speciesName": "Archeops"
+  },
+  "flareon": {
+    "rank": 405,
+    "score": 36.6,
+    "speciesId": "flareon",
+    "speciesName": "Flareon"
+  },
+  "pyroar": {
+    "rank": 406,
+    "score": 36.6,
+    "speciesId": "pyroar",
+    "speciesName": "Pyroar"
+  },
+  "porygon-z": {
+    "rank": 407,
+    "score": 36.5,
+    "speciesId": "porygon_z",
+    "speciesName": "Porygon-Z"
+  },
+  "exeggutor-shadow": {
+    "rank": 408,
+    "score": 36.4,
+    "speciesId": "exeggutor_shadow",
+    "speciesName": "Exeggutor (Shadow)"
+  },
+  "omastar-shadow": {
+    "rank": 409,
+    "score": 36.2,
+    "speciesId": "omastar_shadow",
+    "speciesName": "Omastar (Shadow)"
+  },
+  "porygon-z-shadow": {
+    "rank": 410,
+    "score": 36.2,
+    "speciesId": "porygon_z_shadow",
+    "speciesName": "Porygon-Z (Shadow)"
+  },
+  "tentacruel-shadow": {
+    "rank": 411,
+    "score": 36.2,
+    "speciesId": "tentacruel_shadow",
+    "speciesName": "Tentacruel (Shadow)"
+  },
+  "relicanth": {
+    "rank": 412,
+    "score": 36,
+    "speciesId": "relicanth",
+    "speciesName": "Relicanth"
+  },
+  "regigigas-shadow": {
+    "rank": 413,
+    "score": 35.9,
+    "speciesId": "regigigas_shadow",
+    "speciesName": "Regigigas (Shadow)"
+  },
+  "oranguru": {
+    "rank": 414,
+    "score": 35.8,
+    "speciesId": "oranguru",
+    "speciesName": "Oranguru"
+  },
+  "glaceon": {
+    "rank": 415,
+    "score": 35.7,
+    "speciesId": "glaceon",
+    "speciesName": "Glaceon"
+  },
+  "slowbro": {
+    "rank": 416,
+    "score": 35.6,
+    "speciesId": "slowbro",
+    "speciesName": "Slowbro"
+  },
+  "rhydon": {
+    "rank": 417,
+    "score": 35.4,
+    "speciesId": "rhydon",
+    "speciesName": "Rhydon"
+  },
+  "dudunsparce": {
+    "rank": 418,
+    "score": 35.2,
+    "speciesId": "dudunsparce",
+    "speciesName": "Dudunsparce"
+  },
+  "volcarona": {
+    "rank": 419,
+    "score": 35.1,
+    "speciesId": "volcarona",
+    "speciesName": "Volcarona"
+  },
+  "luxray-shadow": {
+    "rank": 420,
+    "score": 35,
+    "speciesId": "luxray_shadow",
+    "speciesName": "Luxray (Shadow)"
+  },
+  "druddigon": {
+    "rank": 421,
+    "score": 34.9,
+    "speciesId": "druddigon",
+    "speciesName": "Druddigon"
+  },
+  "omastar": {
+    "rank": 422,
+    "score": 34.9,
+    "speciesId": "omastar",
+    "speciesName": "Omastar"
+  },
+  "rhydon-shadow": {
+    "rank": 423,
+    "score": 34.9,
+    "speciesId": "rhydon_shadow",
+    "speciesName": "Rhydon (Shadow)"
+  },
+  "gourgeist-large": {
+    "rank": 424,
+    "score": 34.8,
+    "speciesId": "gourgeist_large",
+    "speciesName": "Gourgeist (Large)"
+  },
+  "revavroom": {
+    "rank": 425,
+    "score": 34.6,
+    "speciesId": "revavroom",
+    "speciesName": "Revavroom"
+  },
+  "slowbro-shadow": {
+    "rank": 426,
+    "score": 34.6,
+    "speciesId": "slowbro_shadow",
+    "speciesName": "Slowbro (Shadow)"
+  },
+  "arcanine-hisuian": {
+    "rank": 427,
+    "score": 34.4,
+    "speciesId": "arcanine_hisuian",
+    "speciesName": "Arcanine (Hisuian)"
+  },
+  "lickilicky": {
+    "rank": 428,
+    "score": 34.3,
+    "speciesId": "lickilicky",
+    "speciesName": "Lickilicky"
+  },
+  "exeggutor": {
+    "rank": 429,
+    "score": 34.2,
+    "speciesId": "exeggutor",
+    "speciesName": "Exeggutor"
+  },
+  "slowking-galarian": {
+    "rank": 430,
+    "score": 34.2,
+    "speciesId": "slowking_galarian",
+    "speciesName": "Slowking (Galarian)"
+  },
+  "glimmora": {
+    "rank": 431,
+    "score": 34,
+    "speciesId": "glimmora",
+    "speciesName": "Glimmora"
+  },
+  "mesprit": {
+    "rank": 432,
+    "score": 34,
+    "speciesId": "mesprit",
+    "speciesName": "Mesprit"
+  },
+  "vanilluxe": {
+    "rank": 433,
+    "score": 34,
+    "speciesId": "vanilluxe",
+    "speciesName": "Vanilluxe"
+  },
+  "umbreon": {
+    "rank": 434,
+    "score": 33.8,
+    "speciesId": "umbreon",
+    "speciesName": "Umbreon"
+  },
+  "braviary": {
+    "rank": 435,
+    "score": 33.6,
+    "speciesId": "braviary",
+    "speciesName": "Braviary"
+  },
+  "luxray": {
+    "rank": 436,
+    "score": 33.6,
+    "speciesId": "luxray",
+    "speciesName": "Luxray"
+  },
+  "coalossal": {
+    "rank": 437,
+    "score": 33.2,
+    "speciesId": "coalossal",
+    "speciesName": "Coalossal"
+  },
+  "crobat": {
+    "rank": 438,
+    "score": 33.2,
+    "speciesId": "crobat",
+    "speciesName": "Crobat"
+  },
+  "azelf": {
+    "rank": 439,
+    "score": 33,
+    "speciesId": "azelf",
+    "speciesName": "Azelf"
+  },
+  "noivern-shadow": {
+    "rank": 440,
+    "score": 32.9,
+    "speciesId": "noivern_shadow",
+    "speciesName": "Noivern (Shadow)"
+  },
+  "rampardos-shadow": {
+    "rank": 441,
+    "score": 32.6,
+    "speciesId": "rampardos_shadow",
+    "speciesName": "Rampardos (Shadow)"
+  },
+  "bouffalant": {
+    "rank": 442,
+    "score": 32.3,
+    "speciesId": "bouffalant",
+    "speciesName": "Bouffalant"
+  },
+  "golem": {
+    "rank": 443,
+    "score": 32.2,
+    "speciesId": "golem",
+    "speciesName": "Golem"
+  },
+  "carracosta": {
+    "rank": 444,
+    "score": 31.7,
+    "speciesId": "carracosta",
+    "speciesName": "Carracosta"
+  },
+  "noivern": {
+    "rank": 445,
+    "score": 31.7,
+    "speciesId": "noivern",
+    "speciesName": "Noivern"
+  },
+  "mr-rime": {
+    "rank": 446,
+    "score": 31.6,
+    "speciesId": "mr_rime",
+    "speciesName": "Mr. Rime"
+  },
+  "slowking": {
+    "rank": 447,
+    "score": 31.5,
+    "speciesId": "slowking",
+    "speciesName": "Slowking"
+  },
+  "wyrdeer": {
+    "rank": 448,
+    "score": 31.1,
+    "speciesId": "wyrdeer",
+    "speciesName": "Wyrdeer"
+  },
+  "golem-shadow": {
+    "rank": 449,
+    "score": 30.8,
+    "speciesId": "golem_shadow",
+    "speciesName": "Golem (Shadow)"
+  },
+  "uxie": {
+    "rank": 450,
+    "score": 30.8,
+    "speciesId": "uxie",
+    "speciesName": "Uxie"
+  },
+  "porygon2": {
+    "rank": 451,
+    "score": 30.4,
+    "speciesId": "porygon2",
+    "speciesName": "Porygon2"
+  },
+  "reuniclus-shadow": {
+    "rank": 452,
+    "score": 30.3,
+    "speciesId": "reuniclus_shadow",
+    "speciesName": "Reuniclus (Shadow)"
+  },
+  "reuniclus": {
+    "rank": 453,
+    "score": 29.7,
+    "speciesId": "reuniclus",
+    "speciesName": "Reuniclus"
+  },
+  "miltank": {
+    "rank": 454,
+    "score": 29.4,
+    "speciesId": "miltank",
+    "speciesName": "Miltank"
+  },
+  "carracosta-shadow": {
+    "rank": 455,
+    "score": 29.3,
+    "speciesId": "carracosta_shadow",
+    "speciesName": "Carracosta (Shadow)"
+  },
+  "sableye-mega": {
+    "rank": 456,
+    "score": 29.3,
+    "speciesId": "sableye_mega",
+    "speciesName": "Sableye (Mega)"
+  },
+  "slowking-shadow": {
+    "rank": 457,
+    "score": 29.3,
+    "speciesId": "slowking_shadow",
+    "speciesName": "Slowking (Shadow)"
+  },
+  "deoxys-defense": {
+    "rank": 458,
+    "score": 29.2,
+    "speciesId": "deoxys_defense",
+    "speciesName": "Deoxys (Defense)"
+  },
+  "yanmega": {
+    "rank": 459,
+    "score": 29,
+    "speciesId": "yanmega",
+    "speciesName": "Yanmega"
+  },
+  "porygon2-shadow": {
+    "rank": 460,
+    "score": 27.9,
+    "speciesId": "porygon2_shadow",
+    "speciesName": "Porygon2 (Shadow)"
+  },
+  "rampardos": {
+    "rank": 461,
+    "score": 27.5,
+    "speciesId": "rampardos",
+    "speciesName": "Rampardos"
+  },
+  "musharna": {
+    "rank": 462,
+    "score": 26.9,
+    "speciesId": "musharna",
+    "speciesName": "Musharna"
+  },
+  "naganadel": {
+    "rank": 463,
+    "score": 26.9,
+    "speciesId": "naganadel",
+    "speciesName": "Naganadel"
+  },
+  "klinklang": {
+    "rank": 464,
+    "score": 26.8,
+    "speciesId": "klinklang",
+    "speciesName": "Klinklang"
+  },
+  "blissey": {
+    "rank": 465,
+    "score": 25.7,
+    "speciesId": "blissey",
+    "speciesName": "Blissey"
+  },
+  "braviary-hisuian": {
+    "rank": 466,
+    "score": 23.3,
+    "speciesId": "braviary_hisuian",
+    "speciesName": "Braviary (Hisuian)"
+  },
+  "deoxys-speed": {
+    "rank": 467,
+    "score": 23.1,
+    "speciesId": "deoxys_speed",
+    "speciesName": "Deoxys (Speed)"
+  },
+  "slaking": {
+    "rank": 468,
+    "score": 19.9,
+    "speciesId": "slaking",
+    "speciesName": "Slaking"
+  },
+  "slaking-shadow": {
+    "rank": 469,
+    "score": 16.4,
+    "speciesId": "slaking_shadow",
+    "speciesName": "Slaking (Shadow)"
+  },
+  "shaymin-land": {
+    "rank": 470,
+    "score": 15.6,
+    "speciesId": "shaymin_land",
+    "speciesName": "Shaymin (Land)"
+  }
+}

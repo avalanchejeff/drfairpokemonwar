@@ -1,0 +1,10 @@
+import fs from "node:fs/promises";
+const file = "./app/data/maxBattleRoles.json";
+const data = JSON.parse(await fs.readFile(file, "utf8"));
+const roles = data.roles;
+roles.DIALGA = { ...(roles.DIALGA ?? {}), identity:"DYNAMAX", status:"ANNOUNCED", debutDate:"2026-11-14" };
+roles.PALKIA = { ...(roles.PALKIA ?? {}), identity:"DYNAMAX", status:"ANNOUNCED", debutDate:"2026-11-15" };
+roles.GIGANTAMAX_DURALUDON = { ...(roles.GIGANTAMAX_DURALUDON ?? {}), identity:"GIGANTAMAX", status:"ANNOUNCED", debutDate:"2026-11-14", debutEndDate:"2026-11-15" };
+data.metadata.announcedFormsUpdated = "2026-09-26";
+await fs.writeFile(file, JSON.stringify(data, null, 2));
+console.log("Added announced Dynamax Dialga, Dynamax Palkia, and Gigantamax Duraludon records.");

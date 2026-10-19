@@ -1,0 +1,513 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import gameMasterRaw from "../data/gameMasterRaw.json";
+import greatRankings from "../data/pvpokeGreatLeague.json";
+import ultraRankings from "../data/pvpokeUltraLeague.json";
+import masterRankings from "../data/pvpokeMasterLeagueStandard.json";
+
+type RankingEntry = {
+  speciesId: string;
+  speciesName: string;
+  moveset?: string[];
+};
+
+type Props = {
+  currentName: string;
+  pokemonId: string;
+  form: string;
+  attack: number;
+  defense: number;
+  stamina: number;
+};
+
+type IVs = { atkIV: number; defIV: number; hpIV: number };
+
+type IvRow = IVs & {
+  attack: number;
+  defense: number;
+  hp: number;
+  statProduct: number;
+  cp: number;
+  level: number;
+  rank: number;
+  statProductPercent: number;
+  topPercent: number;
+};
+
+function findCpMultipliers(value: unknown): number[] | null {
+  if (!value || typeof value !== "object") return null;
+  const record = value as Record<string, unknown>;
+  if (Array.isArray(record.cpMultiplier) && record.cpMultiplier.length >= 51) {
+    return record.cpMultiplier as number[];
+  }
+  const children = Array.isArray(value) ? value : Object.values(record);
+  for (const child of children) {
+    const found = findCpMultipliers(child);
+    if (found) return found;
+  }
+  return null;
+}
+
+const wholeCpms = findCpMultipliers(gameMasterRaw) ?? [];
+const levelTable: { level: number; cpm: number }[] = [];
+for (let level = 1; level <= 51; level++) {
+  const cpm = wholeCpms[level - 1];
+  if (!cpm) continue;
+  levelTable.push({ level, cpm });
+  if (level < 51 && wholeCpms[level]) {
+    levelTable.push({
+      level: level + 0.5,
+      cpm: Math.sqrt((cpm * cpm + wholeCpms[level] * wholeCpms[level]) / 2),
+    });
+  }
+}
+
+function calculateCp(
+  baseAttack: number,
+  baseDefense: number,
+  baseStamina: number,
+  ivs: IVs,
+  cpm: number
+) {
+  return Math.max(
+    10,
+    Math.floor(
+      ((baseAttack + ivs.atkIV) *
+        Math.sqrt(baseDefense + ivs.defIV) *
+        Math.sqrt(baseStamina + ivs.hpIV) *
+        cpm * cpm) /
+        10
+    )
+  );
+}
+
+function bestUnderCap(
+  baseAttack: number,
+  baseDefense: number,
+  baseStamina: number,
+  ivs: IVs,
+  cpCap: number,
+  maxLevel = 50
+) {
+  let best: Omit<IvRow, "rank" | "statProductPercent" | "topPercent"> | null = null;
+  for (const entry of levelTable) {
+    if (entry.level > maxLevel) continue;
+    const currentCp = calculateCp(baseAttack, baseDefense, baseStamina, ivs, entry.cpm);
+    if (currentCp > cpCap) continue;
+    const attack = (baseAttack + ivs.atkIV) * entry.cpm;
+    const defense = (baseDefense + ivs.defIV) * entry.cpm;
+    const hp = Math.max(10, Math.floor((baseStamina + ivs.hpIV) * entry.cpm));
+    best = {
+      ...ivs,
+      attack,
+      defense,
+      hp,
+      statProduct: attack * defense * hp,
+      cp: currentCp,
+      level: entry.level,
+    };
+  }
+  return best;
+}
+
+function rankIvSpreads(
+  baseAttack: number,
+  baseDefense: number,
+  baseStamina: number,
+  cpCap: number,
+  current: IVs
+) {
+  const rows: IvRow[] = [];
+  const provisional = [] as Array<Omit<IvRow, "rank" | "statProductPercent" | "topPercent">>;
+  for (let atkIV = 0; atkIV <= 15; atkIV++) {
+    for (let defIV = 0; defIV <= 15; defIV++) {
+      for (let hpIV = 0; hpIV <= 15; hpIV++) {
+        const row = bestUnderCap(
+          baseAttack,
+          baseDefense,
+          baseStamina,
+          { atkIV, defIV, hpIV },
+          cpCap
+        );
+        if (row) provisional.push(row);
+      }
+    }
+  }
+
+  provisional.sort(
+    (a, b) =>
+      b.statProduct - a.statProduct ||
+      b.attack - a.attack ||
+      b.hp - a.hp ||
+      b.cp - a.cp ||
+      b.hpIV - a.hpIV
+  );
+
+  const bestProduct = provisional[0]?.statProduct ?? 1;
+  provisional.forEach((row, index) => {
+    rows.push({
+      ...row,
+      rank: index + 1,
+      statProductPercent: (row.statProduct / bestProduct) * 100,
+      topPercent: ((index + 1) / provisional.length) * 100,
+    });
+  });
+
+  return {
+    count: rows.length,
+    top5: rows.slice(0, 5),
+    current:
+      rows.find(
+        (row) =>
+          row.atkIV === current.atkIV &&
+          row.defIV === current.defIV &&
+          row.hpIV === current.hpIV
+      ) ?? null,
+  };
+}
+
+function rankMasterIvSpreads(
+  baseAttack: number,
+  baseDefense: number,
+  baseStamina: number,
+  current: IVs,
+  level = 50
+) {
+  const levelEntry = levelTable.find((entry) => entry.level === level);
+  if (!levelEntry) {
+    return { count: 0, top5: [] as IvRow[], current: null as IvRow | null };
+  }
+
+  const provisional = [] as Array<
+    Omit<IvRow, "rank" | "statProductPercent" | "topPercent">
+  >;
+
+  for (let atkIV = 0; atkIV <= 15; atkIV++) {
+    for (let defIV = 0; defIV <= 15; defIV++) {
+      for (let hpIV = 0; hpIV <= 15; hpIV++) {
+        const ivs = { atkIV, defIV, hpIV };
+        const attackStat = (baseAttack + atkIV) * levelEntry.cpm;
+        const defenseStat = (baseDefense + defIV) * levelEntry.cpm;
+        const hp = Math.max(
+          10,
+          Math.floor((baseStamina + hpIV) * levelEntry.cpm)
+        );
+
+        provisional.push({
+          ...ivs,
+          attack: attackStat,
+          defense: defenseStat,
+          hp,
+          statProduct: attackStat * defenseStat * hp,
+          cp: calculateCp(
+            baseAttack,
+            baseDefense,
+            baseStamina,
+            ivs,
+            levelEntry.cpm
+          ),
+          level,
+        });
+      }
+    }
+  }
+
+  provisional.sort(
+    (a, b) =>
+      b.statProduct - a.statProduct ||
+      b.attack - a.attack ||
+      b.hp - a.hp ||
+      b.cp - a.cp ||
+      b.hpIV - a.hpIV
+  );
+
+  const bestProduct = provisional[0]?.statProduct ?? 1;
+  const rows: IvRow[] = provisional.map((row, index) => ({
+    ...row,
+    rank: index + 1,
+    statProductPercent: (row.statProduct / bestProduct) * 100,
+    topPercent: ((index + 1) / provisional.length) * 100,
+  }));
+
+  return {
+    count: rows.length,
+    top5: rows.slice(0, 5),
+    current:
+      rows.find(
+        (row) =>
+          row.atkIV === current.atkIV &&
+          row.defIV === current.defIV &&
+          row.hpIV === current.hpIV
+      ) ?? null,
+  };
+}
+
+function pvpokeIdCandidates(currentName: string, pokemonId: string, form: string) {
+  const names = new Set<string>();
+  names.add(currentName.replaceAll("-", "_"));
+  const base = pokemonId.toLowerCase();
+  const suffix = form
+    .toLowerCase()
+    .replace(`${pokemonId.toLowerCase()}_`, "")
+    .replace("normal", "");
+  if (suffix) names.add(`${base}_${suffix}`);
+  names.add(base);
+  return [...names];
+}
+
+function findMeta(
+  rankings: RankingEntry[],
+  currentName: string,
+  pokemonId: string,
+  form: string
+) {
+  const ids = pvpokeIdCandidates(currentName, pokemonId, form);
+  const index = rankings.findIndex((row) => ids.includes(row.speciesId));
+  if (index < 0) return null;
+  return { rank: index + 1, total: rankings.length, entry: rankings[index] };
+}
+
+function formatMove(move: string) {
+  return move
+    .split("_")
+    .map((part) => part.charAt(0) + part.slice(1).toLowerCase())
+    .join(" ");
+}
+
+export default function PvpAnalysisPanel({
+  currentName,
+  pokemonId,
+  form,
+  attack,
+  defense,
+  stamina,
+}: Props) {
+  const [ivs, setIvs] = useState<IVs>({ atkIV: 15, defIV: 15, hpIV: 15 });
+
+  useEffect(() => {
+    function handleBuildChange(event: Event) {
+      const detail = (event as CustomEvent<{
+        currentName: string;
+        attackIV: number;
+        defenseIV: number;
+        hpIV: number;
+      }>).detail;
+      if (!detail || detail.currentName !== currentName) return;
+      setIvs({ atkIV: detail.attackIV, defIV: detail.defenseIV, hpIV: detail.hpIV });
+    }
+    window.addEventListener("pokemon-build-change", handleBuildChange);
+    return () => window.removeEventListener("pokemon-build-change", handleBuildChange);
+  }, [currentName]);
+
+  const great = useMemo(
+    () => rankIvSpreads(attack, defense, stamina, 1500, ivs),
+    [attack, defense, stamina, ivs]
+  );
+  const ultra = useMemo(
+    () => rankIvSpreads(attack, defense, stamina, 2500, ivs),
+    [attack, defense, stamina, ivs]
+  );
+  const master = useMemo(
+    () => rankMasterIvSpreads(attack, defense, stamina, ivs),
+    [attack, defense, stamina, ivs]
+  );
+
+  const greatMeta = findMeta(greatRankings as RankingEntry[], currentName, pokemonId, form);
+  const ultraMeta = findMeta(ultraRankings as RankingEntry[], currentName, pokemonId, form);
+  const masterMeta = findMeta(masterRankings as RankingEntry[], currentName, pokemonId, form);
+
+  return (
+    <section className="rounded-2xl border border-zinc-700 bg-zinc-900 p-6">
+      <h2 className="text-3xl font-bold">PvP Analysis</h2>
+      <p className="mt-2 text-zinc-400">
+        Meta relevance comes from PvPoke. IV rank compares this exact IV spread with all 4,096 spreads for this Pokémon under each league cap.
+      </p>
+
+      <div className="mt-6 space-y-5">
+        <LeagueBand title="Great League" cap="1500 CP" meta={greatMeta} ivData={great} ivs={ivs} />
+        <LeagueBand title="Ultra League" cap="2500 CP" meta={ultraMeta} ivData={ultra} ivs={ivs} />
+        <MasterBand meta={masterMeta} ivData={master} ivs={ivs} />
+      </div>
+
+      <div className="mt-6 rounded-xl border border-zinc-700 bg-zinc-950 p-4">
+        <div className="text-sm font-black">IV QUALITY GUIDE</div>
+        <div className="mt-3 grid gap-2 text-sm sm:grid-cols-5">
+          <GuideItem label="Elite" value="Top 1%" />
+          <GuideItem label="Excellent" value="Top 5%" />
+          <GuideItem label="Good" value="Top 10%" />
+          <GuideItem label="Viable" value="Top 25%" />
+          <GuideItem label="Niche" value="Remaining" />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function LeagueBand({
+  title,
+  cap,
+  meta,
+  ivData,
+  ivs,
+}: {
+  title: string;
+  cap: string;
+  meta: ReturnType<typeof findMeta>;
+  ivData: ReturnType<typeof rankIvSpreads>;
+  ivs: IVs;
+}) {
+  const current = ivData.current;
+  return (
+    <div className="rounded-2xl border border-zinc-700 bg-zinc-950 p-5">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h3 className="text-2xl font-black">{title}</h3>
+          <p className="text-sm text-zinc-500">{cap}</p>
+        </div>
+        <div className="text-sm text-zinc-400">
+          Current IVs: {ivs.atkIV}/{ivs.defIV}/{ivs.hpIV}
+        </div>
+      </div>
+
+      <div className="mt-4 grid gap-3 md:grid-cols-4">
+        <Metric label="META RANK" value={meta ? `#${meta.rank} / ${meta.total}` : "Not ranked"} />
+        <Metric label="IV RANK" value={current ? `#${current.rank} / ${ivData.count}` : "—"} />
+        <Metric label="TOP" value={current ? `${current.topPercent.toFixed(2)}%` : "—"} />
+        <Metric label="STAT PRODUCT" value={current ? `${current.statProductPercent.toFixed(2)}%` : "—"} />
+      </div>
+
+      <div className="mt-4 grid gap-4 lg:grid-cols-[1.25fr_.75fr]">
+        <TopFive rows={ivData.top5} />
+        <div className="rounded-xl border border-zinc-700 bg-zinc-900 p-4">
+          <div className="text-xs font-bold tracking-wide text-zinc-500">PvPoke RECOMMENDED MOVESET</div>
+          <div className="mt-3 space-y-2 font-bold">
+            {meta?.entry.moveset?.length
+              ? meta.entry.moveset.map((move) => <div key={move}>{formatMove(move)}</div>)
+              : <div className="text-zinc-500">Unavailable</div>}
+          </div>
+          {current && (
+            <div className="mt-5 border-t border-zinc-700 pt-4 text-sm text-zinc-400">
+              Target Level {current.level} · CP {current.cp}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MasterBand({
+  meta,
+  ivData,
+  ivs,
+}: {
+  meta: ReturnType<typeof findMeta>;
+  ivData: ReturnType<typeof rankMasterIvSpreads>;
+  ivs: IVs;
+}) {
+  const current = ivData.current;
+
+  return (
+    <div className="rounded-2xl border border-zinc-700 bg-zinc-950 p-5">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h3 className="text-2xl font-black">Master League</h3>
+          <p className="text-sm text-zinc-500">No CP cap · Level 50 comparison</p>
+        </div>
+        <div className="text-sm text-zinc-400">
+          Current IVs: {ivs.atkIV}/{ivs.defIV}/{ivs.hpIV}
+        </div>
+      </div>
+
+      <div className="mt-4 grid gap-3 md:grid-cols-4">
+        <Metric
+          label="META RANK"
+          value={meta ? `#${meta.rank} / ${meta.total}` : "Not ranked"}
+        />
+        <Metric
+          label="IV RANK"
+          value={current ? `#${current.rank} / ${ivData.count}` : "—"}
+        />
+        <Metric
+          label="TOP"
+          value={current ? `${current.topPercent.toFixed(2)}%` : "—"}
+        />
+        <Metric
+          label="STAT PRODUCT"
+          value={current ? `${current.statProductPercent.toFixed(2)}%` : "—"}
+        />
+      </div>
+
+      <div className="mt-4 grid gap-4 lg:grid-cols-[1.25fr_.75fr]">
+        <TopFive rows={ivData.top5} />
+
+        <div className="rounded-xl border border-zinc-700 bg-zinc-900 p-4">
+          <div className="text-xs font-bold tracking-wide text-zinc-500">
+            PvPoke RECOMMENDED MOVESET
+          </div>
+          <div className="mt-3 space-y-2 font-bold">
+            {meta?.entry.moveset?.length ? (
+              meta.entry.moveset.map((move) => (
+                <div key={move}>{formatMove(move)}</div>
+              ))
+            ) : (
+              <div className="text-zinc-500">Unavailable</div>
+            )}
+          </div>
+
+          {current && (
+            <div className="mt-5 border-t border-zinc-700 pt-4 text-sm text-zinc-400">
+              Level {current.level} · CP {current.cp}
+              <br />
+              Rank 1 IVs: 15/15/15
+              {ivs.atkIV === 15 ? (
+                <span className="mt-2 block font-bold text-green-400">
+                  15 Attack IV retained for CMP potential
+                </span>
+              ) : null}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TopFive({ rows }: { rows: IvRow[] }) {
+  return (
+    <div className="overflow-hidden rounded-xl border border-zinc-700">
+      <div className="bg-zinc-900 px-4 py-3 text-sm font-black">TOP 5 IV SPREADS</div>
+      <div className="grid grid-cols-[48px_1fr_70px_70px_90px] bg-zinc-800 px-3 py-2 text-xs font-bold text-zinc-400">
+        <span>Rank</span><span>IVs</span><span>Level</span><span>CP</span><span>Stat Prod.</span>
+      </div>
+      {rows.map((row) => (
+        <div key={`${row.atkIV}-${row.defIV}-${row.hpIV}`} className="grid grid-cols-[48px_1fr_70px_70px_90px] border-t border-zinc-800 px-3 py-2 text-sm">
+          <span>#{row.rank}</span>
+          <span className="font-bold">{row.atkIV}/{row.defIV}/{row.hpIV}</span>
+          <span>{row.level}</span>
+          <span>{row.cp}</span>
+          <span>{row.statProductPercent.toFixed(2)}%</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Metric({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-xl border border-zinc-700 bg-zinc-900 p-4">
+      <div className="text-xs font-bold tracking-wide text-zinc-500">{label}</div>
+      <div className="mt-2 text-xl font-black">{value}</div>
+    </div>
+  );
+}
+
+function GuideItem({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-lg bg-zinc-900 p-3">
+      <div className="font-black">{label}</div>
+      <div className="text-zinc-400">{value}</div>
+    </div>
+  );
+}

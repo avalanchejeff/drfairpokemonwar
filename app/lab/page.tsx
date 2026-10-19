@@ -1,0 +1,727 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import warRankings from "../data/benchmarkRankings2026.json";
+import movePoolsData from "../data/movePools.json";
+import greatLeagueData from "../data/pvpokeGreatLeague.json";
+import ultraLeagueData from "../data/pvpokeUltraLeague.json";
+import masterLeagueData from "../data/pvpokeMasterLeague.json";
+import { detectLevelFromCp, rankPvpIvs, type LeagueKey } from "../lib/pvpIvCalculator";
+
+type MoveRecord = {
+  id: string;
+  name: string;
+  category: "fast" | "charged";
+  legacy: boolean;
+  type: string;
+  power: number;
+  energyDelta: number;
+  durationMs: number;
+};
+
+type MovePool = {
+  pokemonId: string;
+  form?: string | null;
+  templateId?: string;
+  fastMoves: MoveRecord[];
+  chargedMoves: MoveRecord[];
+};
+
+type PvpEntry = {
+  speciesId: string;
+  speciesName: string;
+  score: number;
+  moveset: string[];
+};
+
+type WarRecord = {
+  name: string;
+  displayName: string;
+  pokemonId: string;
+  form?: string | null;
+  attack: number;
+  defense: number;
+  stamina: number;
+  primaryType: string;
+  secondaryType?: string | null;
+  bestFastMove?: string;
+  bestChargedMove?: string;
+  dps?: number;
+  dbd?: number;
+  charge?: number;
+  psv?: number;
+  overallRank?: number;
+  tier?: string;
+};
+
+const records = warRankings as WarRecord[];
+const movePools = Object.values(movePoolsData) as MovePool[];
+const leagueData: Record<LeagueKey, PvpEntry[]> = {
+  great: greatLeagueData as PvpEntry[],
+  ultra: ultraLeagueData as PvpEntry[],
+  master: masterLeagueData as PvpEntry[],
+};
+const leagueLabels: Record<LeagueKey, string> = {
+  great: "Great League",
+  ultra: "Ultra League",
+  master: "Master League",
+};
+
+function speciesLabel(id: string) {
+  return id
+    .toLowerCase()
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+function formLabel(record: WarRecord) {
+  const species = speciesLabel(record.pokemonId);
+  const display = record.displayName.trim();
+  const remainder = display.toLowerCase().startsWith(species.toLowerCase())
+    ? display.slice(species.length).trim()
+    : display;
+  return remainder || "Normal";
+}
+
+function pvpCandidates(record: WarRecord) {
+  const slug = record.name.replaceAll("-", "_").toLowerCase();
+  const base = record.pokemonId.toLowerCase();
+  const form = record.form?.toLowerCase() ?? "";
+  const candidates = new Set([slug, base]);
+
+  if (form) {
+    const suffix = form
+      .replace(new RegExp(
+        "^" + record.pokemonId.toLowerCase() + "_?"
+      ), "")
+      .replace(/^normal$/, "");
+    if (suffix) candidates.add(base + "_" + suffix);
+  }
+
+  if (slug.startsWith("shadow_")) {
+    candidates.add(slug.replace(/^shadow_(.+)$/, "$1_shadow"));
+  }
+  if (slug.endsWith("_shadow")) {
+    candidates.add(slug.replace(/^(.+)_shadow$/, "shadow_$1"));
+  }
+
+  return [...candidates];
+}
+
+function findPvpEntry(record: WarRecord, league: LeagueKey) {
+  const candidates = pvpCandidates(record);
+  return (
+    leagueData[league].find((entry) => candidates.includes(entry.speciesId)) ??
+    null
+  );
+}
+
+function moveLabel(id: string) {
+  return id
+    .toLowerCase()
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+const pending = <span className="text-zinc-500">Pending</span>;
+
+export default function LabPage() {
+  const speciesOptions = useMemo(
+    () =>
+      Array.from(new Set(records.map((record) => record.pokemonId))).sort(
+        (a, b) => speciesLabel(a).localeCompare(speciesLabel(b))
+      ),
+    []
+  );
+
+  const [pokemonId, setPokemonId] = useState("");
+  const [recordName, setRecordName] = useState("");
+  const [cp, setCp] = useState("");
+  const [attack, setAttack] = useState("15");
+  const [defense, setDefense] = useState("15");
+  const [hp, setHp] = useState("15");
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
+  const [maxType, setMaxType] = useState("Standard");
+  const [fastMove, setFastMove] = useState("");
+  const [chargedMove1, setChargedMove1] = useState("");
+  const [chargedMove2, setChargedMove2] = useState("");
+
+  const formOptions = useMemo(
+    () => records.filter((record) => record.pokemonId === pokemonId),
+    [pokemonId]
+  );
+
+  const selectedRecord = useMemo(
+    () => records.find((record) => record.name === recordName) ?? null,
+    [recordName]
+  );
+
+  const selectedMovePool = useMemo(() => {
+    if (!selectedRecord) return null;
+
+    const sameSpecies = movePools.filter(
+      (pool) => pool.pokemonId === selectedRecord.pokemonId
+    );
+
+    const exactForm = sameSpecies.find(
+      (pool) => pool.form === selectedRecord.form
+    );
+    if (exactForm) return exactForm;
+
+    if (!selectedRecord.form) {
+      return (
+        sameSpecies.find(
+          (pool) => pool.form === `${selectedRecord.pokemonId}_NORMAL`
+        ) ??
+        sameSpecies.find((pool) => pool.form === "NORMAL") ??
+        sameSpecies.find((pool) => !pool.form) ??
+        null
+      );
+    }
+
+    return null;
+  }, [selectedRecord]);
+
+  useEffect(() => {
+    const fastMoves = selectedMovePool?.fastMoves ?? [];
+    const chargedMoves = selectedMovePool?.chargedMoves ?? [];
+
+    setFastMove(
+      fastMoves.find((move) => move.id === selectedRecord?.bestFastMove)?.id ??
+        fastMoves[0]?.id ??
+        ""
+    );
+    setChargedMove1(
+      chargedMoves.find(
+        (move) => move.id === selectedRecord?.bestChargedMove
+      )?.id ??
+        chargedMoves[0]?.id ??
+        ""
+    );
+    setChargedMove2("");
+  }, [selectedMovePool, selectedRecord]);
+
+  function selectPokemon(id: string) {
+    setPokemonId(id);
+    const matches = records.filter((record) => record.pokemonId === id);
+    const preferred =
+      matches.find((record) => formLabel(record) === "Normal") ??
+      matches[0] ??
+      null;
+    setRecordName(preferred?.name ?? "");
+  }
+
+  const currentIVs = useMemo(
+    () => ({
+      atkIV: Number(attack),
+      defIV: Number(defense),
+      hpIV: Number(hp),
+    }),
+    [attack, defense, hp]
+  );
+
+  const pvpMeta = useMemo(() => {
+    if (!selectedRecord) return null;
+
+    const choices = (["great", "ultra", "master"] as LeagueKey[])
+      .map((league) => {
+        const entry = findPvpEntry(selectedRecord, league);
+        if (!entry) return null;
+        const rank =
+          leagueData[league].findIndex(
+            (candidate) => candidate.speciesId === entry.speciesId
+          ) + 1;
+        return { league, entry, rank };
+      })
+      .filter(Boolean) as { league: LeagueKey; entry: PvpEntry; rank: number }[];
+
+    if (!choices.length) return null;
+    choices.sort((a, b) => b.entry.score - a.entry.score || a.rank - b.rank);
+    return choices[0];
+  }, [selectedRecord]);
+
+  const pvpIvResult = useMemo(() => {
+    if (!selectedRecord || !pvpMeta) return null;
+    if (![currentIVs.atkIV, currentIVs.defIV, currentIVs.hpIV].every(Number.isFinite)) {
+      return null;
+    }
+
+    return rankPvpIvs({
+      baseAttack: selectedRecord.attack,
+      baseDefense: selectedRecord.defense,
+      baseStamina: selectedRecord.stamina,
+      league: pvpMeta.league,
+      currentIVs,
+    });
+  }, [selectedRecord, pvpMeta, currentIVs]);
+
+  const detectedLevels = useMemo(() => {
+    if (!selectedRecord || !cp.trim()) return [];
+    return detectLevelFromCp({
+      baseAttack: selectedRecord.attack,
+      baseDefense: selectedRecord.defense,
+      baseStamina: selectedRecord.stamina,
+      currentIVs,
+      cp: Number(cp),
+    });
+  }, [selectedRecord, currentIVs, cp]);
+
+  const detectedLevelText = !cp.trim()
+    ? "--.-"
+    : detectedLevels.length === 1
+      ? detectedLevels[0].toFixed(1)
+      : detectedLevels.length > 1
+        ? detectedLevels.join(" / ")
+        : "No match";
+
+  const specimenValueText = pvpIvResult
+    ? pvpIvResult.current.statProductPercent.toFixed(2) + "%"
+    : "--.-%";
+
+  const field =
+    "w-full rounded-xl border border-zinc-700 bg-zinc-900 px-3 py-3 text-white outline-none focus:border-cyan-400";
+  const label =
+    "text-xs font-bold uppercase tracking-[0.18em] text-zinc-400";
+
+  return (
+    <main className="min-h-screen scroll-smooth bg-black">
+      <div className="relative mx-auto h-screen w-fit">
+        <img
+          src="/lab/dr-fairs-lab.png"
+          alt="Dr. Fair Lab"
+          className="h-screen w-screen object-contain"
+        />
+
+        <div className="absolute left-[16%] top-[2%] w-[50%] rounded-2xl border-2 border-cyan-500 bg-white/95 px-3 py-2 text-[11px] font-semibold leading-snug text-zinc-900 shadow-xl md:text-sm">
+          Welcome to my lab! If you want me to inspect your Pokémon, come over
+          to the counter. If you want to compare Pokémon, let&apos;s go to the
+          whiteboard.
+        </div>
+
+        <a
+          href="#analyzer"
+          aria-label="Inspect your Pokemon at the counter"
+          title="Inspect your Pokemon"
+          className="absolute bottom-[3%] left-[20%] h-[25%] w-[60%] cursor-pointer rounded-2xl border-2 border-transparent bg-cyan-400/0 transition hover:border-cyan-300/80 hover:bg-cyan-400/10"
+        />
+      </div>
+
+      <section
+        id="analyzer"
+        className="min-h-screen bg-zinc-950 px-4 py-12 text-white"
+      >
+        <div className="mx-auto max-w-7xl">
+          <header className="mb-8 text-center">
+            <p className="text-sm font-bold uppercase tracking-[0.3em] text-cyan-400">
+              Dr. Fair&apos;s Lab
+            </p>
+            <h2 className="mt-3 text-4xl font-black md:text-5xl">
+              Pokémon Assessment
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-zinc-400">
+              Enter the specimen details. Dr. Fair will evaluate the individual
+              Pokémon, its meta value, and whether it is worth keeping or
+              investing in.
+            </p>
+          </header>
+
+          <section className="rounded-3xl border border-zinc-800 bg-zinc-900/70 p-5 md:p-6">
+            <h3 className="text-2xl font-black">Specimen Details</h3>
+
+            <div className="mt-5 grid gap-4 lg:grid-cols-2">
+              <label className="flex items-center gap-3">
+                <span className="w-20 shrink-0 text-sm font-bold text-zinc-300">
+                  Pokémon
+                </span>
+                <select
+                  className={field}
+                  value={pokemonId}
+                  onChange={(event) => selectPokemon(event.target.value)}
+                >
+                  <option value="">Select a Pokémon</option>
+                  {speciesOptions.map((id) => (
+                    <option key={id} value={id}>
+                      {speciesLabel(id)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              <label className="flex items-center gap-3">
+                <span className="w-14 shrink-0 text-sm font-bold text-zinc-300">
+                  Form
+                </span>
+                <select
+                  className={field}
+                  value={recordName}
+                  onChange={(event) => setRecordName(event.target.value)}
+                  disabled={!pokemonId}
+                >
+                  {!pokemonId && (
+                    <option value="">Select Pokémon first</option>
+                  )}
+                  {formOptions.map((record) => (
+                    <option key={record.name} value={record.name}>
+                      {formLabel(record)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+
+            <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              <label>
+                <span className={label}>CP</span>
+                <input
+                  className={`mt-2 ${field}`}
+                  inputMode="numeric"
+                  value={cp}
+                  onChange={(event) => setCp(event.target.value)}
+                  placeholder="CP"
+                />
+              </label>
+
+              <label>
+                <span className={label}>Attack</span>
+                <input
+                  className={`mt-2 ${field}`}
+                  type="number"
+                  min="0"
+                  max="15"
+                  value={attack}
+                  onChange={(event) => setAttack(event.target.value)}
+                />
+              </label>
+
+              <label>
+                <span className={label}>Defense</span>
+                <input
+                  className={`mt-2 ${field}`}
+                  type="number"
+                  min="0"
+                  max="15"
+                  value={defense}
+                  onChange={(event) => setDefense(event.target.value)}
+                />
+              </label>
+
+              <label>
+                <span className={label}>HP</span>
+                <input
+                  className={`mt-2 ${field}`}
+                  type="number"
+                  min="0"
+                  max="15"
+                  value={hp}
+                  onChange={(event) => setHp(event.target.value)}
+                />
+              </label>
+            </div>
+
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <label>
+                <span className={label}>Height</span>
+                <div className="relative mt-2">
+                  <input
+                    className={`${field} pr-12`}
+                    inputMode="decimal"
+                    value={height}
+                    onChange={(event) => setHeight(event.target.value)}
+                    placeholder="0.00"
+                  />
+                  <span className="absolute bottom-3 right-3 text-sm text-zinc-500">
+                    m
+                  </span>
+                </div>
+              </label>
+
+              <label>
+                <span className={label}>Weight</span>
+                <div className="relative mt-2">
+                  <input
+                    className={`${field} pr-12`}
+                    inputMode="decimal"
+                    value={weight}
+                    onChange={(event) => setWeight(event.target.value)}
+                    placeholder="0.00"
+                  />
+                  <span className="absolute bottom-3 right-3 text-sm text-zinc-500">
+                    kg
+                  </span>
+                </div>
+              </label>
+            </div>
+
+            <h4 className="mt-5 text-sm font-black uppercase tracking-[0.18em] text-cyan-300">
+              Moves
+            </h4>
+
+            {selectedMovePool ? (
+              <div className="mt-3 grid gap-3 lg:grid-cols-3">
+                <label>
+                  <span className={label}>Fast Move</span>
+                  <select
+                    className={`mt-2 ${field}`}
+                    value={fastMove}
+                    onChange={(event) => setFastMove(event.target.value)}
+                  >
+                    {selectedMovePool.fastMoves.map((move) => (
+                      <option key={move.id} value={move.id}>
+                        {move.name}
+                        {move.legacy ? " ★ Legacy" : ""}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
+                <label>
+                  <span className={label}>Charged Move 1</span>
+                  <select
+                    className={`mt-2 ${field}`}
+                    value={chargedMove1}
+                    onChange={(event) => setChargedMove1(event.target.value)}
+                  >
+                    {selectedMovePool.chargedMoves.map((move) => (
+                      <option key={move.id} value={move.id}>
+                        {move.name}
+                        {move.legacy ? " ★ Legacy" : ""}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
+                <label>
+                  <span className={label}>Charged Move 2</span>
+                  <select
+                    className={`mt-2 ${field}`}
+                    value={chargedMove2}
+                    onChange={(event) => setChargedMove2(event.target.value)}
+                  >
+                    <option value="">None / Not unlocked</option>
+                    {selectedMovePool.chargedMoves
+                      .filter((move) => move.id !== chargedMove1)
+                      .map((move) => (
+                        <option key={move.id} value={move.id}>
+                          {move.name}
+                          {move.legacy ? " ★ Legacy" : ""}
+                        </option>
+                      ))}
+                  </select>
+                </label>
+              </div>
+            ) : (
+              <div className="mt-3 rounded-xl border border-amber-900/70 bg-amber-950/20 px-4 py-3 text-sm text-amber-200">
+                {selectedRecord
+                  ? "No form-specific move pool is available for this WAR record yet."
+                  : "Select a Pokémon and form to load its moves."}
+              </div>
+            )}
+
+            <div className="mt-5 flex flex-col gap-3 lg:flex-row lg:items-center">
+              <span className="shrink-0 text-sm font-bold text-zinc-300">
+                Max
+              </span>
+              <div className="grid flex-1 grid-cols-3 gap-2">
+                {["Standard", "Dynamax", "Gigantamax"].map((type) => (
+                  <button
+                    key={type}
+                    type="button"
+                    onClick={() => setMaxType(type)}
+                    className={`rounded-xl border px-3 py-3 text-sm font-bold transition ${
+                      maxType === type
+                        ? "border-cyan-400 bg-cyan-400/15 text-cyan-200"
+                        : "border-zinc-700 bg-zinc-900 text-zinc-400 hover:border-zinc-500"
+                    }`}
+                  >
+                    {type}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="mt-6 rounded-3xl border border-cyan-900/70 bg-gradient-to-r from-cyan-950/30 to-zinc-900 p-6">
+            <p className="text-center text-xs font-bold uppercase tracking-[0.3em] text-cyan-400">
+              Dr. Fair&apos;s Assessment
+            </p>
+            <h3 className="mt-2 text-center text-3xl font-black">
+              {selectedRecord?.displayName ?? "Awaiting Specimen"}
+            </h3>
+
+            <div className="mt-5 grid gap-4 sm:grid-cols-3">
+              <AssessmentTile
+                label="PSV Value"
+                value="--.-"
+                color="text-cyan-300"
+              />
+              <AssessmentTile
+                label="Level"
+                value={detectedLevelText}
+                note={detectedLevels.length > 1 ? "Multiple matches" : "Auto-detected"}
+                color="text-white"
+              />
+              <AssessmentTile
+                label="Specimen Value"
+                value={specimenValueText}
+                note={pvpIvResult ? `${pvpIvResult.quality} PvP fit` : "Optimal potential"}
+                color="text-emerald-300"
+              />
+            </div>
+          </section>
+
+          <section className="mt-6 rounded-3xl border border-zinc-800 bg-zinc-900/60 p-6">
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-amber-400">
+              Pokémon Value
+            </p>
+            <h3 className="mt-2 text-3xl font-black">Meta Value</h3>
+
+            <div className="mt-6 grid gap-4 lg:grid-cols-3">
+              <MetaCard
+                title="Raid Meta"
+                color="red"
+                rows={[
+                  "Overall Rank",
+                  "Type Rank",
+                  "Raid PSV",
+                  "Ideal Raid Build",
+                ]}
+              />
+              <div className="rounded-2xl border border-blue-900/60 bg-blue-950/10 p-5">
+                <h4 className="text-xl font-black text-blue-300">PvP Meta</h4>
+                {pvpMeta && pvpIvResult ? (
+                  <div className="mt-4 space-y-3 text-sm text-white">
+                    <ResultRow label="Recommended League" value={leagueLabels[pvpMeta.league]} />
+                    <ResultRow label="Meta Rank" value={`#${pvpMeta.rank} • Score ${pvpMeta.entry.score.toFixed(1)}`} />
+                    <ResultRow label="Your IV Rank" value={`#${pvpIvResult.current.rank} of ${pvpIvResult.count.toLocaleString()}`} />
+                    <ResultRow label="Optimal Potential" value={pvpIvResult.current.statProductPercent.toFixed(2) + "%"} />
+                    <ResultRow label="Quality" value={pvpIvResult.quality} />
+                    <ResultRow label="Ideal PvP IVs" value={`${pvpIvResult.best.atkIV} / ${pvpIvResult.best.defIV} / ${pvpIvResult.best.hpIV}`} />
+                    <ResultRow label="Ideal PvP Build" value={pvpMeta.entry.moveset.map(moveLabel).join(" • ")} stacked />
+                  </div>
+                ) : (
+                  <p className="mt-4 text-sm text-zinc-500">
+                    {selectedRecord ? "No matching PvP ranking was found for this form." : "Select a Pokémon and form."}
+                  </p>
+                )}
+              </div>
+              <MetaCard
+                title="Max Battle"
+                color="purple"
+                rows={[
+                  "Best Role",
+                  "Attacker",
+                  "Tank",
+                  "Healer",
+                  "Recommended Max Attack",
+                ]}
+              />
+            </div>
+          </section>
+
+          <section className="mt-6 rounded-3xl border border-zinc-800 bg-zinc-900/60 p-6">
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-lime-400">
+              Size &amp; Showcase Value
+            </p>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-2xl bg-black/20 p-5">
+                <div className="text-sm text-zinc-400">Size Percentile</div>
+                <div className="mt-2 text-3xl font-black">Pending</div>
+              </div>
+              <div className="rounded-2xl bg-black/20 p-5">
+                <div className="text-sm text-zinc-400">
+                  Showcase Potential
+                </div>
+                <div className="mt-2 text-3xl font-black">Pending</div>
+              </div>
+            </div>
+          </section>
+
+          <section className="mt-6 rounded-3xl border-2 border-cyan-800 bg-gradient-to-r from-cyan-950/40 to-zinc-900 p-7 text-center">
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-cyan-400">
+              Dr. Fair&apos;s Recommendation
+            </p>
+            <h3 className="mt-3 text-4xl font-black">Awaiting Analysis</h3>
+            <p className="mx-auto mt-3 max-w-3xl text-zinc-400">
+              Keep / invest guidance will appear here after specimen, Raid,
+              PvP, Max Battle, and size value are evaluated.
+            </p>
+          </section>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function AssessmentTile({
+  label,
+  value,
+  note,
+  color,
+}: {
+  label: string;
+  value: string;
+  note?: string;
+  color: string;
+}) {
+  return (
+    <div className="rounded-2xl bg-black/20 p-5 text-center">
+      <div className="text-xs font-bold uppercase tracking-widest text-zinc-500">
+        {label}
+      </div>
+      <div className={`mt-2 text-4xl font-black ${color}`}>{value}</div>
+      {note && <div className="mt-1 text-xs text-zinc-600">{note}</div>}
+    </div>
+  );
+}
+
+function ResultRow({
+  label,
+  value,
+  stacked = false,
+}: {
+  label: string;
+  value: string;
+  stacked?: boolean;
+}) {
+  return (
+    <div className={stacked ? "space-y-1" : "flex justify-between gap-4"}>
+      <span className="text-zinc-300">{label}</span>
+      <span className={stacked ? "block font-bold text-blue-100" : "text-right font-bold text-blue-100"}>
+        {value}
+      </span>
+    </div>
+  );
+}
+
+function MetaCard({
+  title,
+  color,
+  rows,
+}: {
+  title: string;
+  color: "red" | "blue" | "purple";
+  rows: string[];
+}) {
+  const styles = {
+    red: "border-red-900/60 bg-red-950/10 text-red-300",
+    blue: "border-blue-900/60 bg-blue-950/10 text-blue-300",
+    purple: "border-purple-900/60 bg-purple-950/10 text-purple-300",
+  };
+
+  return (
+    <div className={`rounded-2xl border p-5 ${styles[color]}`}>
+      <h4 className="text-xl font-black">{title}</h4>
+      <div className="mt-4 space-y-3 text-sm text-white">
+        {rows.map((row) => (
+          <div key={row} className="flex justify-between gap-4">
+            <span>{row}</span>
+            {pending}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,187 @@
+import fs from "node:fs/promises";
+
+const gameMaster = JSON.parse(
+  await fs.readFile("./app/data/gameMasterRaw.json", "utf8")
+);
+
+function findCpMultipliers(value) {
+  if (!value || typeof value !== "object") return null;
+  if (Array.isArray(value.cpMultiplier) && value.cpMultiplier.length >= 51) {
+    return value.cpMultiplier;
+  }
+  if (Array.isArray(value)) {
+    for (const child of value) {
+      const found = findCpMultipliers(child);
+      if (found) return found;
+    }
+  } else {
+    for (const child of Object.values(value)) {
+      const found = findCpMultipliers(child);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
+const whole = findCpMultipliers(gameMaster);
+if (!whole) throw new Error("Could not find cpMultiplier array in gameMasterRaw.json");
+
+const levels = [];
+for (let level = 1; level <= 51; level++) {
+  const cpm = whole[level - 1];
+  levels.push({ level, cpm });
+  if (level < 51) {
+    const next = whole[level];
+    const half = Math.sqrt((cpm * cpm + next * next) / 2);
+    levels.push({ level: level + 0.5, cpm: half });
+  }
+}
+
+function cp(baseAttack, baseDefense, baseStamina, atkIV, defIV, hpIV, cpm) {
+  return Math.max(
+    10,
+    Math.floor(
+      ((baseAttack + atkIV) *
+        Math.sqrt(baseDefense + defIV) *
+        Math.sqrt(baseStamina + hpIV) *
+        cpm * cpm) /
+        10
+    )
+  );
+}
+
+function resultAtLevel(baseAttack, baseDefense, baseStamina, atkIV, defIV, hpIV, entry) {
+  const attack = (baseAttack + atkIV) * entry.cpm;
+  const defense = (baseDefense + defIV) * entry.cpm;
+  const hp = Math.max(10, Math.floor((baseStamina + hpIV) * entry.cpm));
+  return {
+    attack,
+    defense,
+    hp,
+    statProduct: attack * defense * hp,
+    cp: cp(baseAttack, baseDefense, baseStamina, atkIV, defIV, hpIV, entry.cpm),
+    level: entry.level,
+  };
+}
+
+function bestUnderCap(baseAttack, baseDefense, baseStamina, atkIV, defIV, hpIV, cpCap, maxLevel = 50) {
+  const eligibleLevels = levels.filter((entry) => entry.level <= maxLevel);
+  let best = null;
+  for (const entry of eligibleLevels) {
+    const result = resultAtLevel(
+      baseAttack,
+      baseDefense,
+      baseStamina,
+      atkIV,
+      defIV,
+      hpIV,
+      entry
+    );
+    if (result.cp <= cpCap) best = result;
+  }
+  return best;
+}
+
+function rankLeague({
+  baseAttack,
+  baseDefense,
+  baseStamina,
+  cpCap,
+  maxLevel = 50,
+  currentIVs = null,
+}) {
+  const rows = [];
+
+  for (let atkIV = 0; atkIV <= 15; atkIV++) {
+    for (let defIV = 0; defIV <= 15; defIV++) {
+      for (let hpIV = 0; hpIV <= 15; hpIV++) {
+        const result = bestUnderCap(
+          baseAttack,
+          baseDefense,
+          baseStamina,
+          atkIV,
+          defIV,
+          hpIV,
+          cpCap,
+          maxLevel
+        );
+        if (!result) continue;
+        rows.push({ atkIV, defIV, hpIV, ...result });
+      }
+    }
+  }
+
+  rows.sort((a, b) =>
+    b.statProduct - a.statProduct ||
+    b.attack - a.attack ||
+    b.hp - a.hp ||
+    b.cp - a.cp ||
+    b.hpIV - a.hpIV
+  );
+
+  const bestProduct = rows[0]?.statProduct ?? 1;
+  rows.forEach((row, index) => {
+    row.rank = index + 1;
+    row.statProductPercent = (row.statProduct / bestProduct) * 100;
+    row.topPercent = (row.rank / rows.length) * 100;
+  });
+
+  let current = null;
+  if (currentIVs) {
+    current = rows.find(
+      (row) =>
+        row.atkIV === currentIVs.atkIV &&
+        row.defIV === currentIVs.defIV &&
+        row.hpIV === currentIVs.hpIV
+    ) ?? null;
+  }
+
+  return {
+    count: rows.length,
+    top5: rows.slice(0, 5),
+    current,
+  };
+}
+
+const output = {
+  methodology: {
+    maxLevel: 50,
+    greatLeagueCpCap: 1500,
+    ultraLeagueCpCap: 2500,
+    qualityGuide: [
+      { label: "Elite", maximumTopPercent: 1 },
+      { label: "Excellent", maximumTopPercent: 5 },
+      { label: "Good", maximumTopPercent: 10 },
+      { label: "Viable", maximumTopPercent: 25 },
+      { label: "Niche", maximumTopPercent: 100 },
+    ],
+  },
+  test: {
+    venusaurGreat: rankLeague({
+      baseAttack: 198,
+      baseDefense: 189,
+      baseStamina: 190,
+      cpCap: 1500,
+      currentIVs: { atkIV: 0, defIV: 15, hpIV: 15 },
+    }),
+  },
+};
+
+await fs.writeFile(
+  "./app/data/pvpIvCalculatorValidation.json",
+  JSON.stringify(output, null, 2),
+  "utf8"
+);
+
+console.log("Created app/data/pvpIvCalculatorValidation.json");
+console.log("Venusaur GL top 5:");
+console.table(
+  output.test.venusaurGreat.top5.map((row) => ({
+    rank: row.rank,
+    ivs: `${row.atkIV}/${row.defIV}/${row.hpIV}`,
+    level: row.level,
+    cp: row.cp,
+    statProductPercent: row.statProductPercent.toFixed(2),
+  }))
+);
+console.log("Venusaur 0/15/15:", output.test.venusaurGreat.current);

@@ -1,0 +1,687 @@
+{
+  "metadata": {
+    "updated": "2026-10-16",
+    "tierScale": [
+      "S",
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "note": "Published role tiers; absence means not captured, not zero.",
+    "announcedFormsUpdated": "2026-09-26"
+  },
+  "roles": {
+    "GIGANTAMAX_INTELEON": {
+      "identity": "GIGANTAMAX",
+      "attackerTier": "S"
+    },
+    "GIGANTAMAX_GENGAR": {
+      "identity": "GIGANTAMAX",
+      "attackerTier": "S"
+    },
+    "GIGANTAMAX_KINGLER": {
+      "identity": "GIGANTAMAX",
+      "attackerTier": "S"
+    },
+    "GIGANTAMAX_RILLABOOM": {
+      "identity": "GIGANTAMAX",
+      "attackerTier": "S"
+    },
+    "GIGANTAMAX_CINDERACE": {
+      "identity": "GIGANTAMAX",
+      "attackerTier": "S"
+    },
+    "GIGANTAMAX_MACHAMP": {
+      "identity": "GIGANTAMAX",
+      "attackerTier": "S"
+    },
+    "CROWNED_SWORD_ZACIAN": {
+      "identity": "SPECIAL",
+      "attackerTier": "S",
+      "defenderTier": "A",
+      "defenderFastMoves": [
+        "Metal Claw"
+      ],
+      "healerTier": "C",
+      "specialAttack": "Behemoth Blade",
+      "specialType": "STEEL",
+      "canTransform": false
+    },
+    "GIGANTAMAX_GRIMMSNARL": {
+      "identity": "GIGANTAMAX",
+      "attackerTier": "A"
+    },
+    "GIGANTAMAX_TOXTRICITY": {
+      "identity": "GIGANTAMAX",
+      "attackerTier": "A"
+    },
+    "GIGANTAMAX_CHARIZARD": {
+      "identity": "GIGANTAMAX",
+      "attackerTier": "A"
+    },
+    "GIGANTAMAX_VENUSAUR": {
+      "identity": "GIGANTAMAX",
+      "attackerTier": "A"
+    },
+    "GIGANTAMAX_SNORLAX": {
+      "identity": "GIGANTAMAX",
+      "attackerTier": "A"
+    },
+    "GIGANTAMAX_GARBODOR": {
+      "identity": "GIGANTAMAX",
+      "attackerTier": "A"
+    },
+    "ETERNATUS_SPECIAL": {
+      "identity": "SPECIAL",
+      "attackerTier": "A",
+      "defenderTier": "F",
+      "healerTier": "A",
+      "specialAttack": "Dynamax Cannon",
+      "specialType": "DRAGON",
+      "canTransform": false
+    },
+    "ALAKAZAM": {
+      "identity": "DYNAMAX",
+      "attackerTier": "A",
+      "defenderTier": "E",
+      "healerTier": "D"
+    },
+    "GIGANTAMAX_BLASTOISE": {
+      "identity": "GIGANTAMAX",
+      "attackerTier": "A"
+    },
+    "LATIOS": {
+      "identity": "DYNAMAX",
+      "attackerTier": "A",
+      "defenderTier": "B",
+      "defenderFastMoves": [
+        "Dragon Breath"
+      ],
+      "healerTier": "C"
+    },
+    "GIGANTAMAX_BUTTERFREE": {
+      "identity": "GIGANTAMAX",
+      "attackerTier": "B"
+    },
+    "GIGANTAMAX_LAPRAS": {
+      "identity": "GIGANTAMAX",
+      "attackerTier": "B"
+    },
+    "DARMANITAN": {
+      "identity": "DYNAMAX",
+      "attackerTier": "B",
+      "defenderTier": "E",
+      "healerTier": "B"
+    },
+    "INTELEON": {
+      "identity": "DYNAMAX",
+      "attackerTier": "B",
+      "defenderTier": "E",
+      "healerTier": "D"
+    },
+    "GENGAR": {
+      "identity": "DYNAMAX",
+      "attackerTier": "B",
+      "defenderTier": "D",
+      "healerTier": "D"
+    },
+    "ESPEON": {
+      "identity": "DYNAMAX",
+      "attackerTier": "B",
+      "defenderTier": "F",
+      "healerTier": "D"
+    },
+    "METAGROSS": {
+      "identity": "DYNAMAX",
+      "attackerTier": "B",
+      "defenderTier": "A",
+      "defenderFastMoves": [
+        "Fury Cutter",
+        "Shadow Claw"
+      ],
+      "healerTier": "C"
+    },
+    "HYDREIGON": {
+      "identity": "DYNAMAX",
+      "attackerTier": "B",
+      "defenderTier": "C",
+      "healerTier": "C"
+    },
+    "EXCADRILL": {
+      "identity": "DYNAMAX",
+      "attackerTier": "B",
+      "defenderTier": "C",
+      "healerTier": "B"
+    },
+    "URSHIFU_RAPID_STRIKE": {
+      "identity": "DYNAMAX",
+      "attackerTier": "B",
+      "defenderTier": "F",
+      "healerTier": "B"
+    },
+    "URSHIFU_SINGLE_STRIKE": {
+      "identity": "DYNAMAX",
+      "attackerTier": "B",
+      "defenderTier": "C",
+      "healerTier": "B"
+    },
+    "ZAPDOS": {
+      "identity": "DYNAMAX",
+      "attackerTier": "C",
+      "defenderTier": "C",
+      "healerTier": "C"
+    },
+    "MOLTRES": {
+      "identity": "DYNAMAX",
+      "attackerTier": "C",
+      "defenderTier": "F",
+      "healerTier": "C"
+    },
+    "CROWNED_SHIELD_ZAMAZENTA": {
+      "identity": "SPECIAL",
+      "attackerTier": "C",
+      "defenderTier": "S",
+      "defenderFastMoves": [
+        "Metal Claw"
+      ],
+      "healerTier": "C",
+      "specialAttack": "Behemoth Bash",
+      "specialType": "STEEL",
+      "canTransform": false
+    },
+    "ELECTIVIRE": {
+      "identity": "DYNAMAX",
+      "attackerTier": "C",
+      "defenderTier": "E",
+      "healerTier": "D"
+    },
+    "MAGMORTAR": {
+      "identity": "DYNAMAX",
+      "attackerTier": "C",
+      "defenderTier": "F",
+      "healerTier": "D"
+    },
+    "FLAREON": {
+      "identity": "DYNAMAX",
+      "attackerTier": "C",
+      "defenderTier": "F",
+      "healerTier": "D"
+    },
+    "WEAVILE": {
+      "identity": "DYNAMAX",
+      "attackerTier": "C",
+      "defenderTier": "F",
+      "healerTier": "D"
+    },
+    "RHYPERIOR": {
+      "identity": "DYNAMAX",
+      "attackerTier": "C",
+      "defenderTier": "F",
+      "healerTier": "A"
+    },
+    "RAIKOU": {
+      "identity": "DYNAMAX",
+      "attackerTier": "C",
+      "defenderTier": "C",
+      "healerTier": "C"
+    },
+    "KINGLER": {
+      "identity": "DYNAMAX",
+      "attackerTier": "C",
+      "defenderTier": "D",
+      "healerTier": "D"
+    },
+    "RILLABOOM": {
+      "identity": "DYNAMAX",
+      "attackerTier": "C",
+      "defenderTier": "D",
+      "healerTier": "B"
+    },
+    "DURALUDON": {
+      "identity": "DYNAMAX",
+      "attackerTier": "C",
+      "defenderTier": "B",
+      "defenderFastMoves": [
+        "Metal Claw"
+      ],
+      "healerTier": "D"
+    },
+    "HO_OH": {
+      "identity": "DYNAMAX",
+      "attackerTier": "C",
+      "defenderTier": "F",
+      "healerTier": "C"
+    },
+    "CINDERACE": {
+      "identity": "DYNAMAX",
+      "attackerTier": "C",
+      "defenderTier": "C",
+      "healerTier": "C"
+    },
+    "GLACEON": {
+      "identity": "DYNAMAX",
+      "attackerTier": "C",
+      "defenderTier": "F",
+      "healerTier": "D"
+    },
+    "GYARADOS": {
+      "identity": "DYNAMAX",
+      "attackerTier": "D",
+      "defenderTier": "C",
+      "healerTier": "C"
+    },
+    "GARDEVOIR": {
+      "identity": "DYNAMAX",
+      "attackerTier": "D",
+      "defenderTier": "F",
+      "healerTier": "D"
+    },
+    "GALLADE": {
+      "identity": "DYNAMAX",
+      "attackerTier": "D",
+      "defenderTier": "D",
+      "healerTier": "D"
+    },
+    "HATTERENE": {
+      "identity": "DYNAMAX",
+      "attackerTier": "D",
+      "defenderTier": "D",
+      "healerTier": "D"
+    },
+    "ENTEI": {
+      "identity": "DYNAMAX",
+      "attackerTier": "D",
+      "defenderTier": "F",
+      "healerTier": "A"
+    },
+    "MACHAMP": {
+      "identity": "DYNAMAX",
+      "attackerTier": "D",
+      "defenderTier": "F",
+      "healerTier": "C"
+    },
+    "JOLTEON": {
+      "identity": "DYNAMAX",
+      "attackerTier": "D",
+      "defenderTier": "D",
+      "healerTier": "D"
+    },
+    "DRAMPA": {
+      "identity": "DYNAMAX",
+      "attackerTier": "D",
+      "defenderTier": "D",
+      "healerTier": "D"
+    },
+    "LATIAS": {
+      "identity": "DYNAMAX",
+      "attackerTier": "D",
+      "defenderTier": "A",
+      "defenderFastMoves": [
+        "Dragon Breath"
+      ],
+      "healerTier": "C"
+    },
+    "ARCANINE": {
+      "identity": "DYNAMAX",
+      "attackerTier": "D",
+      "defenderTier": "C",
+      "healerTier": "C"
+    },
+    "GIGALITH": {
+      "identity": "DYNAMAX",
+      "attackerTier": "D",
+      "defenderTier": "C",
+      "healerTier": "C"
+    },
+    "UNFEZANT": {
+      "identity": "DYNAMAX",
+      "attackerTier": "D",
+      "defenderTier": "F",
+      "healerTier": "C"
+    },
+    "HITMONLEE": {
+      "identity": "DYNAMAX",
+      "attackerTier": "D",
+      "defenderTier": "D",
+      "healerTier": "D"
+    },
+    "TOXTRICITY": {
+      "identity": "DYNAMAX",
+      "attackerTier": "D",
+      "defenderTier": "D",
+      "healerTier": "D"
+    },
+    "CHARIZARD": {
+      "identity": "DYNAMAX",
+      "attackerTier": "D",
+      "defenderTier": "C",
+      "defenderFastMoves": [
+        "Dragon Breath"
+      ],
+      "healerTier": "D"
+    },
+    "PASSIMIAN": {
+      "identity": "DYNAMAX",
+      "attackerTier": "D",
+      "defenderTier": "F",
+      "healerTier": "B"
+    },
+    "TSAREENA": {
+      "identity": "DYNAMAX",
+      "attackerTier": "D"
+    },
+    "KABUTOPS": {
+      "identity": "DYNAMAX",
+      "attackerTier": "D",
+      "defenderTier": "C",
+      "healerTier": "D"
+    },
+    "CENTISKORCH": {
+      "identity": "DYNAMAX",
+      "attackerTier": "D",
+      "defenderTier": "C",
+      "healerTier": "B"
+    },
+    "LEAFEON": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "F",
+      "healerTier": "D"
+    },
+    "GIGANTAMAX_PIKACHU": {
+      "identity": "GIGANTAMAX",
+      "attackerTier": "E"
+    },
+    "MESPRIT": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "F",
+      "healerTier": "C"
+    },
+    "OMASTAR": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "B",
+      "defenderFastMoves": [
+        "Mud Shot",
+        "Water Gun"
+      ],
+      "healerTier": "D"
+    },
+    "FLYGON": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "D",
+      "healerTier": "C"
+    },
+    "VAPOREON": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "C",
+      "healerTier": "A"
+    },
+    "SYLVEON": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "F",
+      "healerTier": "C"
+    },
+    "VENUSAUR": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "C",
+      "healerTier": "C"
+    },
+    "LUGIA": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "F",
+      "healerTier": "B"
+    },
+    "HITMONCHAN": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "F",
+      "healerTier": "D"
+    },
+    "RAICHU": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "E",
+      "healerTier": "D"
+    },
+    "FALINKS": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "F",
+      "healerTier": "D"
+    },
+    "GIGANTAMAX_MEOWTH": {
+      "identity": "GIGANTAMAX",
+      "attackerTier": "E"
+    },
+    "MILOTIC": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "F",
+      "healerTier": "C"
+    },
+    "ARTICUNO": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "F",
+      "healerTier": "C"
+    },
+    "CRYOGONAL": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "F",
+      "healerTier": "C"
+    },
+    "WALREIN": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "F",
+      "healerTier": "B"
+    },
+    "GARBODOR": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "F",
+      "healerTier": "C"
+    },
+    "SUICUNE": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "B",
+      "defenderFastMoves": [
+        "Water Gun"
+      ],
+      "healerTier": "B"
+    },
+    "REGIROCK": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "A",
+      "defenderFastMoves": [
+        "Lock-On"
+      ],
+      "healerTier": "C"
+    },
+    "REGICE": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "A",
+      "defenderFastMoves": [
+        "Lock-On"
+      ],
+      "healerTier": "C"
+    },
+    "MALAMAR": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "E",
+      "healerTier": "C"
+    },
+    "WAILORD": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "E",
+      "healerTier": "A"
+    },
+    "HITMONTOP": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "F",
+      "healerTier": "D"
+    },
+    "BLASTOISE": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "C",
+      "healerTier": "D"
+    },
+    "BUTTERFREE": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "E",
+      "healerTier": "D"
+    },
+    "WHIMSICOTT": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "F",
+      "healerTier": "D"
+    },
+    "CORVIKNIGHT": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "B",
+      "defenderFastMoves": [
+        "Sand Attack"
+      ],
+      "healerTier": "B"
+    },
+    "SWOOBAT": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "F",
+      "healerTier": "D"
+    },
+    "GREEDENT": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "E",
+      "healerTier": "A"
+    },
+    "DUBWOOL": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "D",
+      "healerTier": "D"
+    },
+    "UXIE": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "F",
+      "healerTier": "D"
+    },
+    "VESPIQUEN": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "C",
+      "healerTier": "D"
+    },
+    "NOCTOWL": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "F",
+      "healerTier": "B"
+    },
+    "REGISTEEL": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "S",
+      "defenderFastMoves": [
+        "Lock-On",
+        "Metal Claw"
+      ],
+      "healerTier": "C"
+    },
+    "SABLEYE": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "E",
+      "healerTier": "D"
+    },
+    "BLISSEY": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "C",
+      "defenderFastMoves": [
+        "Pound"
+      ],
+      "healerTier": "S"
+    },
+    "UMBREON": {
+      "identity": "DYNAMAX",
+      "attackerTier": "E",
+      "defenderTier": "F",
+      "healerTier": "C"
+    },
+    "LAPRAS": {
+      "identity": "DYNAMAX",
+      "defenderTier": "D",
+      "healerTier": "A"
+    },
+    "SNORLAX": {
+      "identity": "DYNAMAX",
+      "defenderTier": "D",
+      "healerTier": "A"
+    },
+    "GRIMMSNARL": {
+      "identity": "DYNAMAX",
+      "defenderTier": "E",
+      "healerTier": "C"
+    },
+    "PIKACHU": {
+      "identity": "DYNAMAX",
+      "defenderTier": "E",
+      "healerTier": "D"
+    },
+    "MEOWTH": {
+      "identity": "DYNAMAX",
+      "defenderTier": "E",
+      "healerTier": "D"
+    },
+    "SHUCKLE": {
+      "identity": "DYNAMAX",
+      "defenderTier": "F",
+      "healerTier": "D"
+    },
+    "AZELF": {
+      "identity": "DYNAMAX",
+      "defenderTier": "F",
+      "healerTier": "D"
+    },
+    "DIALGA": {
+      "identity": "DYNAMAX",
+      "status": "ANNOUNCED",
+      "debutDate": "2026-11-14"
+    },
+    "PALKIA": {
+      "identity": "DYNAMAX",
+      "status": "ANNOUNCED",
+      "debutDate": "2026-11-15"
+    },
+    "GIGANTAMAX_DURALUDON": {
+      "identity": "GIGANTAMAX",
+      "status": "ANNOUNCED",
+      "debutDate": "2026-11-14",
+      "debutEndDate": "2026-11-15"
+    }
+  }
+}

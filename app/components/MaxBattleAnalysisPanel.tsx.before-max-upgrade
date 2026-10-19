@@ -1,0 +1,166 @@
+"use client";
+
+type FastMove = {
+  id: string;
+  name: string;
+  type?: string | null;
+  durationMs?: number;
+};
+
+type Props = {
+  displayName: string;
+  pokemonId: string;
+  attack: number;
+  defense: number;
+  stamina: number;
+  fastMoves?: FastMove[];
+};
+
+const TYPE_EFFECTIVE: Record<string, string[]> = {
+  NORMAL: [], FIRE: ["Bug", "Grass", "Ice", "Steel"],
+  WATER: ["Fire", "Ground", "Rock"], ELECTRIC: ["Flying", "Water"],
+  GRASS: ["Ground", "Rock", "Water"], ICE: ["Dragon", "Flying", "Grass", "Ground"],
+  FIGHTING: ["Dark", "Ice", "Normal", "Rock", "Steel"], POISON: ["Fairy", "Grass"],
+  GROUND: ["Electric", "Fire", "Poison", "Rock", "Steel"], FLYING: ["Bug", "Fighting", "Grass"],
+  PSYCHIC: ["Fighting", "Poison"], BUG: ["Dark", "Grass", "Psychic"],
+  ROCK: ["Bug", "Fire", "Flying", "Ice"], GHOST: ["Ghost", "Psychic"],
+  DRAGON: ["Dragon"], DARK: ["Ghost", "Psychic"],
+  STEEL: ["Fairy", "Ice", "Rock"], FAIRY: ["Dark", "Dragon", "Fighting"],
+};
+
+const MAX_MOVE_NAMES: Record<string, string> = {
+  NORMAL: "Max Strike", FIRE: "Max Flare", WATER: "Max Geyser", ELECTRIC: "Max Lightning",
+  GRASS: "Max Overgrowth", ICE: "Max Hailstorm", FIGHTING: "Max Knuckle", POISON: "Max Ooze",
+  GROUND: "Max Quake", FLYING: "Max Airstream", PSYCHIC: "Max Mindstorm", BUG: "Max Flutterby",
+  ROCK: "Max Rockfall", GHOST: "Max Phantasm", DRAGON: "Max Wyrmwind", DARK: "Max Darkness",
+  STEEL: "Max Steelspike", FAIRY: "Max Starfall",
+};
+
+// Published October 2026 role tiers available from Pokemon GO Hub lists.
+// Entries not present are deliberately shown as "Not ranked" rather than guessed.
+const ROLE_TIERS: Record<string, { defender?: string; attacker?: string; healer?: string }> = {
+  METAGROSS: { defender: "A", attacker: "B", healer: "C" },
+  REGISTEEL: { defender: "S", healer: "C" },
+  ZAMAZENTA: { defender: "S", healer: "C" },
+  ZACIAN: { defender: "A", attacker: "S", healer: "C" },
+  REGIROCK: { defender: "A", healer: "C" },
+  REGICE: { defender: "A", healer: "C" },
+  LATIAS: { defender: "A", healer: "C" },
+  CORVIKNIGHT: { defender: "B", healer: "B" },
+  SUICUNE: { defender: "B", healer: "B" },
+  DURALUDON: { defender: "B", healer: "D" },
+  OMASTAR: { defender: "B", healer: "D" },
+  LATIOS: { defender: "B", healer: "C", attacker: "A" },
+  BLISSEY: { healer: "S" }, WAILORD: { healer: "A" }, SNORLAX: { healer: "A" },
+  LAPRAS: { healer: "A" }, VAPOREON: { healer: "A" }, ETERNATUS: { healer: "A", attacker: "A" },
+  GREEDENT: { healer: "A" }, ENTEI: { healer: "A" }, RHYPERIOR: { healer: "A", attacker: "C" },
+  INTELEON: { attacker: "S" }, GENGAR: { attacker: "S" }, KINGLER: { attacker: "S" },
+  RILLABOOM: { attacker: "S" }, CINDERACE: { attacker: "S" }, MACHAMP: { attacker: "S" },
+};
+
+const GMAX: Record<string, { move: string; type: string }> = {
+  VENUSAUR: { move: "G-Max Vine Lash", type: "GRASS" },
+  CHARIZARD: { move: "G-Max Wildfire", type: "FIRE" },
+  BLASTOISE: { move: "G-Max Cannonade", type: "WATER" },
+  BUTTERFREE: { move: "G-Max Befuddle", type: "BUG" },
+  PIKACHU: { move: "G-Max Volt Crash", type: "ELECTRIC" },
+  MEOWTH: { move: "G-Max Gold Rush", type: "NORMAL" },
+  MACHAMP: { move: "G-Max Chi Strike", type: "FIGHTING" },
+  GENGAR: { move: "G-Max Terror", type: "GHOST" },
+  KINGLER: { move: "G-Max Foam Burst", type: "WATER" },
+  LAPRAS: { move: "G-Max Resonance", type: "ICE" },
+  SNORLAX: { move: "G-Max Replenish", type: "NORMAL" },
+  GARBODOR: { move: "G-Max Malodor", type: "POISON" },
+  RILLABOOM: { move: "G-Max Drum Solo", type: "GRASS" },
+  CINDERACE: { move: "G-Max Fireball", type: "FIRE" },
+  INTELEON: { move: "G-Max Hydrosnipe", type: "WATER" },
+  TOXTRICITY: { move: "G-Max Stun Shock", type: "ELECTRIC" },
+  GRIMMSNARL: { move: "G-Max Snooze", type: "DARK" },
+};
+
+function cleanType(type?: string | null) {
+  return String(type ?? "").replace("POKEMON_TYPE_", "").toUpperCase();
+}
+
+function tierLabel(tier?: string) {
+  return tier === "S" ? "Elite" : tier === "A" ? "Excellent" : tier === "B" ? "Good" : tier === "C" ? "Below Average" : tier === "D" ? "Poor" : "Not ranked";
+}
+function balls(tier?: string) {
+  const count = tier === "S" ? 5 : tier === "A" ? 4 : tier === "B" ? 3 : tier === "C" ? 2 : tier === "D" ? 1 : 0;
+  return Array.from({ length: 5 }, (_, i) => i < count);
+}
+function BallRating({ tier }: { tier?: string }) {
+  return <div className="flex gap-1" aria-label={`${tierLabel(tier)} rating`}>
+    {balls(tier).map((filled, i) => <span key={i} className={`relative h-6 w-6 rounded-full border-2 ${filled ? "border-white" : "border-zinc-600 opacity-35"}`} style={{background: filled ? "linear-gradient(to bottom,#ef4444 0 46%,#18181b 46% 56%,white 56% 100%)" : "#3f3f46"}}><span className="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-zinc-900 bg-white" /></span>)}
+  </div>;
+}
+function Emblem({ kind }: { kind: "Dynamax" | "Gigantamax" }) {
+  return <div className={`flex h-12 w-12 items-center justify-center rounded-xl border text-xl font-black shadow-lg ${kind === "Dynamax" ? "border-fuchsia-400 bg-fuchsia-950 text-fuchsia-300" : "border-rose-400 bg-rose-950 text-rose-300"}`}>{kind === "Dynamax" ? "D∞" : "G∞"}</div>;
+}
+
+export default function MaxBattleAnalysisPanel({ displayName, pokemonId, attack, defense, stamina, fastMoves = [] }: Props) {
+  const role = ROLE_TIERS[pokemonId] ?? {};
+  const rolePairs = [["Defender", role.defender], ["Attacker", role.attacker], ["Healer", role.healer]] as const;
+  const best = [...rolePairs].sort((a,b) => balls(b[1]).filter(Boolean).length - balls(a[1]).filter(Boolean).length)[0];
+  const fastest = [...fastMoves].sort((a,b) => (a.durationMs ?? 9999) - (b.durationMs ?? 9999))[0];
+  const coverage = fastMoves.map(move => {
+    const type = cleanType(move.type);
+    return { move, type, maxMove: MAX_MOVE_NAMES[type] ?? `${type} Max Attack`, targets: TYPE_EFFECTIVE[type] ?? [] };
+  });
+  const gmax = GMAX[pokemonId];
+  const spirit = [0.08, 0.12, 0.16].map(rate => Math.floor((stamina + 15) * 0.8403 * rate));
+  const bulk = (defense + 15) * (stamina + 15);
+
+  return <section className="mt-8 rounded-2xl border border-zinc-700 bg-zinc-900 p-6">
+    <h2 className="text-3xl font-bold">Max Battle Analysis</h2>
+
+    <div className="mt-6 rounded-2xl border border-fuchsia-800 bg-zinc-950 p-5">
+      <div className="flex items-center gap-4"><Emblem kind="Dynamax" /><div><div className="text-xs font-bold tracking-widest text-fuchsia-300">DYNAMAX</div><h3 className="text-2xl font-black">{displayName}</h3></div></div>
+      <div className="mt-5 grid gap-3 lg:grid-cols-4">
+        <div className="rounded-xl bg-zinc-900 p-4"><div className="text-xs font-bold text-zinc-500">BEST USE</div><div className="mt-2 text-xl font-black">{tierLabel(best?.[1])} {best?.[0] ?? "Role"}</div></div>
+        {rolePairs.map(([name,tier]) => <div key={name} className="rounded-xl bg-zinc-900 p-4"><div className="text-xs font-bold text-zinc-500">{name.toUpperCase()}</div><div className="mt-2"><BallRating tier={tier} /></div><div className="mt-2 font-bold">{tierLabel(tier)}</div></div>)}
+      </div>
+
+      <div className="mt-5 grid gap-4 lg:grid-cols-3">
+        <RoleCard title="DEFENSE" tier={role.defender}>
+          <Metric label="Bulk index" value={bulk.toLocaleString()} />
+          <Metric label="Meter-speed fast move" value={fastest?.name ?? "Unavailable"} />
+          <Metric label="Fast move duration" value={fastest?.durationMs ? `${(fastest.durationMs/1000).toFixed(1)} sec` : "Unavailable"} />
+          <Metric label="Max Guard" value="Role-relevant upgrade" />
+        </RoleCard>
+
+        <RoleCard title="ATTACK" tier={role.attacker}>
+          <Metric label="Base Attack" value={String(attack)} />
+          <div className="mt-3 text-xs font-black tracking-wide text-zinc-500">MAX ATTACK COVERAGE</div>
+          <div className="mt-2 space-y-2">
+            {coverage.length ? coverage.map(({move,type,maxMove,targets}) => <div key={move.id} className="rounded-lg border border-zinc-700 bg-zinc-950 p-3 text-sm"><div className="font-black">{move.name}</div><div className="text-zinc-300">{maxMove} · {type}</div><div className="mt-1 text-zinc-500">Effective vs: {targets.length ? targets.join(" · ") : "No super-effective types"}</div></div>) : <div className="text-zinc-500">Fast-move data unavailable.</div>}
+          </div>
+        </RoleCard>
+
+        <RoleCard title="HEALER" tier={role.healer}>
+          <Metric label="Level 50 HP" value={String(Math.floor((stamina + 15) * 0.8403))} />
+          <Metric label="Max Spirit Lv. 1" value={`${spirit[0]} HP`} />
+          <Metric label="Max Spirit Lv. 2" value={`${spirit[1]} HP`} />
+          <Metric label="Max Spirit Lv. 3" value={`${spirit[2]} HP`} />
+        </RoleCard>
+      </div>
+    </div>
+
+    {gmax && <div className="mt-5 rounded-2xl border border-rose-800 bg-zinc-950 p-5">
+      <div className="flex items-center gap-4"><Emblem kind="Gigantamax" /><div><div className="text-xs font-bold tracking-widest text-rose-300">GIGANTAMAX</div><h3 className="text-2xl font-black">{displayName}</h3></div></div>
+      <div className="mt-5 grid gap-4 md:grid-cols-3">
+        <Metric label="G-Max Move" value={gmax.move} />
+        <Metric label="Type" value={gmax.type} />
+        <Metric label="Effective Against" value={(TYPE_EFFECTIVE[gmax.type] ?? []).join(" · ") || "Neutral coverage"} />
+      </div>
+      <p className="mt-4 text-sm text-zinc-400">Gigantamax uses its species-specific G-Max attack, so Fast Move selection does not change the G-Max attack type.</p>
+    </div>}
+
+    <p className="mt-4 text-xs text-zinc-500">Role labels are shown only where published role-tier data is available; otherwise the role is marked Not ranked instead of estimated.</p>
+  </section>;
+}
+
+function RoleCard({title,tier,children}:{title:string;tier?:string;children:React.ReactNode}) {
+  return <div className="rounded-xl border border-zinc-700 bg-zinc-900 p-4"><div className="flex items-center justify-between gap-3"><div><div className="text-xs font-black tracking-widest text-zinc-500">{title}</div><div className="mt-1 text-xl font-black">{tierLabel(tier)}</div></div><BallRating tier={tier} /></div><div className="mt-4 space-y-3">{children}</div></div>;
+}
+function Metric({label,value}:{label:string;value:string}) { return <div><div className="text-xs font-bold text-zinc-500">{label}</div><div className="font-bold text-zinc-100">{value}</div></div>; }

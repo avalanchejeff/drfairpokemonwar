@@ -1,0 +1,120 @@
+{
+  "methodology": {
+    "maxLevel": 50,
+    "greatLeagueCpCap": 1500,
+    "ultraLeagueCpCap": 2500,
+    "qualityGuide": [
+      {
+        "label": "Elite",
+        "maximumTopPercent": 1
+      },
+      {
+        "label": "Excellent",
+        "maximumTopPercent": 5
+      },
+      {
+        "label": "Good",
+        "maximumTopPercent": 10
+      },
+      {
+        "label": "Viable",
+        "maximumTopPercent": 25
+      },
+      {
+        "label": "Niche",
+        "maximumTopPercent": 100
+      }
+    ]
+  },
+  "test": {
+    "venusaurGreat": {
+      "count": 4096,
+      "top5": [
+        {
+          "atkIV": 0,
+          "defIV": 14,
+          "hpIV": 11,
+          "attack": 121.2071454,
+          "defense": 124.26793190000001,
+          "hp": 123,
+          "statProduct": 1852645.8387143537,
+          "cp": 1498,
+          "level": 21,
+          "rank": 1,
+          "statProductPercent": 100,
+          "topPercent": 0.0244140625
+        },
+        {
+          "atkIV": 0,
+          "defIV": 12,
+          "hpIV": 13,
+          "attack": 121.2071454,
+          "defense": 123.04361730000001,
+          "hp": 124,
+          "statProduct": 1849306.9359652589,
+          "cp": 1498,
+          "level": 21,
+          "rank": 2,
+          "statProductPercent": 99.81977652288838,
+          "topPercent": 0.048828125
+        },
+        {
+          "atkIV": 0,
+          "defIV": 15,
+          "hpIV": 10,
+          "attack": 121.2071454,
+          "defense": 124.8800892,
+          "hp": 122,
+          "statProduct": 1846635.813765983,
+          "cp": 1498,
+          "level": 21,
+          "rank": 3,
+          "statProductPercent": 99.67559774119907,
+          "topPercent": 0.0732421875
+        },
+        {
+          "atkIV": 0,
+          "defIV": 10,
+          "hpIV": 15,
+          "attack": 121.2071454,
+          "defense": 121.81930270000001,
+          "hp": 125,
+          "statProduct": 1845671.2418606891,
+          "cp": 1498,
+          "level": 21,
+          "rank": 4,
+          "statProductPercent": 99.62353318114462,
+          "topPercent": 0.09765625
+        },
+        {
+          "atkIV": 3,
+          "defIV": 15,
+          "hpIV": 14,
+          "attack": 121.56955570583627,
+          "defense": 123.38402668652039,
+          "hp": 123,
+          "statProduct": 1844968.1805737114,
+          "cp": 1499,
+          "level": 20.5,
+          "rank": 5,
+          "statProductPercent": 99.58558414240845,
+          "topPercent": 0.1220703125
+        }
+      ],
+      "current": {
+        "atkIV": 0,
+        "defIV": 15,
+        "hpIV": 15,
+        "attack": 119.75508472515214,
+        "defense": 123.38402668652039,
+        "hp": 123,
+        "statProduct": 1817431.3420576858,
+        "cp": 1481,
+        "level": 20.5,
+        "rank": 149,
+        "statProductPercent": 98.09923214028295,
+        "topPercent": 3.6376953125
+      }
+    }
+  }
+}

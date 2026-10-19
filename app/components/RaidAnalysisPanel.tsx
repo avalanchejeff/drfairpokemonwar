@@ -1,0 +1,381 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import raidTypeAnalysisJson from "../data/raidTypeAnalysis2026.json";
+
+type RaidEntry = {
+  name: string | null;
+  displayName: string;
+  pokemonId: string;
+  form: string;
+  dbd: number;
+  nundoDbd: number;
+  bestFastMove: string | null;
+  bestChargedMove: string | null;
+  bossCount: number;
+  raidRank: number;
+  tier: string;
+};
+
+type RaidTypeData = {
+  type: string;
+  ceilingDbd: number;
+  floorDbd: number;
+  bestAttacker: RaidEntry | null;
+  entries: RaidEntry[];
+};
+
+type RaidAnalysis = Record<string, RaidTypeData>;
+
+type RaidAnalysisPanelProps = {
+  currentName: string;
+  attackIV?: number;
+  defenseIV?: number;
+  hpIV?: number;
+};
+
+const TYPE_ORDER = [
+  "NORMAL",
+  "FIRE",
+  "WATER",
+  "ELECTRIC",
+  "GRASS",
+  "ICE",
+  "FIGHTING",
+  "POISON",
+  "GROUND",
+  "FLYING",
+  "PSYCHIC",
+  "BUG",
+  "ROCK",
+  "GHOST",
+  "DRAGON",
+  "DARK",
+  "STEEL",
+  "FAIRY",
+] as const;
+
+const TYPE_SYMBOLS: Record<string, string> = {
+  NORMAL: "●",
+  FIRE: "♨",
+  WATER: "◆",
+  ELECTRIC: "ϟ",
+  GRASS: "♣",
+  ICE: "❄",
+  FIGHTING: "✦",
+  POISON: "☠",
+  GROUND: "◒",
+  FLYING: "➶",
+  PSYCHIC: "◉",
+  BUG: "♜",
+  ROCK: "⬟",
+  GHOST: "◌",
+  DRAGON: "◇",
+  DARK: "◐",
+  STEEL: "⚙",
+  FAIRY: "✧",
+};
+
+const TIER_BANDS = [
+  { tier: "GOD", color: "bg-amber-300", pattern: "bg-[repeating-linear-gradient(135deg,transparent_0,transparent_6px,rgba(0,0,0,.18)_6px,rgba(0,0,0,.18)_9px)]" },
+  { tier: "S+", color: "bg-emerald-300", pattern: "bg-[radial-gradient(circle_at_center,rgba(0,0,0,.24)_1px,transparent_1px)] bg-[length:7px_7px]" },
+  { tier: "S", color: "bg-green-500", pattern: "bg-[repeating-linear-gradient(90deg,transparent_0,transparent_5px,rgba(0,0,0,.2)_5px,rgba(0,0,0,.2)_7px)]" },
+  { tier: "A", color: "bg-cyan-400", pattern: "bg-[repeating-linear-gradient(45deg,transparent_0,transparent_7px,rgba(0,0,0,.2)_7px,rgba(0,0,0,.2)_9px)]" },
+  { tier: "B", color: "bg-blue-500", pattern: "bg-[repeating-linear-gradient(0deg,transparent_0,transparent_6px,rgba(255,255,255,.22)_6px,rgba(255,255,255,.22)_8px)]" },
+  { tier: "C", color: "bg-violet-500", pattern: "bg-[radial-gradient(circle_at_center,rgba(255,255,255,.3)_1px,transparent_1px)] bg-[length:8px_8px]" },
+  { tier: "D", color: "bg-zinc-600", pattern: "bg-[repeating-linear-gradient(135deg,transparent_0,transparent_4px,rgba(255,255,255,.18)_4px,rgba(255,255,255,.18)_6px)]" },
+] as const;
+
+function formatMove(move: string | null) {
+  if (!move) return "Unavailable";
+  return move
+    .replace(/_FAST$/, "")
+    .split("_")
+    .map((word) => word.charAt(0) + word.slice(1).toLowerCase())
+    .join(" ");
+}
+
+function clamp(value: number, minimum: number, maximum: number) {
+  return Math.min(maximum, Math.max(minimum, value));
+}
+
+function tierFromRank(rank: number, count: number) {
+  if (count <= 1) return "God";
+  const percentile = 1 - (rank - 1) / (count - 1);
+  if (percentile >= 0.99) return "God";
+  if (percentile >= 0.95) return "S+";
+  if (percentile >= 0.9) return "S";
+  if (percentile >= 0.75) return "A";
+  if (percentile >= 0.5) return "B";
+  if (percentile >= 0.25) return "C";
+  return "D";
+}
+
+export default function RaidAnalysisPanel({
+  currentName,
+  attackIV = 15,
+  defenseIV = 15,
+  hpIV = 15,
+}: RaidAnalysisPanelProps) {
+  const raidTypeAnalysis = raidTypeAnalysisJson as unknown as RaidAnalysis;
+  const [selectedType, setSelectedType] = useState<string>("PSYCHIC");
+  const [liveBuild, setLiveBuild] = useState({
+    attackIV,
+    defenseIV,
+    hpIV,
+    adjustedDbd: 0,
+    baselineDbd: 0,
+    fastMove: "",
+    chargedMove1: "",
+    chargedMove2: "",
+    legacyEnabled: true,
+  });
+
+  useEffect(() => {
+    function handleBuildChange(event: Event) {
+      const customEvent = event as CustomEvent<{
+        currentName: string;
+        attackIV: number;
+        defenseIV: number;
+        hpIV: number;
+        adjustedDbd: number;
+        baselineDbd: number;
+        fastMove: string;
+        chargedMove1: string;
+        chargedMove2: string;
+        legacyEnabled: boolean;
+      }>;
+
+      if (customEvent.detail.currentName !== currentName) return;
+
+      setLiveBuild({
+        attackIV: customEvent.detail.attackIV,
+        defenseIV: customEvent.detail.defenseIV,
+        hpIV: customEvent.detail.hpIV,
+        adjustedDbd: customEvent.detail.adjustedDbd,
+        baselineDbd: customEvent.detail.baselineDbd,
+        fastMove: customEvent.detail.fastMove,
+        chargedMove1: customEvent.detail.chargedMove1,
+        chargedMove2: customEvent.detail.chargedMove2,
+        legacyEnabled: customEvent.detail.legacyEnabled,
+      });
+    }
+
+    window.addEventListener("pokemon-build-change", handleBuildChange);
+    return () =>
+      window.removeEventListener("pokemon-build-change", handleBuildChange);
+  }, [currentName]);
+
+  const liveDbdRatio =
+    liveBuild.baselineDbd > 0
+      ? liveBuild.adjustedDbd / liveBuild.baselineDbd
+      : 1;
+
+  const typeResults = useMemo(() => {
+    return TYPE_ORDER.map((type) => {
+      const typeData = raidTypeAnalysis[type];
+      const entry = typeData?.entries.find(
+        (candidate) => candidate.name === currentName
+      );
+
+      if (!typeData || !entry) {
+        return {
+          type,
+          typeData,
+          entry: null,
+          currentDbd: 0,
+          markerPosition: 0,
+          currentRank: 0,
+          currentTier: "D",
+        };
+      }
+
+      const currentDbd = clamp(
+        entry.dbd * liveDbdRatio,
+        typeData.floorDbd,
+        typeData.ceilingDbd
+      );
+
+      const range = Math.max(
+        typeData.ceilingDbd - typeData.floorDbd,
+        0.0001
+      );
+
+      const markerPosition = clamp(
+        ((currentDbd - typeData.floorDbd) / range) * 100,
+        0,
+        100
+      );
+
+      const currentRank =
+        typeData.entries.filter(
+          (candidate) => candidate.dbd > currentDbd
+        ).length + 1;
+
+      return {
+        type,
+        typeData,
+        entry,
+        currentDbd,
+        markerPosition,
+        currentRank,
+        currentTier: tierFromRank(
+          currentRank,
+          typeData.entries.length
+        ),
+      };
+    });
+  }, [currentName, liveDbdRatio, raidTypeAnalysis]);
+
+  const selected =
+    typeResults.find((result) => result.type === selectedType) ??
+    typeResults[0];
+
+  return (
+    <section className="mb-8 rounded-2xl border border-zinc-700 bg-zinc-900 p-6">
+      <div>
+        <h2 className="text-3xl font-bold">Raid Analysis</h2>
+        <p className="mt-2 text-zinc-400">
+          Each Poké Ball shows this build&apos;s DBD position between the
+          worst nundo floor and perfect-IV ceiling for that raid-boss type.
+        </p>
+      </div>
+
+      <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+        <SummaryCard label="TYPE" value={selected.type} />
+        <SummaryCard
+          label="RAID RANK"
+          value={selected.currentRank ? `#${selected.currentRank}` : "—"}
+        />
+        <SummaryCard
+          label="DBD"
+          value={selected.entry ? selected.currentDbd.toFixed(2) : "—"}
+        />
+        <SummaryCard label="TIER" value={selected.currentTier} />
+        <SummaryCard
+          label="BEST RAID MOVESET"
+          value={
+            selected.entry
+              ? `${formatMove(selected.entry.bestFastMove)} + ${formatMove(
+                  selected.entry.bestChargedMove
+                )}`
+              : "Unavailable"
+          }
+        />
+      </div>
+
+      <div className="mt-6 rounded-2xl border border-zinc-700 bg-zinc-950 p-4">
+        <div className="mb-3 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-zinc-400">
+          <span>Perfect-IV ceiling</span>
+          <span>Click any type</span>
+        </div>
+
+        <div className="overflow-x-auto pb-3">
+          <div className="grid min-w-[1180px] grid-cols-[72px_repeat(18,minmax(48px,1fr))] gap-2">
+            <div className="relative h-[520px]">
+              {TIER_BANDS.map((band, index) => (
+                <div
+                  key={band.tier}
+                  className="absolute left-0 right-0 flex items-start justify-end border-t border-zinc-600 pr-2 text-[11px] font-black text-zinc-300"
+                  style={{
+                    top: `${(index / TIER_BANDS.length) * 100}%`,
+                    height: `${100 / TIER_BANDS.length}%`,
+                  }}
+                >
+                  {band.tier}
+                </div>
+              ))}
+            </div>
+
+            {typeResults.map((result) => {
+              const isSelected = selectedType === result.type;
+
+              return (
+                <button
+                  key={result.type}
+                  type="button"
+                  onClick={() => setSelectedType(result.type)}
+                  className={`group flex flex-col items-center rounded-xl px-1 pb-2 pt-1 transition focus:outline-none focus:ring-2 focus:ring-cyan-300 ${
+                    isSelected
+                      ? "bg-zinc-800 ring-2 ring-cyan-300"
+                      : "hover:bg-zinc-900"
+                  }`}
+                  aria-label={`Select ${result.type} raid analysis`}
+                >
+                  <div className="mb-2 flex h-12 flex-col items-center justify-center">
+                    <span className="text-xl" aria-hidden="true">
+                      {TYPE_SYMBOLS[result.type]}
+                    </span>
+                    <span className="mt-1 text-[10px] font-black tracking-wide text-zinc-300">
+                      {result.type.slice(0, 3)}
+                    </span>
+                  </div>
+
+                  <div className="relative h-[460px] w-4 overflow-visible rounded-full border border-zinc-500 bg-zinc-900 shadow-inner">
+                    {TIER_BANDS.map((band, index) => (
+                      <div
+                        key={band.tier}
+                        className={`absolute left-0 right-0 border-t border-black/20 ${band.color} ${band.pattern}`}
+                        style={{
+                          top: `${(index / TIER_BANDS.length) * 100}%`,
+                          height: `${100 / TIER_BANDS.length}%`,
+                        }}
+                        title={band.tier}
+                      />
+                    ))}
+
+                    {result.entry && (
+                      <div
+                        className="absolute left-1/2 z-20 h-7 w-7 -translate-x-1/2 translate-y-1/2 rounded-full border-2 border-white shadow-[0_0_0_2px_#18181b,0_0_12px_rgba(255,255,255,.75)]"
+                        style={{
+                          bottom: `${result.markerPosition}%`,
+                          background:
+                            "linear-gradient(to bottom,#ef4444 0%,#ef4444 47%,#18181b 47%,#18181b 55%,#ffffff 55%,#ffffff 100%)",
+                        }}
+                        title={`${result.type}: DBD ${result.currentDbd.toFixed(
+                          2
+                        )}, rank #${result.currentRank}`}
+                      >
+                        <div className="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-zinc-900 bg-white" />
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="mt-2 min-h-8 text-center text-[10px] font-bold text-zinc-400">
+                    {result.entry ? `#${result.currentRank}` : "N/A"}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="mt-2 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-zinc-500">
+          <span>Worst nundo floor</span>
+          <span>
+            IVs: {liveBuild.attackIV}/{liveBuild.defenseIV}/{liveBuild.hpIV}
+          </span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SummaryCard({
+  label,
+  value,
+}: {
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className="rounded-xl border border-zinc-700 bg-zinc-950 p-4">
+      <div className="text-xs font-bold tracking-wide text-zinc-500">
+        {label}
+      </div>
+      <div className="mt-2 break-words text-lg font-black text-white">
+        {value}
+      </div>
+    </div>
+  );
+}

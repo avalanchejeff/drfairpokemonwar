@@ -1,0 +1,4 @@
+export default function LabPage() {
+  return <main>Dr. Fair's Lab</main>;
+}
+app/lab/page.tsx

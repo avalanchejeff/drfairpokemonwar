@@ -1,0 +1,85 @@
+{
+    "year": 2026,
+    "name": "2026 Summer GO Fest Raid Benchmark",
+    "startDate": "2026-06-01",
+    "endDate": "2026-08-31",
+    "weighting": {
+      "dbd": 0.67,
+      "dps": 0.21,
+      "charge": 0.12
+    },
+    "bossWeighting": "equal",
+    "bosses": [
+      { "pokemonId": "TAPU_FINI", "form": "NORMAL" },
+      { "pokemonId": "RESHIRAM", "form": "NORMAL" },
+      { "pokemonId": "ZEKROM", "form": "NORMAL" },
+      { "pokemonId": "NECROZMA", "form": "NORMAL" },
+      { "pokemonId": "KARTANA", "form": "NORMAL" },
+      { "pokemonId": "CELESTEELA", "form": "NORMAL" },
+  
+      { "pokemonId": "ARTICUNO", "form": "NORMAL" },
+      { "pokemonId": "ZAPDOS", "form": "NORMAL" },
+      { "pokemonId": "MOLTRES", "form": "NORMAL" },
+      { "pokemonId": "RAIKOU", "form": "NORMAL" },
+      { "pokemonId": "ENTEI", "form": "NORMAL" },
+      { "pokemonId": "SUICUNE", "form": "NORMAL" },
+      { "pokemonId": "LUGIA", "form": "NORMAL" },
+      { "pokemonId": "HO_OH", "form": "NORMAL" },
+  
+      { "pokemonId": "REGIROCK", "form": "NORMAL" },
+      { "pokemonId": "REGICE", "form": "NORMAL" },
+      { "pokemonId": "REGISTEEL", "form": "NORMAL" },
+      { "pokemonId": "REGIGIGAS", "form": "NORMAL" },
+      { "pokemonId": "REGIELEKI", "form": "NORMAL" },
+      { "pokemonId": "REGIDRAGO", "form": "NORMAL" },
+  
+      { "pokemonId": "LATIAS", "form": "NORMAL" },
+      { "pokemonId": "LATIOS", "form": "NORMAL" },
+      { "pokemonId": "KYOGRE", "form": "NORMAL" },
+      { "pokemonId": "GROUDON", "form": "NORMAL" },
+      { "pokemonId": "RAYQUAZA", "form": "NORMAL" },
+  
+      { "pokemonId": "DIALGA", "form": "NORMAL" },
+      { "pokemonId": "DIALGA", "form": "DIALGA_ORIGIN" },
+      { "pokemonId": "PALKIA", "form": "NORMAL" },
+      { "pokemonId": "PALKIA", "form": "PALKIA_ORIGIN" },
+      { "pokemonId": "HEATRAN", "form": "NORMAL" },
+  
+      { "pokemonId": "GIRATINA", "form": "GIRATINA_ALTERED" },
+      { "pokemonId": "GIRATINA", "form": "GIRATINA_ORIGIN" },
+      { "pokemonId": "CRESSELIA", "form": "NORMAL" },
+      { "pokemonId": "DARKRAI", "form": "NORMAL" },
+  
+      { "pokemonId": "COBALION", "form": "NORMAL" },
+      { "pokemonId": "TERRAKION", "form": "NORMAL" },
+      { "pokemonId": "VIRIZION", "form": "NORMAL" },
+  
+      { "pokemonId": "TORNADUS", "form": "TORNADUS_INCARNATE" },
+      { "pokemonId": "TORNADUS", "form": "TORNADUS_THERIAN" },
+      { "pokemonId": "THUNDURUS", "form": "THUNDURUS_INCARNATE" },
+      { "pokemonId": "THUNDURUS", "form": "THUNDURUS_THERIAN" },
+      { "pokemonId": "LANDORUS", "form": "LANDORUS_INCARNATE" },
+      { "pokemonId": "LANDORUS", "form": "LANDORUS_THERIAN" },
+  
+      { "pokemonId": "ZACIAN", "form": "ZACIAN_HERO" },
+      { "pokemonId": "ZAMAZENTA", "form": "ZAMAZENTA_HERO" },
+  
+      { "pokemonId": "NIHILEGO", "form": "NORMAL" },
+      { "pokemonId": "BUZZWOLE", "form": "NORMAL" },
+      { "pokemonId": "PHEROMOSA", "form": "NORMAL" },
+      { "pokemonId": "XURKITREE", "form": "NORMAL" },
+      { "pokemonId": "GUZZLORD", "form": "NORMAL" },
+      { "pokemonId": "STAKATAKA", "form": "NORMAL" },
+      { "pokemonId": "BLACEPHALON", "form": "NORMAL" },
+  
+      { "pokemonId": "TAPU_KOKO", "form": "NORMAL" },
+      { "pokemonId": "TAPU_LELE", "form": "NORMAL" },
+      { "pokemonId": "TAPU_BULU", "form": "NORMAL" },
+  
+      { "pokemonId": "KYUREM", "form": "NORMAL" },
+      { "pokemonId": "UXIE", "form": "NORMAL" },
+      { "pokemonId": "MESPRIT", "form": "NORMAL" },
+      { "pokemonId": "AZELF", "form": "NORMAL" },
+      { "pokemonId": "LUNALA", "form": "NORMAL" }
+    ]
+  }
