@@ -3,10 +3,34 @@
 import { useEffect, useMemo, useState } from "react";
 import warRankings from "../data/benchmarkRankings2026.json";
 import movePoolsData from "../data/movePools.json";
+import maxBattleRolesData from "../data/maxBattleRoles.json";
+import raidLabSummaryData from "../data/raidLabSummary2026.json";
+import sizeReferenceData from "../data/pokemonSizeReference.json";
+import artworkIndexHD from "../data/artworkIndexHD.json";
+import pokemonArtwork from "../data/pokemonArtwork.json";
 import greatLeagueData from "../data/pvpokeGreatLeague.json";
 import ultraLeagueData from "../data/pvpokeUltraLeague.json";
 import masterLeagueData from "../data/pvpokeMasterLeague.json";
 import { detectLevelFromCp, rankPvpIvs, type LeagueKey } from "../lib/pvpIvCalculator";
+
+type SizeReference = {
+  pokemonId: string;
+  form: string;
+  templateId: string;
+  averageHeightM: number;
+  averageWeightKg: number;
+  heightStdDev: number;
+  weightStdDev: number;
+  xxsLowerBound: number | null;
+  xsLowerBound: number | null;
+  mLowerBound: number | null;
+  mUpperBound: number | null;
+  xlUpperBound: number | null;
+  xxlUpperBound: number | null;
+  xxlHeightClass: number | null;
+  showcaseWeightDivisor: number | null;
+  showcaseMaximumWeightKg: number | null;
+};
 
 type MoveRecord = {
   id: string;
@@ -25,6 +49,39 @@ type MovePool = {
   templateId?: string;
   fastMoves: MoveRecord[];
   chargedMoves: MoveRecord[];
+};
+
+type MaxRole = {
+  identity: "DYNAMAX" | "GIGANTAMAX" | "SPECIAL";
+  attackerTier?: string;
+  defenderTier?: string;
+  defenderFastMoves?: string[];
+  healerTier?: string;
+  specialAttack?: string;
+  specialType?: string;
+  canTransform?: boolean;
+};
+
+type MaxRolesFile = {
+  roles: Record<string, MaxRole>;
+};
+
+type RaidEntry = {
+  name: string;
+  pokemonId: string;
+  form: string | null;
+  dbd: number;
+  bestFastMove: string;
+  bestChargedMove: string;
+  bossCount: number;
+  tier: string;
+};
+
+type RaidTypeGroup = {
+  type: string;
+  ceilingDbd: number;
+  floorDbd: number;
+  entries: RaidEntry[];
 };
 
 type PvpEntry = {
@@ -56,11 +113,52 @@ type WarRecord = {
 
 const records = warRankings as WarRecord[];
 const movePools = Object.values(movePoolsData) as MovePool[];
+const sizeReferences = sizeReferenceData as Record<string, SizeReference>;
+const maxBattleRoles = (maxBattleRolesData as MaxRolesFile).roles;
+const raidLabSummary = raidLabSummaryData as Record<
+  string,
+  RaidEntry & {
+    type: string;
+    typeRank: number;
+    typePotential: number;
+  }
+>;
 const leagueData: Record<LeagueKey, PvpEntry[]> = {
   great: greatLeagueData as PvpEntry[],
   ultra: ultraLeagueData as PvpEntry[],
   master: masterLeagueData as PvpEntry[],
 };
+const maxAttackNames: Record<string, string> = {
+  NORMAL: "Max Strike",
+  FIRE: "Max Flare",
+  WATER: "Max Geyser",
+  ELECTRIC: "Max Lightning",
+  GRASS: "Max Overgrowth",
+  ICE: "Max Hailstorm",
+  FIGHTING: "Max Knuckle",
+  POISON: "Max Ooze",
+  GROUND: "Max Quake",
+  FLYING: "Max Airstream",
+  PSYCHIC: "Max Mindstorm",
+  BUG: "Max Flutterby",
+  ROCK: "Max Rockfall",
+  GHOST: "Max Phantasm",
+  DRAGON: "Max Wyrmwind",
+  DARK: "Max Darkness",
+  STEEL: "Max Steelspike",
+  FAIRY: "Max Starfall",
+};
+
+const maxTierScore: Record<string, number> = {
+  S: 7, A: 6, B: 5, C: 4, D: 3, E: 2, F: 1,
+};
+
+const specialMaxRoleKeys: Record<string, string> = {
+  ETERNATUS: "ETERNATUS_SPECIAL",
+  ZACIAN_CROWNED_SWORD: "CROWNED_SWORD_ZACIAN",
+  ZAMAZENTA_CROWNED_SHIELD: "CROWNED_SHIELD_ZAMAZENTA",
+};
+
 const leagueLabels: Record<LeagueKey, string> = {
   great: "Great League",
   ultra: "Ultra League",
@@ -145,6 +243,7 @@ export default function LabPage() {
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
   const [maxType, setMaxType] = useState("Standard");
+  const [showShowcaseShiny, setShowShowcaseShiny] = useState(false);
   const [fastMove, setFastMove] = useState("");
   const [chargedMove1, setChargedMove1] = useState("");
   const [chargedMove2, setChargedMove2] = useState("");
@@ -213,6 +312,254 @@ export default function LabPage() {
       null;
     setRecordName(preferred?.name ?? "");
   }
+
+  const projectedShowcase = useMemo(() => {
+    if (!selectedRecord) return null;
+
+    if (
+      selectedRecord.pokemonId === "PUMPKABOO" ||
+      selectedRecord.pokemonId === "GOURGEIST"
+    ) {
+      return { customPending: true };
+    }
+
+    const exactKey =
+      selectedRecord.pokemonId + ":" + (selectedRecord.form ?? "NORMAL");
+    const normalKey = selectedRecord.pokemonId + ":NORMAL";
+    const reference = sizeReferences[exactKey] ?? sizeReferences[normalKey];
+    if (!reference) return null;
+
+    const measuredHeight = Number(height);
+    const measuredWeight = Number(weight);
+    if (
+      !Number.isFinite(measuredHeight) ||
+      measuredHeight <= 0 ||
+      !Number.isFinite(measuredWeight) ||
+      measuredWeight <= 0
+    ) {
+      return { customPending: false, reference, incomplete: true };
+    }
+
+    const maximumHeight = reference.xxlUpperBound;
+    const maximumWeight = reference.showcaseMaximumWeightKg;
+    if (
+      maximumHeight === null ||
+      maximumWeight === null ||
+      !Number.isFinite(maximumHeight) ||
+      !Number.isFinite(maximumWeight) ||
+      maximumHeight <= 0 ||
+      maximumWeight <= 0
+    ) {
+      return { customPending: false, reference, incomplete: true };
+    }
+    const heightPoints = Math.max(
+      0,
+      Math.min(800, (measuredHeight / Number(maximumHeight)) * 800)
+    );
+    const weightPoints = Math.max(
+      0,
+      Math.min(150, (measuredWeight / Number(maximumWeight)) * 150)
+    );
+    const ivPoints = Math.max(
+      0,
+      Math.min(
+        50,
+        ((Number(attack) + Number(defense) + Number(hp)) / 45) * 50
+      )
+    );
+    const boundaries = {
+      xxsLowerBound: reference.xxsLowerBound,
+      xsLowerBound: reference.xsLowerBound,
+      mLowerBound: reference.mLowerBound,
+      mUpperBound: reference.mUpperBound,
+      xlUpperBound: reference.xlUpperBound,
+    };
+
+    const hasAllBoundaries = Object.values(boundaries).every(
+      (value) => typeof value === "number" && Number.isFinite(value)
+    );
+    if (!hasAllBoundaries) {
+      return { customPending: false, reference, incomplete: true };
+    }
+
+    const xxsLowerBound = Number(boundaries.xxsLowerBound);
+    const xsLowerBound = Number(boundaries.xsLowerBound);
+    const mLowerBound = Number(boundaries.mLowerBound);
+    const mUpperBound = Number(boundaries.mUpperBound);
+    const xlUpperBound = Number(boundaries.xlUpperBound);
+
+    const sizeClass =
+      measuredHeight < xxsLowerBound
+        ? "XXS"
+        : measuredHeight < xsLowerBound
+          ? "XS"
+          : measuredHeight < mLowerBound
+            ? "Small"
+            : measuredHeight <= mUpperBound
+              ? "Average"
+              : measuredHeight <= xlUpperBound
+                ? "XL"
+                : "XXL";
+
+    const isAutomaticallyXXL = sizeClass === "XXL";
+    const xxlBonus = isAutomaticallyXXL ? 178 : 0;
+    const total = Math.min(1178, heightPoints + weightPoints + ivPoints + xxlBonus);
+    const percentPerfect = (total / 1178) * 100;
+
+    const baseArtworkKey = selectedRecord.name.endsWith("-shadow")
+      ? selectedRecord.name.replace(/-shadow$/, "")
+      : selectedRecord.name;
+    const baseName = baseArtworkKey.replace(/-mega(?:-[xy])?$/, "");
+    const megaSuffix = selectedRecord.name.match(/-mega(?:-[xy])?$/)?.[0] ?? "";
+    const artworkCandidates = [
+      selectedRecord.name,
+      selectedRecord.name.replace(/^(.*)-mega(-[xy])?$/, "mega-$1$2"),
+      selectedRecord.name.replace(/^(.*)-mega(-[xy])?$/, "$1-mega$2"),
+      baseArtworkKey,
+      baseName,
+    ].filter(Boolean);
+
+    const normalArtworkUrl =
+      artworkCandidates
+        .map((key) => artworkIndexHD[key as keyof typeof artworkIndexHD])
+        .find(Boolean) ?? null;
+    const artworkRecord = artworkCandidates
+      .map((key) => pokemonArtwork[key as keyof typeof pokemonArtwork])
+      .find((entry) => Boolean(entry?.shinyImage));
+    const exactFormHasShiny = Boolean(
+      artworkCandidates.slice(0, megaSuffix ? 3 : 1).find(
+        (key) => pokemonArtwork[key as keyof typeof pokemonArtwork]?.shinyImage
+      )
+    );
+    const shinyArtworkUrl = artworkRecord?.shinyImage ?? null;
+    const artworkUrl =
+      showShowcaseShiny && shinyArtworkUrl
+        ? shinyArtworkUrl
+        : normalArtworkUrl;
+
+    return {
+      customPending: false,
+      incomplete: false,
+      reference,
+      heightPoints,
+      weightPoints,
+      ivPoints,
+      xxlBonus,
+      sizeClass,
+      isAutomaticallyXXL,
+      total,
+      percentPerfect,
+      artworkUrl,
+      visualScale: Math.max(38, percentPerfect),
+      shinyArtworkUrl,
+      exactFormHasShiny,
+      maximumHeight,
+      maximumWeight,
+    };
+  }, [selectedRecord, height, weight, attack, defense, hp, showShowcaseShiny]);
+
+  const maxBattleMeta = useMemo(() => {
+    if (!selectedRecord || maxType === "Standard") return null;
+
+    const base = selectedRecord.pokemonId;
+    const form = selectedRecord.form ?? "";
+    const name = selectedRecord.name.toUpperCase().replaceAll("-", "_");
+
+    let candidates: string[] = [];
+
+    if (maxType === "Gigantamax") {
+      candidates = [
+        `GIGANTAMAX_${base}`,
+        form.startsWith("GIGANTAMAX_") ? form : "",
+        name.startsWith("GIGANTAMAX_") ? name : "",
+      ].filter(Boolean);
+    } else {
+      const specialKey =
+        specialMaxRoleKeys[name] ??
+        specialMaxRoleKeys[form] ??
+        specialMaxRoleKeys[base] ??
+        "";
+
+      candidates = [
+        specialKey,
+        name,
+        form,
+        form.startsWith(base + "_")
+          ? form.slice(base.length + 1) + "_" + base
+          : "",
+        base,
+      ].filter(Boolean);
+    }
+
+    const roleKey = candidates.find((key) => maxBattleRoles[key]);
+    if (!roleKey) return null;
+
+    const role = maxBattleRoles[roleKey];
+    const tiers = [
+      { label: "Attacker", tier: role.attackerTier },
+      { label: "Tank", tier: role.defenderTier },
+      { label: "Healer", tier: role.healerTier },
+    ].filter((item) => item.tier);
+
+    tiers.sort(
+      (a, b) =>
+        (maxTierScore[b.tier ?? ""] ?? 0) -
+        (maxTierScore[a.tier ?? ""] ?? 0)
+    );
+
+    const bestScore = tiers.length
+      ? maxTierScore[tiers[0].tier ?? ""] ?? 0
+      : 0;
+    const bestRole = tiers
+      .filter((item) => (maxTierScore[item.tier ?? ""] ?? 0) === bestScore)
+      .map((item) => item.label)
+      .join(" / ") || "Not rated";
+
+    const selectedFastMove = selectedMovePool?.fastMoves.find(
+      (move) => move.id === fastMove
+    );
+    const fastType =
+      selectedFastMove?.type?.replace("POKEMON_TYPE_", "") ?? "";
+
+    let recommendedAttack = "Not captured";
+    if (role.specialAttack) {
+      recommendedAttack = role.specialAttack;
+    } else if (role.identity === "GIGANTAMAX") {
+      recommendedAttack = "Species-specific G-Max Attack";
+    } else if (fastType && maxAttackNames[fastType]) {
+      recommendedAttack = maxAttackNames[fastType];
+    }
+
+    return {
+      role,
+      roleKey,
+      bestRole,
+      recommendedAttack,
+      selectedFastMoveName: selectedFastMove?.name ?? null,
+    };
+  }, [selectedRecord, selectedMovePool, fastMove, maxType]);
+
+  const raidMeta = useMemo(() => {
+    if (!selectedRecord) return null;
+
+    const entry = raidLabSummary[selectedRecord.name];
+    if (!entry) return null;
+
+    return {
+      group: { type: entry.type },
+      entry: { ...entry, raidRank: entry.typeRank },
+      typePotential: entry.typePotential,
+    };
+  }, [selectedRecord]);
+
+  const selectedRaidBuildMatches = useMemo(() => {
+    if (!raidMeta) return false;
+    return (
+      fastMove === raidMeta.entry.bestFastMove &&
+      (chargedMove1 === raidMeta.entry.bestChargedMove ||
+        chargedMove2 === raidMeta.entry.bestChargedMove)
+    );
+  }, [raidMeta, fastMove, chargedMove1, chargedMove2]);
 
   const currentIVs = useMemo(
     () => ({
@@ -520,25 +867,25 @@ export default function LabPage() {
               </div>
             )}
 
-            <div className="mt-5 flex flex-col gap-3 lg:flex-row lg:items-center">
-              <span className="shrink-0 text-sm font-bold text-zinc-300">
-                Max
-              </span>
-              <div className="grid flex-1 grid-cols-3 gap-2">
-                {["Standard", "Dynamax", "Gigantamax"].map((type) => (
-                  <button
-                    key={type}
-                    type="button"
-                    onClick={() => setMaxType(type)}
-                    className={`rounded-xl border px-3 py-3 text-sm font-bold transition ${
-                      maxType === type
-                        ? "border-cyan-400 bg-cyan-400/15 text-cyan-200"
-                        : "border-zinc-700 bg-zinc-900 text-zinc-400 hover:border-zinc-500"
-                    }`}
-                  >
-                    {type}
-                  </button>
-                ))}
+            <div className="mt-5 grid gap-4 lg:grid-cols-[0.55fr_1.45fr] lg:items-end">
+              <div>
+                <span className={label}>Max Capability</span>
+                <div className="mt-2 grid grid-cols-3 gap-2">
+                  {["Standard", "Dynamax", "Gigantamax"].map((type) => (
+                    <button
+                      key={type}
+                      type="button"
+                      onClick={() => setMaxType(type)}
+                      className={`rounded-xl border px-3 py-3 text-sm font-bold transition ${
+                        maxType === type
+                          ? "border-cyan-400 bg-cyan-400/15 text-cyan-200"
+                          : "border-zinc-700 bg-zinc-900 text-zinc-400 hover:border-zinc-500"
+                      }`}
+                    >
+                      {type}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </section>
@@ -552,11 +899,16 @@ export default function LabPage() {
             </h3>
 
             <div className="mt-5 grid gap-4 sm:grid-cols-3">
-              <AssessmentTile
-                label="PSV Value"
-                value="--.-"
-                color="text-cyan-300"
-              />
+            <AssessmentTile
+  label="PSV Value"
+  value={
+    selectedRecord?.psv !== undefined
+      ? Number(selectedRecord.psv).toFixed(2)
+      : "--.-"
+  }
+  note="WAR PSV"
+  color="text-cyan-300"
+/>
               <AssessmentTile
                 label="Level"
                 value={detectedLevelText}
@@ -579,16 +931,55 @@ export default function LabPage() {
             <h3 className="mt-2 text-3xl font-black">Meta Value</h3>
 
             <div className="mt-6 grid gap-4 lg:grid-cols-3">
-              <MetaCard
-                title="Raid Meta"
-                color="red"
-                rows={[
-                  "Overall Rank",
-                  "Type Rank",
-                  "Raid PSV",
-                  "Ideal Raid Build",
-                ]}
-              />
+              <div className="rounded-2xl border border-red-900/60 bg-red-950/10 p-5">
+                <h4 className="text-xl font-black text-red-300">Raid Meta</h4>
+                {selectedRecord && raidMeta ? (
+                  <div className="mt-4 space-y-3 text-sm text-white">
+                    <RaidResultRow
+                      label="Overall WAR Rank"
+                      value={`#${selectedRecord.overallRank ?? "—"}`}
+                    />
+                    <RaidResultRow
+                      label="Best Raid Matchup"
+                      value={raidMeta.group.type}
+                    />
+                    <RaidResultRow
+                      label={`${raidMeta.group.type} Rank`}
+                      value={`#${raidMeta.entry.raidRank}`}
+                    />
+                    <RaidResultRow
+                      label="Raid PSV"
+                      value={(selectedRecord.psv ?? 0).toFixed(2)}
+                    />
+                    <RaidResultRow
+                      label="Type Potential"
+                      value={raidMeta.typePotential.toFixed(1) + "% of leader"}
+                    />
+                    <RaidResultRow
+                      label="Ideal Raid Build"
+                      value={`${moveLabel(raidMeta.entry.bestFastMove)} • ${moveLabel(raidMeta.entry.bestChargedMove)}`}
+                      stacked
+                    />
+                    <div
+                      className={`rounded-xl border px-3 py-2 font-bold ${
+                        selectedRaidBuildMatches
+                          ? "border-emerald-800 bg-emerald-950/30 text-emerald-300"
+                          : "border-amber-900 bg-amber-950/20 text-amber-300"
+                      }`}
+                    >
+                      {selectedRaidBuildMatches
+                        ? "Selected build matches the ideal Raid build."
+                        : "Selected build does not match the ideal Raid build."}
+                    </div>
+                  </div>
+                ) : (
+                  <p className="mt-4 text-sm text-zinc-500">
+                    {selectedRecord
+                      ? "No Raid type analysis was found for this form."
+                      : "Select a Pokémon and form."}
+                  </p>
+                )}
+              </div>
               <div className="rounded-2xl border border-blue-900/60 bg-blue-950/10 p-5">
                 <h4 className="text-xl font-black text-blue-300">PvP Meta</h4>
                 {pvpMeta && pvpIvResult ? (
@@ -607,36 +998,152 @@ export default function LabPage() {
                   </p>
                 )}
               </div>
-              <MetaCard
-                title="Max Battle"
-                color="purple"
-                rows={[
-                  "Best Role",
-                  "Attacker",
-                  "Tank",
-                  "Healer",
-                  "Recommended Max Attack",
-                ]}
-              />
+              <div className="rounded-2xl border border-purple-900/60 bg-purple-950/10 p-5">
+                <h4 className="text-xl font-black text-purple-300">Max Battle</h4>
+                {selectedRecord && maxBattleMeta ? (
+                  <div className="mt-4 space-y-3 text-sm text-white">
+                    <MaxResultRow label="Status" value={maxBattleMeta.role.identity} />
+                    <MaxResultRow label="Best Role" value={maxBattleMeta.bestRole} />
+                    <MaxResultRow label="Attacker" value={maxBattleMeta.role.attackerTier ?? "Not rated"} />
+                    <MaxResultRow label="Tank" value={maxBattleMeta.role.defenderTier ?? "Not rated"} />
+                    <MaxResultRow label="Healer" value={maxBattleMeta.role.healerTier ?? "Not rated"} />
+                    {maxBattleMeta.role.defenderFastMoves?.length ? (
+                      <MaxResultRow
+                        label="Tank Fast Move"
+                        value={maxBattleMeta.role.defenderFastMoves.join(" • ")}
+                        stacked
+                      />
+                    ) : null}
+                    <MaxResultRow
+                      label="Recommended Max Attack"
+                      value={maxBattleMeta.recommendedAttack}
+                      stacked
+                    />
+                    {maxBattleMeta.selectedFastMoveName ? (
+                      <p className="rounded-xl border border-purple-900/70 bg-black/20 px-3 py-2 text-xs text-purple-200">
+                        Based on selected Fast Move: {maxBattleMeta.selectedFastMoveName}
+                      </p>
+                    ) : null}
+                  </div>
+                ) : (
+                  <p className="mt-4 text-sm text-zinc-500">
+                    {selectedRecord
+                      ? maxType === "Standard"
+                        ? "Select Dynamax or Gigantamax to evaluate Max Battle value."
+                        : `No ${maxType} Max Battle role data is captured for this Pokémon.`
+                      : "Select a Pokémon and form."}
+                  </p>
+                )}
+              </div>
             </div>
           </section>
 
-          <section className="mt-6 rounded-3xl border border-zinc-800 bg-zinc-900/60 p-6">
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-lime-400">
-              Size &amp; Showcase Value
-            </p>
-            <div className="mt-5 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl bg-black/20 p-5">
-                <div className="text-sm text-zinc-400">Size Percentile</div>
-                <div className="mt-2 text-3xl font-black">Pending</div>
-              </div>
-              <div className="rounded-2xl bg-black/20 p-5">
-                <div className="text-sm text-zinc-400">
-                  Showcase Potential
-                </div>
-                <div className="mt-2 text-3xl font-black">Pending</div>
-              </div>
+          <section className="mt-6 rounded-3xl border border-lime-900/60 bg-zinc-900/60 p-6">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-lime-400">
+                Size &amp; Showcase Value
+              </p>
+              <button
+                type="button"
+                aria-pressed={showShowcaseShiny}
+                onClick={() => setShowShowcaseShiny((current) => !current)}
+                className={
+                  "rounded-xl border px-4 py-2 text-sm font-black transition " +
+                  (showShowcaseShiny
+                    ? "border-yellow-300 bg-yellow-400/20 text-yellow-200"
+                    : "border-zinc-700 bg-zinc-950 text-zinc-400 hover:border-yellow-600")
+                }
+              >
+                {showShowcaseShiny ? "✨ Shiny" : "☆ Normal"}
+              </button>
+              {showShowcaseShiny && projectedShowcase && "exactFormHasShiny" in projectedShowcase && !projectedShowcase.exactFormHasShiny ? (
+                <span className="text-xs text-amber-300">
+                  Exact-form Shiny artwork unavailable; using the closest available Shiny.
+                </span>
+              ) : null}
             </div>
+
+            {projectedShowcase?.customPending ? (
+              <div className="mt-5 rounded-2xl border border-amber-800 bg-amber-950/20 p-5 text-amber-200">
+                Custom Showcase scoring for Pumpkaboo and Gourgeist is pending. No projected score is shown.
+              </div>
+            ) : projectedShowcase?.incomplete ? (
+              <div className="mt-5 rounded-2xl border border-zinc-800 bg-black/20 p-5 text-zinc-400">
+                Enter both height and weight to project the Showcase score.
+              </div>
+            ) : projectedShowcase && typeof projectedShowcase.total === "number" ? (
+              <div className="mt-5 grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+                <div className="relative aspect-square min-h-[360px] overflow-hidden rounded-2xl border border-lime-900/50 bg-gradient-to-b from-zinc-950 to-black">
+                  {[100, 90, 80, 70, 60, 50].map((ring) => (
+                    <div
+                      key={ring}
+                      className="absolute bottom-[6%] left-1/2 -translate-x-1/2 rounded-t-full border border-dashed border-lime-400/35"
+                      style={{ width: ring + "%", height: ring + "%" }}
+                    >
+                      <span className="absolute left-1/2 top-1 -translate-x-1/2 rounded bg-black/75 px-2 py-0.5 text-[10px] font-black text-lime-300">
+                        {ring}%
+                      </span>
+                    </div>
+                  ))}
+
+                  {projectedShowcase.artworkUrl ? (
+                    <img
+                      src={projectedShowcase.artworkUrl}
+                      alt={selectedRecord?.displayName ?? "Selected PokÃŠmon"}
+                      className="absolute bottom-[4%] left-1/2 z-10 -translate-x-1/2 object-contain transition-all duration-300"
+                      style={{
+                        width: projectedShowcase.visualScale + "%",
+                        height: projectedShowcase.visualScale + "%",
+                      }}
+                    />
+                  ) : null}
+
+                  <div className="absolute bottom-2 left-1/2 z-20 w-[88%] -translate-x-1/2 rounded-xl border border-lime-800 bg-black/85 px-4 py-3 text-center">
+                    <div className="text-xs font-bold uppercase tracking-wider text-zinc-500">
+                      Percent of Perfect Showcase Score
+                    </div>
+                    <div className="mt-1 text-3xl font-black text-lime-300">
+                      {(projectedShowcase.percentPerfect ?? 0).toFixed(1)}%
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="rounded-2xl border border-lime-900/60 bg-lime-950/10 p-5 text-center">
+                    <div className="text-sm font-bold text-zinc-400">Projected Showcase Score</div>
+                    <div className="mt-2 text-4xl font-black text-lime-300">
+                      {(projectedShowcase.total ?? 0).toFixed(1)}
+                    </div>
+                    <div className="text-sm text-zinc-500">out of 1,178</div>
+                  </div>
+                  <div className="rounded-2xl border border-cyan-900/60 bg-cyan-950/10 p-5 text-center">
+                    <div className="text-xs font-bold uppercase tracking-wider text-zinc-500">
+                      Automatic Size Class
+                    </div>
+                    <div className="mt-2 text-3xl font-black text-cyan-300">
+                      {projectedShowcase.sizeClass ?? "Unknown"}
+                    </div>
+                    <div className="mt-1 text-xs text-zinc-500">
+                      Classified from the selected form&apos;s Game Master height boundaries
+                    </div>
+                  </div>
+                  <ShowcaseScoreRow label="Height" value={projectedShowcase.heightPoints ?? 0} maximum={800} />
+                  <ShowcaseScoreRow label="Weight" value={projectedShowcase.weightPoints ?? 0} maximum={150} />
+                  <ShowcaseScoreRow label="IVs" value={projectedShowcase.ivPoints ?? 0} maximum={50} />
+                  <ShowcaseScoreRow label="XXL Bonus" value={projectedShowcase.xxlBonus ?? 0} maximum={178} />
+                  <div className="rounded-2xl border border-zinc-800 bg-black/20 p-4 text-xs text-zinc-500">
+                    Exact scoring ceilings: {Number(projectedShowcase.maximumHeight).toFixed(2)} m height • {Number(projectedShowcase.maximumWeight).toFixed(2)} kg weight
+                  </div>
+                  <p className="text-xs leading-5 text-zinc-500">
+                    Community-model projection. Rounded in-game measurements can shift the live score by a few points.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <p className="mt-5 text-sm text-zinc-500">
+                No Showcase reference is available for this form.
+              </p>
+            )}
           </section>
 
           <section className="mt-6 rounded-3xl border-2 border-cyan-800 bg-gradient-to-r from-cyan-950/40 to-zinc-900 p-7 text-center">
@@ -652,6 +1159,34 @@ export default function LabPage() {
         </div>
       </section>
     </main>
+  );
+}
+
+function ShowcaseScoreRow({
+  label,
+  value,
+  maximum,
+}: {
+  label: string;
+  value: number;
+  maximum: number;
+}) {
+  const percent = Math.max(0, Math.min(100, (value / maximum) * 100));
+  return (
+    <div className="rounded-2xl border border-zinc-800 bg-black/20 p-4">
+      <div className="flex items-center justify-between gap-4">
+        <span className="text-sm font-bold text-zinc-400">{label}</span>
+        <span className="font-black text-lime-200">
+          {value.toFixed(1)} / {maximum}
+        </span>
+      </div>
+      <div className="mt-3 h-2 overflow-hidden rounded-full bg-zinc-800">
+        <div
+          className="h-full rounded-full bg-lime-400"
+          style={{ width: percent + "%" }}
+        />
+      </div>
+    </div>
   );
 }
 
@@ -673,6 +1208,56 @@ function AssessmentTile({
       </div>
       <div className={`mt-2 text-4xl font-black ${color}`}>{value}</div>
       {note && <div className="mt-1 text-xs text-zinc-600">{note}</div>}
+    </div>
+  );
+}
+
+function MaxResultRow({
+  label,
+  value,
+  stacked = false,
+}: {
+  label: string;
+  value: string;
+  stacked?: boolean;
+}) {
+  return (
+    <div className={stacked ? "space-y-1" : "flex justify-between gap-4"}>
+      <span className="text-zinc-300">{label}</span>
+      <span
+        className={
+          stacked
+            ? "block font-bold text-purple-100"
+            : "text-right font-bold text-purple-100"
+        }
+      >
+        {value}
+      </span>
+    </div>
+  );
+}
+
+function RaidResultRow({
+  label,
+  value,
+  stacked = false,
+}: {
+  label: string;
+  value: string;
+  stacked?: boolean;
+}) {
+  return (
+    <div className={stacked ? "space-y-1" : "flex justify-between gap-4"}>
+      <span className="text-zinc-300">{label}</span>
+      <span
+        className={
+          stacked
+            ? "block font-bold text-red-100"
+            : "text-right font-bold text-red-100"
+        }
+      >
+        {value}
+      </span>
     </div>
   );
 }

@@ -124,6 +124,7 @@ const metaRank =
     ];
 
   let artworkUrl = extractArtworkUrl(artwork?.image);
+  const shinyArtworkUrl = extractArtworkUrl(artwork?.shinyImage);
 
   const hdArtwork =
     artworkIndexHD[
@@ -248,6 +249,7 @@ const movePool =
   <div className="grid gap-6 lg:grid-cols-2">
     <PokemonArtworkCard
       artworkUrl={artworkUrl}
+      shinyArtworkUrl={shinyArtworkUrl}
       displayName={pokemon.displayName}
       primaryType={pokemon.primaryType}
       secondaryType={pokemon.secondaryType}
