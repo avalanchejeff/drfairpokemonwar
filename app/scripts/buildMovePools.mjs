@@ -123,7 +123,14 @@ function uniqueMoves(moves) {
     ).values()
   );
 }
-
+const supplementalChargedMoves = {
+  SKARMORY: [
+    {
+      id: "DRILL_RUN",
+      legacy: true,
+    },
+  ],
+};
 const movePools = {};
 
 for (const candidate of candidates) {
@@ -159,14 +166,20 @@ for (const candidate of candidates) {
     ),
   ]);
 
-  const chargedMoves = uniqueMoves([
-    ...regularCharged.map((id) =>
-      createMove(id, "charged", false)
-    ),
-    ...legacyCharged.map((id) =>
-      createMove(id, "charged", true)
-    ),
-  ]);
+  const supplementalCharged =
+  supplementalChargedMoves[candidate.pokemonId] ?? [];
+
+const chargedMoves = uniqueMoves([
+  ...regularCharged.map((id) =>
+    createMove(id, "charged", false)
+  ),
+  ...legacyCharged.map((id) =>
+    createMove(id, "charged", true)
+  ),
+  ...supplementalCharged.map(({ id, legacy }) =>
+    createMove(id, "charged", legacy)
+  ),
+]);
 
   const key = `${candidate.pokemonId}:${candidate.form}`;
 

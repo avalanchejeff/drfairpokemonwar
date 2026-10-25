@@ -109,23 +109,33 @@ export default async function PokemonPage({
 const metaRank =
   masterLeagueEntry?.rank ?? null;
   const tierKey = getTierKey(pokemon.tier);
+
+  const artworkKey = pokemon.name;
+  const baseArtworkKey = pokemon.name.endsWith("-shadow")
+    ? pokemon.name.replace(/-shadow$/, "")
+    : pokemon.name;
+
   const artwork =
-  pokemonArtwork[
-    pokemon.name as keyof typeof pokemonArtwork
-  ];
-  let artworkUrl = extractArtworkUrl(
-    artwork?.image
-  );
-  
+    pokemonArtwork[
+      artworkKey as keyof typeof pokemonArtwork
+    ] ??
+    pokemonArtwork[
+      baseArtworkKey as keyof typeof pokemonArtwork
+    ];
+
+  let artworkUrl = extractArtworkUrl(artwork?.image);
+
   const hdArtwork =
-  artworkIndexHD[
-    pokemon.name as keyof typeof artworkIndexHD
-  ];
-  
+    artworkIndexHD[
+      artworkKey as keyof typeof artworkIndexHD
+    ] ??
+    artworkIndexHD[
+      baseArtworkKey as keyof typeof artworkIndexHD
+    ];
+
   if (hdArtwork) {
     artworkUrl = hdArtwork;
   }
-  console.log("Artwork URL:", artworkUrl);
 
   const primaryTypeRank = getTypeRank(
     pokemon.primaryType,

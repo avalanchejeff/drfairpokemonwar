@@ -8,6 +8,17 @@ const outputFile = new URL(
   import.meta.url
 );
 
+const requiredShadows = {
+  "708": {
+    id: 708,
+    name: "Phantump",
+  },
+  "709": {
+    id: 709,
+    name: "Trevenant",
+  },
+};
+
 console.log("Downloading Shadow Pokemon roster...");
 
 const response = await fetch(source);
@@ -18,7 +29,26 @@ if (!response.ok) {
   );
 }
 
-const data = await response.json();
+const downloaded = await response.json();
+
+const data = Array.isArray(downloaded)
+  ? Object.fromEntries(
+      downloaded.map((pokemon) => [
+        String(pokemon.id),
+        pokemon,
+      ])
+    )
+  : { ...downloaded };
+
+for (const [id, pokemon] of Object.entries(requiredShadows)) {
+  if (!data[id]) {
+    data[id] = pokemon;
+
+    console.log(
+      `Added missing Shadow roster entry: ${pokemon.name} (#${id})`
+    );
+  }
+}
 
 await fs.writeFile(
   outputFile,
@@ -26,12 +56,10 @@ await fs.writeFile(
   "utf8"
 );
 
-const count = Array.isArray(data)
-  ? data.length
-  : Object.keys(data).length;
-
 console.log(
-  "Imported " + count + " Shadow roster entries."
+  "Imported " +
+    Object.keys(data).length +
+    " Shadow roster entries."
 );
 
 console.log(

@@ -27999,5 +27999,37 @@
     "isTemporaryEvolution": false,
     "temporaryEvolutionId": null,
     "isShadow": true
+  },
+  {
+    "templateId": "V0708_POKEMON_PHANTUMP_NORMAL_SHADOW",
+    "pokemonId": "PHANTUMP",
+    "form": "PHANTUMP_SHADOW",
+    "costume": null,
+    "attack": 125,
+    "defense": 103,
+    "stamina": 125,
+    "types": [
+      "POKEMON_TYPE_GHOST",
+      "POKEMON_TYPE_GRASS"
+    ],
+    "isTemporaryEvolution": false,
+    "temporaryEvolutionId": null,
+    "isShadow": true
+  },
+  {
+    "templateId": "V0709_POKEMON_TREVENANT_NORMAL_SHADOW",
+    "pokemonId": "TREVENANT",
+    "form": "TREVENANT_SHADOW",
+    "costume": null,
+    "attack": 201,
+    "defense": 154,
+    "stamina": 198,
+    "types": [
+      "POKEMON_TYPE_GHOST",
+      "POKEMON_TYPE_GRASS"
+    ],
+    "isTemporaryEvolution": false,
+    "temporaryEvolutionId": null,
+    "isShadow": true
   }
 ]
